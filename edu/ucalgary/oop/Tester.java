@@ -23,5 +23,20 @@ public class Tester {
             assertEquals(expectedNocturnalHours[i], actualNocturnalHours[i]);
         }
     } 
+    
+    /**
+     * Tests if Diurnal class's static getter method works
+     */
+    @Test
+    public void testDiurnalGetFeedingHours() {
+        int[] expectedDiurnalHours = {8, 9, 10};
+        int[] actualDiurnalHours = Diurnal.getFeedingHours();
+
+        for (int i = 0; i < expectedDiurnalHours.length; i++) {
+            assertEquals(expectedDiurnalHours[i], actualDiurnalHours[i]);
+        }
+    } 
+
+ 
 
 }
