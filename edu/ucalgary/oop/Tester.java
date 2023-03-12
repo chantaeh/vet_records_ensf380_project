@@ -37,6 +37,17 @@ public class Tester {
         }
     } 
 
- 
+    /**
+     * Tests if Crepuscular class's static getter method works
+     */
+    @Test
+    public void testCrepuscularGetFeedingHours() {
+        int[] expectedCrepuscHours = {19, 20, 21};
+        int[] actualCrepuscHours = Crepuscular.getFeedingHours();
+
+        for (int i = 0; i < expectedCrepuscHours.length; i++) {
+            assertEquals(expectedCrepuscHours[i], actualCrepuscHours[i]);
+        }
+    } 
 
 }
