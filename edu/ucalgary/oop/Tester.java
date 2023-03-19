@@ -8,6 +8,7 @@ package edu.ucalgary.oop;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.*;
+import java.lang.reflect.*;
 
 public class Tester {
 
@@ -42,6 +43,36 @@ public class Tester {
 
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Animal", simpleClassName);
+    }
+
+    /**
+     * Test that Nocturnal is an abstract class
+     */
+    @Test
+    public void testNocturnalAbstract() {
+        Class aClass = Nocturnal.class;
+        int modifiers = aClass.getModifiers();
+        assertTrue(Modifier.isAbstract(modifiers));
+    }
+
+    /**
+     * Test that Diurnal is an abstract class
+     */
+    @Test
+    public void testDiurnalAbstract() {
+        Class aClass = Diurnal.class;
+        int modifiers = aClass.getModifiers();
+        assertTrue(Modifier.isAbstract(modifiers));
+    }
+
+    /**
+     * Test that Crepuscular is an abstract class
+     */
+    @Test
+    public void testCrepuscularAbstract() {
+        Class aClass = Crepuscular.class;
+        int modifiers = aClass.getModifiers();
+        assertTrue(Modifier.isAbstract(modifiers));
     }
 
     /**
