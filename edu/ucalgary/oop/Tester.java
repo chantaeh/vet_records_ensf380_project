@@ -13,7 +13,7 @@ import java.lang.reflect.*;
 public class Tester {
 
     /**
-     * Test that Nocturnal inherits from animal
+     * Test that Nocturnal inherits from Animal
      */
     @Test
     public void testNocturnalSuperclass() {
@@ -24,7 +24,7 @@ public class Tester {
     }
 
     /**
-     * Test that Diurnal inherits from animal
+     * Test that Diurnal inherits from Animal
      */
     @Test
     public void testDiurnalSuperclass() {
@@ -35,7 +35,7 @@ public class Tester {
     }
 
     /**
-     * Test that Crepuscular inherits from animal
+     * Test that Crepuscular inherits from Animal
      */
     @Test
     public void testCrepuscularSuperclass() {
