@@ -12,7 +12,40 @@ import org.junit.*;
 public class Tester {
 
     /**
-     * Tests if Nocturnal class's static getter method works
+     * Test that Nocturnal inherits from animal
+     */
+    @Test
+    public void testNocturnalSuperclass() {
+        Class superclass = Nocturnal.getSuperclass();
+
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Animal", simpleClassName);
+    }
+
+    /**
+     * Test that Diurnal inherits from animal
+     */
+    @Test
+    public void testDiurnalSuperclass() {
+        Class superclass = Diurnal.getSuperclass();
+
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Animal", simpleClassName);
+    }
+
+    /**
+     * Test that Crepuscular inherits from animal
+     */
+    @Test
+    public void testCrepuscularSuperclass() {
+        Class superclass = Crepuscular.getSuperclass();
+
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Animal", simpleClassName);
+    }
+
+    /**
+     * Test Nocturnal class's static getter method
      */
     @Test
     public void testNocturnalGetFeedingHours() {
@@ -25,7 +58,7 @@ public class Tester {
     } 
     
     /**
-     * Tests if Diurnal class's static getter method works
+     * Test Diurnal class's static getter method 
      */
     @Test
     public void testDiurnalGetFeedingHours() {
@@ -38,7 +71,7 @@ public class Tester {
     } 
 
     /**
-     * Tests if Crepuscular class's static getter method works
+     * Test Crepuscular class's static getter method
      */
     @Test
     public void testCrepuscularGetFeedingHours() {
