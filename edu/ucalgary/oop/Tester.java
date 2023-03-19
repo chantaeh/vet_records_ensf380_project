@@ -114,4 +114,56 @@ public class Tester {
         }
     } 
 
+    /**
+     * Test that Fox inherits from Nocturnal
+     */
+    @Test
+    public void testFoxSuperclass() {
+        Class superclass = Fox.getSuperclass();
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Nocturnal", simpleClassName);
+    }   
+
+    /**
+     * Test that Raccoon inherits from Nocturnal
+     */
+    @Test
+    public void testRaccoonSuperclass() {
+        Class superclass = Raccoon.getSuperclass();
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Nocturnal", simpleClassName);
+    }   
+
+    /**
+     * Test that Beaver inherits from Diurnal
+     */
+    @Test
+    public void testBeaverSuperclass() {
+        Class superclass = Beaver.getSuperclass();
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Diurnal", simpleClassName);
+    }   
+
+    
+    /**
+     * Test that Porcupine inherits from Crepuscular
+     */
+    @Test
+    public void testPorcupineSuperclass() {
+        Class superclass = Porcupine.getSuperclass();
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Crepuscular", simpleClassName);
+    }  
+    
+    /**
+     * Test that Coyote inherits from Crepuscular
+     */
+    @Test
+    public void testCoyoteSuperclass() {
+        Class superclass = Coyote.getSuperclass();
+        String simpleClassName = superclass.getSimpleName();
+        assertEquals("Crepuscular", simpleClassName);
+    }   
+
+
 }
