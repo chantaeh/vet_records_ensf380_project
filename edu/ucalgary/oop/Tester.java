@@ -15,123 +15,77 @@ import org.junit.*;
 public class Tester {
 
     @Test
-    public void testTimeConstructor() {
-        Task task = new Task();
-        Time givenHour = new Time(tasks);
+    public void testScheduleConstructor() {
+        Fox fox = new Fox("Snowball", 1);
+        Task task = new Task("Eyedrops", 25, 1, 22, fox);
+        ArrayList<Task> dailyTasks = new ArrayList<>();
+        dailyTasks.add(task);
+        Schedule schedule = new Schedule(dailyTasks);
+
         assertNotNull("Time object should not be null", schedule);
     }
 
     @Test
-    public void testTimeGetTask() {
-        Task task = new Task();
-        Time givenHour = new Time(0, task);
+    public void testScheduleTimeUsed() {
+        Fox fox = new Fox("Snowball", 1);
+        Coyote coyote = new Coyote("Narseh", 2);
+        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
+        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        ArrayList<Task> dailyTasks = new ArrayList<>();
+        dailyTasks.add(task1);
+        dailyTasks.add(task2);
+        Schedule schedule = new Schedule(dailyTasks);
 
-        ArrayList<Task> expectedList = new ArrayList<Task>();
-        expectedList.add();
-         
-        ArrayList<Task> actualList = givenHour.getTask();
+        int expResult = 35;
+        int actResult = schedule.timeUsed(schedule.getOverallTask().get(21));
 
-        assertArrayEquals("getTask did not return expected result" ,expectedList.toArray(), actualList.toArray());
+        assertEquals("timeUsed did not return expected result", expResult, actResult);
     }
 
     @Test
-    public void testTimeAddTask() {
-        Task task = new Task();
-        Time givenHour = new Time(0, task);
+    public void testScheduleGetDailyTasks() {
+        Fox fox = new Fox("Snowball", 1);
+        Coyote coyote = new Coyote("Narseh", 2);
+        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
+        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        ArrayList<Task> dailyTasks = new ArrayList<>();
+        dailyTasks.add(task1);
+        dailyTasks.add(task2);
+        Schedule schedule = new Schedule(dailyTasks);
 
-        ArrayList<Task> expectedList = new ArrayList<Task>();
-        expectedList.add();
-        expectedList.add();
-         
-        Task newTask = new Task();
-        givenHour.addTask(newTask);
-        ArrayList<Task> actualList = givenHour.getTask();
+        ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
+        ArrayList<Task> hourTasks = new ArrayList<>();
+        hourTasks.add(task1);
+        hourTasks.add(task2);
+        dailyTasks.set(21, hourTasks);
 
-        assertArrayEquals("addTask did not add properly", expectedList.toArray(), actualList.toArray());
+        ArrayList<ArrayList<Task>> expResult = dailyTasks;
+        ArrayList<ArrayList<Task>> actResult = schedule.getDailyTasks();
+
+        assertEquals("getDailyTasks did not return expected result", expResult.size(), actResult.size());
+
+        for (int i = 0; i < list1.size(); i++) {
+            assertEquals("getDailyTasks did not return expected result", expResult.get(i), actResult.get(i));
+        }
     }
 
     @Test
-    public void testTimeGetHour() {
-        Task task = new Task();
-        Time givenHour = new Time(1, task);
+    public void testSchedulerGetFromatted() {
+        Fox fox = new Fox("Snowball", 1);
+        Coyote coyote = new Coyote("Narseh", 2);
+        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
+        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        ArrayList<Task> dailyTasks = new ArrayList<>();
+        dailyTasks.add(task1);
+        dailyTasks.add(task2);
+        Schedule schedule = new Schedule(dailyTasks);
 
-        int expResult = 1;
-        int actResult = givenHour.getHour();
+        String expResult = "22:00\n";
+        expResult += "* Eyedrops (Snowball)\n";
+        expResult += "* Give fluid injection (Narseh)";
+        String actResult = scheduler.getFormatted(schedule.getOverallTask());
 
-        assertEquals("getHour did not return expected result", expResult, actResult);
+        assertEquals("getFormatted did not return expected result", expResult, actResult);
     }
 
-    @Test
-    public void testTimeUpdateTimeAvailable() {
-        Task task = new Task();
-        Time givenHour = new Time(0, task);
-
-        int expResult = 20;
-        schedule[0].udateTimeAvailable();
-        int actResult = givenHour.getTimeAvailablee();
-
-        assertEquals("updateTimeAvailable did not update properly", expResult, actResult);
-        
-    }
-
-    @Test
-    public void testTimeGetTimeAvailable() {
-        Task task = new Task();
-        Time givenHour = new Time(0, task);
-        
-        int expResult = 40;
-        int actResult = givenHour.getTimeAvailablee();
-
-        assertEquals("getTimeAvailable did not return expected result", expResult, actResult);
-
-    }
-
-    @Test
-    public void testTestGetBackupRequire() {
-        Task task = new Task();
-        Time givenHour = new Time(0, task);
-
-        boolean expResult = true;
-        boolean actResult = givenHour.getBackupRequire();
-
-        assertTrue("getBackupRequire did not return expected result", expResult == actResult);
-    }
-
-    @Test
-    public void testTimeBackupCheck() {
-        Task task = new Task();
-        Time givenHour = new Time(0, task);
-        
-        boolean expResult = true;
-        boolean actResult = givenHour[0].backupCheck();
-
-        assertTrue("backupCheck did not return expected result", expResult == actResult);
-    }
-
-    @Test
-    public void testTimeConstructor() {
-        Task task1 = new Task();
-        Task task2 = new Task();
-        Task task3 = new Task();
-        Task[] allTasks = [task1, task2, task3];
-
-        Schedule schedule = new Schedule(allTasks);
-
-        assertNotNull("Schedule should not be null", schedule);
-    }
-
-    @Test
-    public void testScheduleDailyTaskFormatted() {
-        Task task1 = new Task();
-        Task task2 = new Task();
-        Task task3 = new Task();
-        Task[] allTasks = [task1, task2, task3];
-
-        Schedule schedule = new Schedule(allTasks);
-
-        String expResult = "";
-        String actResult = schedule.dailyTaskFormatted();
-
-        assertEquals("dailyTaskFormatted did not return expected result", expResult, actResult);
-    }
 }
