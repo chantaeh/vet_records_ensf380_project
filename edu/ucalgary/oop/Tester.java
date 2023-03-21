@@ -36,11 +36,9 @@ public class Tester {
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task);
 
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows("Invalid tasks should throw an exception", IllegalArgumentException.class, () -> {
             Schedule schedule = new Schedule(dailyTasks);
         });
-
-        assertEquals("Invalid tasks should throw an exception", exception.getMessage());
     }
 
     @Test
