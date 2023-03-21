@@ -26,15 +26,19 @@ public class Tester {
         dailyTasks.add(task);
         Schedule schedule = new Schedule(dailyTasks);
 
+        // Test if Schedule is created when provided with a valid input
+
         assertNotNull("Time object should not be null", schedule);
     }
 
     @Test
     public void testScheduleConstructorException() {
         Fox fox = new Fox("Snowball", 1);
-        Task task = new Task("Eyedrops", 25, 1, 22, fox);
+        Task task = new Task("Eyedrops", 25, 1, 30, fox);
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task);
+
+        // Test if invalid task throws an exception 
 
         assertThrows("Invalid tasks should throw an exception", IllegalArgumentException.class, () -> {
             Schedule schedule = new Schedule(dailyTasks);
@@ -54,6 +58,8 @@ public class Tester {
 
         int expResult = 35;
         int actResult = schedule.timeUsed(schedule.getOverallTask().get(21));
+
+        // Test if the sum of each individual task duration is correct
 
         assertEquals("timeUsed did not return expected result", expResult, actResult);
     }
@@ -77,6 +83,8 @@ public class Tester {
 
         ArrayList<ArrayList<Task>> expResult = dailyTasks;
         ArrayList<ArrayList<Task>> actResult = schedule.getDailyTasks();
+
+        // Test if the tasks are allocated to each hours correctly
 
         assertEquals("getDailyTasks did not return expected result", expResult.size(), actResult.size());
 
@@ -104,6 +112,8 @@ public class Tester {
         expResult += "* Eyedrops (Snowball)\n";
         expResult += "* Give fluid injection (Narseh)";
         String actResult = scheduler.getFormatted(schedule.getOverallTask());
+
+        // Test if the format for the schedule output is correct
 
         assertEquals("getFormatted did not return expected result", expResult, actResult);
     }
