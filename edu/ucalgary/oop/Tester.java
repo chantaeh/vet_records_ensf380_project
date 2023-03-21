@@ -20,7 +20,7 @@ public class Tester {
         Class superclass = Nocturnal.getSuperclass();
 
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Animal", simpleClassName);
+        assertEquals("Nocturnal class does not inherit from the Animal class.", "Animal", simpleClassName);
     }
 
     /**
@@ -31,7 +31,7 @@ public class Tester {
         Class superclass = Diurnal.getSuperclass();
 
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Animal", simpleClassName);
+        assertEquals("Diurnal class does not inherit from the Animal class.", "Animal", simpleClassName);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Tester {
         Class superclass = Crepuscular.getSuperclass();
 
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Animal", simpleClassName);
+        assertEquals("Crepuscular class does not inherit from the Animal class.","Animal", simpleClassName);
     }
 
     /**
@@ -52,7 +52,7 @@ public class Tester {
     public void testNocturnalAbstract() {
         Class aClass = Nocturnal.class;
         int modifiers = aClass.getModifiers();
-        assertTrue(Modifier.isAbstract(modifiers));
+        assertTrue("Nocturnal class is not abstract.", Modifier.isAbstract(modifiers));
     }
 
     /**
@@ -62,7 +62,7 @@ public class Tester {
     public void testDiurnalAbstract() {
         Class aClass = Diurnal.class;
         int modifiers = aClass.getModifiers();
-        assertTrue(Modifier.isAbstract(modifiers));
+        assertTrue("Diurnal class is not abstract.", Modifier.isAbstract(modifiers));
     }
 
     /**
@@ -72,7 +72,7 @@ public class Tester {
     public void testCrepuscularAbstract() {
         Class aClass = Crepuscular.class;
         int modifiers = aClass.getModifiers();
-        assertTrue(Modifier.isAbstract(modifiers));
+        assertTrue("Crepuscular class is not abstract.", Modifier.isAbstract(modifiers));
     }
 
     /**
@@ -84,7 +84,7 @@ public class Tester {
         int[] actualNocturnalHours = Nocturnal.getFeedingHours();
 
         for (int i = 0; i < expectedNocturnalHours.length; i++) {
-            assertEquals(expectedNocturnalHours[i], actualNocturnalHours[i]);
+            assertEquals("Nocturnal method getFeedingHours() does not return correct result.", expectedNocturnalHours[i], actualNocturnalHours[i]);
         }
     } 
     
@@ -97,7 +97,7 @@ public class Tester {
         int[] actualDiurnalHours = Diurnal.getFeedingHours();
 
         for (int i = 0; i < expectedDiurnalHours.length; i++) {
-            assertEquals(expectedDiurnalHours[i], actualDiurnalHours[i]);
+            assertEquals("Diurnal method getFeedingHours() does not return correct result.", expectedDiurnalHours[i], actualDiurnalHours[i]);
         }
     } 
 
@@ -110,7 +110,7 @@ public class Tester {
         int[] actualCrepuscHours = Crepuscular.getFeedingHours();
 
         for (int i = 0; i < expectedCrepuscHours.length; i++) {
-            assertEquals(expectedCrepuscHours[i], actualCrepuscHours[i]);
+            assertEquals("Crepuscular method getFeedingHours() does not return correct result.", expectedCrepuscHours[i], actualCrepuscHours[i]);
         }
     } 
 
@@ -121,7 +121,7 @@ public class Tester {
     public void testFoxSuperclass() {
         Class superclass = Fox.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Nocturnal", simpleClassName);
+        assertEquals("Fox class does not inherit from Nocturnal class.", "Nocturnal", simpleClassName);
     }   
 
     /**
@@ -131,7 +131,7 @@ public class Tester {
     public void testRaccoonSuperclass() {
         Class superclass = Raccoon.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Nocturnal", simpleClassName);
+        assertEquals("Raccoon class does not inherit from Nocturnal class.", "Nocturnal", simpleClassName);
     }   
 
     /**
@@ -141,7 +141,7 @@ public class Tester {
     public void testBeaverSuperclass() {
         Class superclass = Beaver.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Diurnal", simpleClassName);
+        assertEquals("Beaver class does not inherit from Diurnal class.", "Diurnal", simpleClassName);
     }   
 
     
@@ -152,7 +152,7 @@ public class Tester {
     public void testPorcupineSuperclass() {
         Class superclass = Porcupine.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Crepuscular", simpleClassName);
+        assertEquals("Porcupine class does not inherit from Crepuscular class.", "Crepuscular", simpleClassName);
     }  
     
     /**
@@ -162,7 +162,7 @@ public class Tester {
     public void testCoyoteSuperclass() {
         Class superclass = Coyote.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
-        assertEquals("Crepuscular", simpleClassName);
+        assertEquals("Coyote class does not inherit from Crepuscular class.", "Crepuscular", simpleClassName);
     }   
 
 
