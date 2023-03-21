@@ -14,6 +14,10 @@ import org.junit.*;
 
 public class Tester {
 
+    /*
+     * Test for Schedule class
+     */
+
     @Test
     public void testScheduleConstructor() {
         Fox fox = new Fox("Snowball", 1);
@@ -23,6 +27,20 @@ public class Tester {
         Schedule schedule = new Schedule(dailyTasks);
 
         assertNotNull("Time object should not be null", schedule);
+    }
+
+    @Test
+    public void testScheduleConstructorException() {
+        Fox fox = new Fox("Snowball", 1);
+        Task task = new Task("Eyedrops", 25, 1, 22, fox);
+        ArrayList<Task> dailyTasks = new ArrayList<>();
+        dailyTasks.add(task);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            Schedule schedule = new Schedule(dailyTasks);
+        });
+
+        assertEquals("Invalid tasks should throw an exception", exception.getMessage());
     }
 
     @Test
@@ -68,6 +86,10 @@ public class Tester {
             assertEquals("getDailyTasks did not return expected result", expResult.get(i), actResult.get(i));
         }
     }
+
+    /*
+     * Test for Scheduler class
+     */
 
     @Test
     public void testSchedulerGetFromatted() {
