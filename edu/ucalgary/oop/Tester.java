@@ -20,6 +20,10 @@ public class Tester {
     int maxWindow = 2;
     int startHour = 3;
 
+    /*
+     * test the constructor with invalid data
+     */
+
     @Test
     public void testTaskConstructorInvalidData(){
         boolean exceptionThrown = false;
@@ -59,12 +63,20 @@ public class Tester {
         assertTrue("IllegalArgumentException was not thrown when startHour was greater than 23", exceptionThrown);
 
     }
+
+    /*
+     * test the constructor with valid data
+     */
     
     @Test
-    public void testTaskCostrctor(){
+    public void testTaskConstructor(){
         Task task = new Task();
         assertNotNull("Object was not created by Task when correct data was given ", task);
     }
+
+    /*
+     * test the getters and setters
+     */
 
     @Test
     public void testGetDescription(){
@@ -126,6 +138,10 @@ public class Tester {
     String animalNickname = "name";
     String numAnimals = "1";
 
+    /*
+     * test the constructor with invalid data
+     */
+
     @Test
     public void testAnimalConstructorInvalidData(){
         boolean exceptionThrown = false;
@@ -139,11 +155,19 @@ public class Tester {
 
     }
 
+    /*
+     * test the constructor with valid data
+     */
+
     @Test
-    public void testAnimalCostrctor(){
+    public void testAnimalConstructor(){
         Animal animal = new Animal( animalNickname, numAnimals);
         assertNotNull("Object was not created by Animal when correct data was given ", animal);
     }
+
+    /*
+     * test the getters and setters
+     */
 
     @Test
     public void testGetAnimalNickname(){
