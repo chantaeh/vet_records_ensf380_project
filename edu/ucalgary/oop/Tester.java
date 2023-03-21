@@ -21,7 +21,7 @@ public class Tester {
         int[] expected = {0, 1, 2};
         int[] actual = nocturnal.getFeedingHours();
         
-        assertArrayEquals(expected, actual);
+        assertArrayEquals("Fox class is not inheriting getFeedingHours from Nocturnal class", expected, actual);
     }
     /*test fox constructor */
     @Test
@@ -31,26 +31,26 @@ public class Tester {
         
         Fox fox = new Fox(name, numAnimals);
         
-        assertEquals(name, fox.getName());
-        assertEquals(numAnimals, fox.getNumAnimals());
+        assertEquals("Fox Constructor does not return 'name' correctly", name, fox.getName());
+        assertEquals("Fox Constructor does not return 'numAnimals' correctly", numAnimals, fox.getNumAnimals());
         }
     /*test fox methods */
     @Test
     public void testFoxGetFeedMins() {
         Fox fox = new Fox("Fox", 1);
-        assertEquals(5, fox.getFeedMins());
+        assertEquals("Fox method GetFeedMins() does not return correct time.", 5, fox.getFeedMins());
     }
 
     @Test
-    public void testFoxGetFeedinPrepMins() {
+    public void testFoxGetFeedingPrepMins() {
         Fox fox = new Fox("Fox", 1);
-        assertEquals(5, fox.getFeedinPrepMins());
+        assertEquals("Fox method GetFeedingPrepMins() does not return correct time.",5, fox.getFeedingPrepMins());
     }
 
     @Test
     public void testFoxGetCageCleanMins() {
         Fox fox = new Fox("Fox", 1);
-        assertEquals(5, fox.getCageCleanMins());
+        assertEquals("Fox method GetCageCleanMins() does not return correct time.", 5, fox.getCageCleanMins());
     }
 
     /*trash panda tests */
@@ -63,7 +63,7 @@ public class Tester {
         int[] expected = {0, 1, 2};
         int[] actual = nocturnal.getFeedingHours();
         
-        assertArrayEquals(expected, actual);
+        assertArrayEquals("Raccoon class is not inheriting getFeedingHours from Nocturnal class",expected, actual);
     }
     /*test raccoon constructor */
     @Test
@@ -73,26 +73,26 @@ public class Tester {
         
         Raccoon raccoon = new Raccoon(name, numAnimals);
         
-        assertEquals(name, raccoon.getName());
-        assertEquals(numAnimals, raccoon.getNumAnimals());
+        assertEquals("Raccoon Constructor does not return 'name' correctly", name, raccoon.getName());
+        assertEquals("Raccoon Constructor does not return 'numAnimals' correctly", numAnimals, raccoon.getNumAnimals());
         }
     /*test raccoon methods */
     @Test
     public void testRaccoonGetFeedMins() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
-        assertEquals(5, raccoon.getFeedMins());
+        assertEquals("Raccoon method GetFeedMins() does not return correct time.", 5, raccoon.getFeedMins());
     }
 
     @Test
-    public void testRaccoonGetFeedinPrepMins() {
+    public void testRaccoonGetFeedingPrepMins() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
-        assertEquals(0, raccoon.getFeedinPrepMins());
+        assertEquals("Raccoon method GetFeedingPrepMins() does not return correct time.", 0, raccoon.getFeedingPrepMins());
     }
 
     @Test
     public void testRaccoonGetCageCleanMins() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
-        assertEquals(5, raccoon.getCageCleanMins());
+        assertEquals("Raccoon method GetCageCleanMins() does not return correct time.", 5, raccoon.getCageCleanMins());
     }    
 
     /*beaver tests */
@@ -105,7 +105,7 @@ public class Tester {
         int[] expected = {8, 9, 10};
         int[] actual = diurnal.getFeedingHours();
         
-        assertArrayEquals(expected, actual);
+        assertArrayEquals("Beaver class is not inheriting getFeedingHours from Diurnal class", expected, actual);
     }
     /*test beaver constructor */
     @Test
@@ -115,27 +115,27 @@ public class Tester {
         
         Beaver beaver = new Beaver(name, numAnimals);
         
-        assertEquals(name, beaver.getName());
-        assertEquals(numAnimals, beaver.getNumAnimals());
+        assertEquals("Beaver Constructor does not return 'name' correctly", name, beaver.getName());
+        assertEquals("Beaver Constructor does not return 'numAnimals' correctly", numAnimals, beaver.getNumAnimals());
         }
 
     /*test beaver methods */
     @Test
     public void testBeaverGetFeedMins() {
         Beaver beaver = new Beaver("Beaver", 1);
-        assertEquals(5, beaver.getFeedMins());
+        assertEquals("Beaver method GetFeedMins() does not return correct time.", 5, beaver.getFeedMins());
     }
 
     @Test
-    public void testBeaverGetFeedinPrepMins() {
+    public void testBeaverGetFeedingPrepMins() {
         Beaver beaver = new Beaver("Beaver", 1);
-        assertEquals(0, beaver.getFeedinPrepMins());
+        assertEquals("Beaver method GetFeedingPrepMins() does not return correct time.", 0, beaver.getFeedingPrepMins());
     }
 
     @Test
     public void testBeaverGetCageCleanMins() {
         Beaver beaver = new Beaver("Beaver", 1);
-        assertEquals(5, beaver.getCageCleanMins());
+        assertEquals("Beaver method GetCageCleanMins() does not return correct time.", 5, beaver.getCageCleanMins());
     }    
 
     /*porcupine tests */
@@ -148,7 +148,7 @@ public class Tester {
         int[] expected = {0, 1, 2};
         int[] actual = nocturnal.getFeedingHours();
         
-        assertArrayEquals(expected, actual);
+        assertArrayEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
     }
     /*test porcupine constructor */
     @Test
@@ -158,26 +158,26 @@ public class Tester {
         
         Porcupine porcupine = new Porcupine(name, numAnimals);
         
-        assertEquals(name, porcupine.getName());
-        assertEquals(numAnimals, porcupine.getNumAnimals());
+        assertEquals("Porcupine Constructor does not return 'name' correctly", name, porcupine.getName());
+        assertEquals("Porcupine Constructor does not return 'numAnimals' correctly", numAnimals, porcupine.getNumAnimals());
         }
     /*test porcupine methods */
     @Test
     public void testPorcurpineGetFeedMins() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
-        assertEquals(5, porcupine.getFeedMins());
+        assertEquals("Porcupine method GetFeedMins() does not return correct time.", 5, porcupine.getFeedMins());
     }
 
     @Test
-    public void testPorcurpineGetFeedinPrepMins() {
+    public void testPorcurpineGetFeedingPrepMins() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
-        assertEquals(0, porcupine.getFeedinPrepMins());
+        assertEquals("Porcupine method GetFeedingPrepMins() does not return correct time.", 0, porcupine.getFeedingPrepMins());
     }
 
     @Test
     public void testPorcurpineGetCageCleanMins() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
-        assertEquals(10, porcupine.getCageCleanMins());
+        assertEquals("Porcupine method GetCageCleanMins() does not return correct time.", 10, porcupine.getCageCleanMins());
     }
     /*coyote tests */
    /*test getFeedingHours inherited from crepuscular*/
@@ -189,7 +189,7 @@ public class Tester {
        int[] expected = {0, 1, 2};
        int[] actual = nocturnal.getFeedingHours();
        
-       assertArrayEquals(expected, actual);
+       assertArrayEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
    }
    /*test coyote constructor */
    @Test
@@ -199,25 +199,25 @@ public class Tester {
        
        Coyote coyote = new Coyote(name, numAnimals);
        
-       assertEquals(name, coyote.getName());
-       assertEquals(numAnimals, coyote.getNumAnimals());
+       assertEquals("Coyote Constructor does not return 'name' correctly", name, coyote.getName());
+       assertEquals("Coyote Constructor does not return 'numAnimals' correctly", numAnimals, coyote.getNumAnimals());
        }
     /*test coyote methods*/
     @Test
     public void testCoyoteGetFeedMins() {
         Coyote coyote = new Coyote("Coyote", 1);
-        assertEquals(5, coyote.getFeedMins());
+        assertEquals("Coyote method GetFeedMins() does not return correct time.", 5, coyote.getFeedMins());
     }
 
     @Test
-    public void testCoyoteGetFeedinPrepMins() {
+    public void testCoyoteGetFeedingPrepMins() {
         Coyote coyote = new Coyote("Coyote", 1);
-        assertEquals(10, coyote.getFeedinPrepMins());
+        assertEquals("Coyote method GetFeedingPrepMins() does not return correct time.", 10, coyote.getFeedingPrepMins());
     }
 
     @Test
     public void testCoyoteGetCageCleanMins() {
         Coyote coyote = new Coyote("Coyote", 1);
-        assertEquals(5, coyote.getCageCleanMins());
+        assertEquals("Coyote method GetCageCleanMins() does not return correct time.", 5, coyote.getCageCleanMins());
     }              
 }
