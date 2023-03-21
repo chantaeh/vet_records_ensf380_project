@@ -19,6 +19,46 @@ public class Tester {
     int duration = 1;
     int maxWindow = 2;
     int startHour = 3;
+
+    @Test
+    public void testTaskConstructorInvalidData(){
+        boolean exceptionThrown = false;
+        try{
+            Task task = new Task(description, -1, maxWindow, startHour);
+        }
+        catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertTrue("IllegalArgumentException was not thrown when duration was negative", exceptionThrown);
+        exceptionThrown = false;
+
+        try{
+            Task task = new Task(description, duration, -1, startHour);
+        }
+        catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertTrue("IllegalArgumentException was not thrown when maxWindow was negative", exceptionThrown);
+        exceptionThrown = false;
+
+        try{
+            Task task = new Task(description, duration, maxWindow, -1);
+        }
+        catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertTrue("IllegalArgumentException was not thrown when startHour was negative", exceptionThrown);
+        exceptionThrown = false;
+
+        try{
+            Task task = new Task(description, duration, maxWindow, 24);
+        }
+        catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertTrue("IllegalArgumentException was not thrown when startHour was greater than 23", exceptionThrown);
+
+    }
     
     @Test
     public void testTaskCostrctor(){
@@ -78,13 +118,26 @@ public class Tester {
         assertEquals("StartHour was not set correctly", startHour, task.getStartHour());
     }
 
-    
+
     /*
      *   Tests of the animal class
      */
 
     String animalNickname = "name";
     String numAnimals = "1";
+
+    @Test
+    public void testAnimalConstructorInvalidData(){
+        boolean exceptionThrown = false;
+        try{
+            Animal animal = new Animal(animalNickname, "-1");
+        }
+        catch(IllegalArgumentException e){
+            exceptionThrown = true;
+        }
+        assertTrue("IllegalArgumentException was not thrown when numAnimals was negative", exceptionThrown);
+
+    }
 
     @Test
     public void testAnimalCostrctor(){
