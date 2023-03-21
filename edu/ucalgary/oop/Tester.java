@@ -16,7 +16,7 @@ public class Tester {
     @Test
     public void testFoxGetFeedingHours() {
         Fox fox = new Fox("Fox", 1);
-        Nocturnal nocturnal = Fox;  // Upcast to Diurnal
+        Nocturnal nocturnal = Fox;  // Upcast to nocturnal
         
         int[] expected = {0, 1, 2};
         int[] actual = nocturnal.getFeedingHours();
@@ -58,7 +58,7 @@ public class Tester {
     @Test
     public void testRaccoonGetFeedingHours() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
-        Nocturnal nocturnal = Raccoon;  // Upcast to Diurnal
+        Nocturnal nocturnal = Raccoon;  // Upcast to nocturnal
         
         int[] expected = {0, 1, 2};
         int[] actual = nocturnal.getFeedingHours();
@@ -139,11 +139,11 @@ public class Tester {
     }    
 
     /*porcupine tests */
-    /*test getFeedingHours inherited from nocturnal*/
+    /*test getFeedingHours inherited from crepuscular*/
     @Test
     public void testPorcupineGetFeedingHours() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
-        Crepuscular crepuscular = porcupine;  // Upcast to Diurnal
+        Crepuscular crepuscular = porcupine;  // Upcast to crepuscular
         
         int[] expected = {0, 1, 2};
         int[] actual = nocturnal.getFeedingHours();
@@ -180,11 +180,11 @@ public class Tester {
         assertEquals(10, porcupine.getCageCleanMins());
     }
     /*coyote tests */
-   /*test getFeedingHours inherited from nocturnal*/
+   /*test getFeedingHours inherited from crepuscular*/
    @Test
    public void testCoyoteGetFeedingHours() {
        Coyote coyote = new Coyote("Coyote", 1);
-       Crepuscular crepuscular = Coyote;  // Upcast to Diurnal
+       Crepuscular crepuscular = Coyote;  // Upcast to crepuscular
        
        int[] expected = {0, 1, 2};
        int[] actual = nocturnal.getFeedingHours();
