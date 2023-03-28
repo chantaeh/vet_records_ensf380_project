@@ -4,7 +4,11 @@ public abstract class Animal {
     String animalNickname;
     int numAnimals;
 
-    public Animal(String animalNickname, int numAnimals) {
+    public Animal(String animalNickname, int numAnimals) throws IllegalArgumentException {
+        if (numAnimals < 0) {
+            throw new IllegalArgumentException("Invalid input");
+        }
+        
         this.animalNickname = animalNickname;
         this.numAnimals = numAnimals;
     }
