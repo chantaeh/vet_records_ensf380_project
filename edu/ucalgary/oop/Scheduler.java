@@ -1,6 +1,7 @@
 package edu.ucalgary.oop;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Scheduler {
@@ -59,6 +60,31 @@ public class Scheduler {
 
     public static String getFormatted(ArrayList<ArrayList<Task>> overallTasks) {
         String outputString = "";
+
+        outputString = "Schedule for " + LocalDate.now().toString() + "\n";
+
+        for (ArrayList<Task> hourlyTasks : overallTasks) {
+            if (hourlyTasks != null) {
+                outputString += String.valueof(hourlyTasks.get(0).getStartHour()) + ":00";
+
+                for (Task task : hourlyTasks) {
+                    if (task.getDescription() != "Feeding" && task.getDescription() != "Cage cleaning") {
+                        outputString += "* " + task.getDescription(); 
+                        outputString += "(" + task.getAnimal().getAnimalNickname() + ")";
+                    }
+                    else if (task.getDescription() == "Feeding") {
+                        outputString += "* " + task.getDescription();
+                        outputString += " "; //To be continued
+                        outputString += "(" + task.getAnimal().getAnimalNickname() + ")";
+                    }
+                    else {
+                        outputString += "* " + task.getDescription();
+                        outputString += " "; //To be continued
+                        outputString += "(" + task.getAnimal().getAnimalNickname() + ")";
+                    }
+                }
+            }
+        }
         return outputString;
     }
 
