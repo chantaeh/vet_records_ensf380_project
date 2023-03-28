@@ -74,13 +74,13 @@ public class Scheduler {
                     }
                     else if (task.getDescription() == "Feeding") {
                         outputString += "* " + task.getDescription();
-                        outputString += " "; //To be continued
-                        outputString += "(" + task.getAnimal().getAnimalNickname() + ")";
+                        outputString += " - " + task.getclass().getName(); 
+                        outputString += " (" + task.getAnimal().getAnimalNickname() + ")";
                     }
                     else {
                         outputString += "* " + task.getDescription();
-                        outputString += " "; //To be continued
-                        outputString += "(" + task.getAnimal().getAnimalNickname() + ")";
+                        outputString += " - " + task.getclass().getName(); 
+                        outputString += " (" + task.getAnimal().getAnimalNickname() + ")";
                     }
                 }
             }
@@ -96,6 +96,7 @@ public class Scheduler {
 
         String allTreatments = scheduler.selectTreatments();
         
+
     }
 
 
