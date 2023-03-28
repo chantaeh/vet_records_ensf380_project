@@ -2,6 +2,7 @@ package edu.ucalgary.oop;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Class that allocates task for each given hour
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 public class Schedule {
     private ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
 
-    public Schedule(ArrayList<Task> everyTasks) {
+    public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException{
         // Allocate medical tasks
         for (Task task : everyTasks) {
             int hour = task.getStartHour();
@@ -64,6 +65,18 @@ public class Schedule {
                 }
 
                 dailyTasks.get(minHour).add(task);
+            }
+        }
+
+        for (ArrayList<Task> hourlyTasks : dailyTasks) {
+            if (timeUsed(hourlyTasks) > 120) {
+                String message = "Change the start hour for the following tasks: ";
+                for (Task task : hourlyTasks) {
+                    if (task.getDescription() != "Feeding" && task.getDescription() != "Cage cleaning") {
+                        message += task.getDescription() + ", ";
+                    }
+                }
+                throw new IllegalArgumentException(message);
             }
         }
 
