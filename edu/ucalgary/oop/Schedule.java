@@ -31,7 +31,7 @@ public class Schedule {
             }
         }
 
-        // Allocate feeding
+        // Allocate feeding tasks
         for (Task task : everyTasks) { 
             if (task.getDescription() == "Feeding") {
                 int minHour = task.getStartHour() - 1;
@@ -49,8 +49,7 @@ public class Schedule {
             }
         }
 
-
-        // Allocate cage cleaning
+        // Allocate cage cleaning tasks
         for (Task task : everyTasks) { 
             if (task.getDescription() == "Cage cleaning") {
                 int minHour = 0;
@@ -68,6 +67,7 @@ public class Schedule {
             }
         }
 
+        // Check if there is enough time to complete the tasks
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
             if (timeUsed(hourlyTasks) > 120) {
                 String message = "Change the start hour for the following tasks: ";
