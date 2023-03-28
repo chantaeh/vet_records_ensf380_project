@@ -1,6 +1,7 @@
 package edu.ucalgary.oop;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Scheduler {
     private Connection dbConnect;
@@ -56,6 +57,11 @@ public class Scheduler {
         return "";
     }    
 
+    public static String getFormatted(ArrayList<ArrayList<Task>> overallTasks) {
+        String outputString = "";
+        return outputString;
+    }
+
     public static void main(String[] args) {
         
         Scheduler scheduler = new Scheduler();
@@ -64,7 +70,6 @@ public class Scheduler {
 
         String allTreatments = scheduler.selectTreatments();
         
-
     }
 
 
