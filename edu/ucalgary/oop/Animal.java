@@ -1,6 +1,6 @@
 package edu.ucalgary.oop;
 
-public abstract class Animal {
+public class Animal {
     String animalNickname;
     int numAnimals;
 
