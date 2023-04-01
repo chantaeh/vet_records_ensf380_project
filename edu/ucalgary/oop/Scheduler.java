@@ -3,9 +3,12 @@ package edu.ucalgary.oop;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Scheduler {
     private Connection dbConnect;
+
+    // private ArrayList<Task> allTasks = new ArrayList<Task>();
 
     public Scheduler() {
     }
@@ -19,75 +22,51 @@ public class Scheduler {
         } 
     }
 
-    public String selectAnimals() {
+    public void selectTasks() {
         ResultSet results;
 
         try {                    
             Statement myStmt = dbConnect.createStatement();
 
-            results = myStmt.executeQuery("SELECT * FROM ANIMALS");
-            
-            while (results.next()) {
-                System.out.print(results.getString("AnimalID") + " ");
-                System.out.print(results.getString("AnimalNickname") + " ");
-                System.out.print(results.getString("AnimalSpecies") + " ");
-                System.out.println("");
-            }
-            
-            myStmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return "";
-    }    
-
-    public String selectTasks() {
-        ResultSet results;
-
-        try {                    
-            Statement myStmt = dbConnect.createStatement();
-        
-            results = myStmt.executeQuery("SELECT * FROM TASKS");
+            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour\n";
+            table += "FROM TREATMENTS\n";
+            table += "JOIN ANIMALS ON TREATMENTS.AnimalID = ANIMALS.AnimalID\n";
+            table += "JOIN TASKS ON TREATMENTS.TaskID = TASKS.TaskID;";
+    
+            results = myStmt.executeQuery(table);
             
             while (results.next()){
-                System.out.print(results.getString("TaskID") + " ");
+                System.out.print(results.getString("AnimalNickname") + " ");
+                System.out.print(results.getString("AnimalSpecies") + " ");
                 System.out.print(results.getString("Description") + " ");
                 System.out.print(results.getString("Duration") + " ");
                 System.out.print(results.getString("MaxWindow") + " ");
-                System.out.println("");
-            }
-            
-            myStmt.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-        return "";
-    }    
-
-    public String selectTreatments() {
-        ResultSet results;
-
-        try {                    
-            Statement myStmt = dbConnect.createStatement();
-    
-            results = myStmt.executeQuery("SELECT * FROM TREATMENTS");
-            
-            while (results.next()){
-                System.out.print(results.getString("TreatmentID") + " ");
-                System.out.print(results.getString("AnimalID") + " ");
-                System.out.print(results.getString("TaskID") + " ");
                 System.out.print(results.getString("StartHour") + " ");
                 System.out.println("");
+
             }
             
             myStmt.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        return "";
     }    
 
-    // public static String getFormatted(ArrayList<ArrayList<Task>> overallTasks) {
+    public static void main(String[] args) {
+        
+        Scheduler scheduler = new Scheduler();
+        scheduler.createConnection();
+
+        scheduler.selectTasks();
+        
+
+
+    }
+
+
+}
+
+// public static String getFormatted(ArrayList<ArrayList<Task>> overallTasks) {
     //     String outputString = "";
 
     //     outputString = "Schedule for " + LocalDate.now().toString() + "\n";
@@ -116,19 +95,3 @@ public class Scheduler {
     //     }
     //     return outputString;
     // }
-
-    public static void main(String[] args) {
-        
-        Scheduler scheduler = new Scheduler();
-
-        scheduler.createConnection();
-
-        String allAnimals = scheduler.selectAnimals();
-        String allTasks = scheduler.selectTasks();
-        String allTreatments = scheduler.selectTreatments();
-        
-
-    }
-
-
-}
