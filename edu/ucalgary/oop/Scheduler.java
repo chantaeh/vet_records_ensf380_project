@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class Scheduler {
     private Connection dbConnect;
 
-    // private ArrayList<Task> allTasks = new ArrayList<Task>();
+    private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
     public Scheduler() {
     }
@@ -22,7 +22,12 @@ public class Scheduler {
         } 
     }
 
-    public void selectTasks() {
+    /**
+     * Add treatment tasks to the overall tasks
+     * @param none
+     * @return none
+     */
+    public void treatmentTasks() {
         ResultSet results;
 
         try {                    
@@ -44,22 +49,118 @@ public class Scheduler {
                 System.out.print(results.getString("StartHour") + " ");
                 System.out.println("");
 
+                Task singleTask = new Task(
+                    results.getString("Description"),
+                    Integer.parseInt(results.getString("Duration")),
+                    Integer.parseInt(results.getString("MaxWindow")),
+                    Integer.parseInt(results.getString("StartHour")),
+                    createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
+                );
+
+                overallTasks.add(singleTask);
             }
             
             myStmt.close();
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) {
             ex.printStackTrace();
         }
     }    
+
+    public Animal createAnimal(String species, String name) {
+        if (species == "Fox") {
+            return Fox(name, -1);
+        }
+        else if (species == "Raccoon") {
+            return Raccoon(name, -1);
+        }
+        else if (species == "Beaver") {
+            return Beaver(name, -1);
+        }
+        else if (species == "Porcupine") {
+            return Porcupine(name, -1);   
+        }
+        else if (species == "Coyote") {
+            return Coyote(name, -1);
+        }
+        else {
+            return null;
+        }
+    }
+
+    /**
+     * Add feeding tasks to the overall tasks
+     * @param none
+     * @return none
+     */
+    public void feedingTasks() {
+        ResultSet results;
+
+        try {                    
+            Statement myStmt = dbConnect.createStatement();
+
+            results = myStmt.executeQuery("SELECT * FROM ANIMALS");
+            
+
+            while (results.next()){
+                System.out.print(results.getString("AnimalNickname") + " ");
+                System.out.print(results.getString("AnimalSpecies") + " ");
+                System.out.println("");
+            }   
+
+            myStmt.close();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+     /**
+     * Add cleaning tasks to the overall tasks
+     * @param none
+     * @return none
+     */
+    public void cleaningTasks() {
+        ResultSet results;
+
+        try {                    
+            Statement myStmt = dbConnect.createStatement();
+
+            results = myStmt.executeQuery("SELECT * FROM ANIMALS");
+            
+
+            while (results.next()){
+                System.out.print(results.getString("AnimalNickname") + " ");
+                System.out.print(results.getString("AnimalSpecies") + " ");
+                System.out.println("");
+
+                Task singleTask = new Task(
+                    "Cage cleaning",
+                    5,
+                    -1,
+                    -1,
+                    createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
+                );
+
+                overallTasks.add(singleTask);
+            }   
+
+            myStmt.close();
+        } 
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         
         Scheduler scheduler = new Scheduler();
         scheduler.createConnection();
 
-        scheduler.selectTasks();
+        scheduler.treatmentTasks();
         
-
+        // Schedule schedule = new schedule(overallTasks);
 
     }
 
