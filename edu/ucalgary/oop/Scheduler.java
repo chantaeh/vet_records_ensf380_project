@@ -68,7 +68,7 @@ public class Scheduler {
         try {                    
             Statement myStmt = dbConnect.createStatement();
 
-            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour\n";
+            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour, TASKS.TaskID\n";
             table += "FROM TREATMENTS\n";
             table += "JOIN ANIMALS ON TREATMENTS.AnimalID = ANIMALS.AnimalID\n";
             table += "JOIN TASKS ON TREATMENTS.TaskID = TASKS.TaskID;";
@@ -92,8 +92,7 @@ public class Scheduler {
                 createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
 
-                String word = "feeding";
-                if (singleTask.getDescription().toLowerCase().contains(word.toLowerCase())) {
+                if (Integer.parseInt(results.getString("TaskID")) == 1 && !orphanedAnimals.contains(results.getString("AnimalNickname"))) {
                     orphanedAnimals.add(results.getString("AnimalNickname"));
                 }
             
