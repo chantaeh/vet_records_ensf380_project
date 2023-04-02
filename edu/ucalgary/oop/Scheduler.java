@@ -1,5 +1,8 @@
 package edu.ucalgary.oop;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -154,7 +157,7 @@ public class Scheduler {
                 // System.out.print(results.getString("AnimalNickname") + " ");
                 // System.out.print(results.getString("AnimalSpecies") + " ");
                 // System.out.println("");
-
+                
                 animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
             }   
 
@@ -268,6 +271,35 @@ public class Scheduler {
         return outputString;
     }
 
+    /**
+     * Writes the given string to a text file
+     * @param scheduleStr
+     * @return True if the schedule was successfully printed, false otherwise
+     */
+    public boolean printFile(String scheduleStr) {
+        BufferedWriter out = null;
+
+        try {
+            // Open a BufferedReader and write schedule to file
+            out = new BufferedWriter(new FileWriter("schedule.txt"));
+            
+            out.write(scheduleStr, 0, 0);
+            return true;
+        } catch (IOException ioe) {
+            return false;
+        } finally {
+            if (out != null) {
+                // Close BufferedReader object
+                try {
+                    out.close();
+                }
+                catch (IOException e) {
+                    System.out.println("Couldn't close file schedule.txt");
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         
         Scheduler scheduler = new Scheduler();
@@ -275,10 +307,10 @@ public class Scheduler {
 
         // Create and add tasks to arraylist
         scheduler.treatmentTasks();
-        // scheduler.feedingTasks();
-        // scheduler.cleaningTasks();
+        scheduler.feedingTasks();
+        scheduler.cleaningTasks();
         
-        // Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        // String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        Schedule schedule = new Schedule(scheduler.getOverallTasks());
+        String formattedSchedule = getFormatted(schedule.getDailyTasks());
     }
 }
