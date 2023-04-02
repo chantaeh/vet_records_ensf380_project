@@ -9,6 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 import org.junit.*;
 import java.lang.reflect.*;
@@ -20,10 +21,9 @@ public class Tester {
     @Test
     public void testFoxGetFeedingHours() {
         Fox fox = new Fox("Fox", 1);
-        Nocturnal nocturnal = Fox;  // Upcast to nocturnal
         
         int[] expected = {0, 1, 2};
-        int[] actual = nocturnal.getFeedingHours();
+        int[] actual = fox.getFeedingHours();
         
         assertArrayEquals("Fox class is not inheriting getFeedingHours from Nocturnal class", expected, actual);
     }
@@ -35,7 +35,7 @@ public class Tester {
         
         Fox fox = new Fox(name, numAnimals);
         
-        assertEquals("Fox Constructor does not return 'name' correctly", name, fox.getName());
+        assertEquals("Fox Constructor does not return 'name' correctly", name, fox.getAnimalNickname());
         assertEquals("Fox Constructor does not return 'numAnimals' correctly", numAnimals, fox.getNumAnimals());
         }
 
@@ -64,10 +64,9 @@ public class Tester {
     @Test
     public void testRaccoonGetFeedingHours() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
-        Nocturnal nocturnal = Raccoon;  // Upcast to nocturnal
         
         int[] expected = {0, 1, 2};
-        int[] actual = nocturnal.getFeedingHours();
+        int[] actual = raccoon.getFeedingHours();
         
         assertArrayEquals("Raccoon class is not inheriting getFeedingHours from Nocturnal class",expected, actual);
     }
@@ -79,7 +78,7 @@ public class Tester {
         
         Raccoon raccoon = new Raccoon(name, numAnimals);
         
-        assertEquals("Raccoon Constructor does not return 'name' correctly", name, raccoon.getName());
+        assertEquals("Raccoon Constructor does not return 'name' correctly", name, raccoon.getAnimalNickname());
         assertEquals("Raccoon Constructor does not return 'numAnimals' correctly", numAnimals, raccoon.getNumAnimals());
         }
     /*test raccoon methods */
@@ -106,10 +105,9 @@ public class Tester {
     @Test
     public void testBeaverGetFeedingHours() {
         Beaver beaver = new Beaver("Beaver", 1);
-        Diurnal diurnal = beaver;  // Upcast to Diurnal
         
         int[] expected = {8, 9, 10};
-        int[] actual = diurnal.getFeedingHours();
+        int[] actual = beaver.getFeedingHours();
         
         assertArrayEquals("Beaver class is not inheriting getFeedingHours from Diurnal class", expected, actual);
     }
@@ -121,7 +119,7 @@ public class Tester {
         
         Beaver beaver = new Beaver(name, numAnimals);
         
-        assertEquals("Beaver Constructor does not return 'name' correctly", name, beaver.getName());
+        assertEquals("Beaver Constructor does not return 'name' correctly", name, beaver.getAnimalNickname());
         assertEquals("Beaver Constructor does not return 'numAnimals' correctly", numAnimals, beaver.getNumAnimals());
         }
 
@@ -149,10 +147,9 @@ public class Tester {
     @Test
     public void testPorcupineGetFeedingHours() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
-        Crepuscular crepuscular = porcupine;  // Upcast to crepuscular
         
         int[] expected = {0, 1, 2};
-        int[] actual = nocturnal.getFeedingHours();
+        int[] actual = porcupine.getFeedingHours();
         
         assertArrayEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
     }
@@ -164,7 +161,7 @@ public class Tester {
         
         Porcupine porcupine = new Porcupine(name, numAnimals);
         
-        assertEquals("Porcupine Constructor does not return 'name' correctly", name, porcupine.getName());
+        assertEquals("Porcupine Constructor does not return 'name' correctly", name, porcupine.getAnimalNickname());
         assertEquals("Porcupine Constructor does not return 'numAnimals' correctly", numAnimals, porcupine.getNumAnimals());
         }
     /*test porcupine methods */
@@ -190,10 +187,9 @@ public class Tester {
    @Test
    public void testCoyoteGetFeedingHours() {
        Coyote coyote = new Coyote("Coyote", 1);
-       Crepuscular crepuscular = Coyote;  // Upcast to crepuscular
        
        int[] expected = {0, 1, 2};
-       int[] actual = nocturnal.getFeedingHours();
+       int[] actual = coyote.getFeedingHours();
        
        assertArrayEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
    }
@@ -205,7 +201,7 @@ public class Tester {
        
        Coyote coyote = new Coyote(name, numAnimals);
        
-       assertEquals("Coyote Constructor does not return 'name' correctly", name, coyote.getName());
+       assertEquals("Coyote Constructor does not return 'name' correctly", name, coyote.getAnimalNickname());
        assertEquals("Coyote Constructor does not return 'numAnimals' correctly", numAnimals, coyote.getNumAnimals());
        }
     /*test coyote methods*/
@@ -475,7 +471,7 @@ public class Tester {
      */
 
     String animalNickname = "name";
-    String numAnimals = "1";
+    int numAnimals = 1;
 
     /*
      * test the constructor with invalid data
@@ -485,7 +481,7 @@ public class Tester {
     public void testAnimalConstructorInvalidData(){
         boolean exceptionThrown = false;
         try{
-            Animal animal = new Animal(animalNickname, "-1");
+            Animal animal = new Animal(animalNickname, -1);
         }
         catch(IllegalArgumentException e){
             exceptionThrown = true;
@@ -500,7 +496,7 @@ public class Tester {
 
     @Test
     public void testAnimalConstructor(){
-        Animal animal = new Animal( animalNickname, numAnimals);
+        Animal animal = new Animal(animalNickname, numAnimals);
         assertNotNull("Object was not created by Animal when correct data was given ", animal);
     }
 
@@ -529,7 +525,7 @@ public class Tester {
 
     @Test
     public void testSetNumAnimals(){
-        Animal animal = new Animal( animalNickname, numAnimals);
+        Animal animal = new Animal(animalNickname, numAnimals);
         animal.setNumAnimals(numAnimals);
         assertEquals("NumAnimals was not set correctly", numAnimals, animal.getNumAnimals());
     }
@@ -543,7 +539,8 @@ public class Tester {
      */
     @Test
     public void testNocturnalSuperclass() {
-        Class superclass = Nocturnal.getSuperclass();
+        Class aClass = Nocturnal.class;
+        Class superclass = aClass.getSuperclass();
 
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Nocturnal class does not inherit from the Animal class.", "Animal", simpleClassName);
@@ -554,7 +551,8 @@ public class Tester {
      */
     @Test
     public void testDiurnalSuperclass() {
-        Class superclass = Diurnal.getSuperclass();
+        Class aClass = Diurnal.class;
+        Class superclass = aClass.getSuperclass();
 
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Diurnal class does not inherit from the Animal class.", "Animal", simpleClassName);
@@ -565,7 +563,8 @@ public class Tester {
      */
     @Test
     public void testCrepuscularSuperclass() {
-        Class superclass = Crepuscular.getSuperclass();
+        Class aClass = Crepuscular.class;
+        Class superclass = aClass.getSuperclass();
 
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Crepuscular class does not inherit from the Animal class.","Animal", simpleClassName);
@@ -645,7 +644,8 @@ public class Tester {
      */
     @Test
     public void testFoxSuperclass() {
-        Class superclass = Fox.getSuperclass();
+        Class aClass = Fox.class;
+        Class superclass = aClass.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Fox class does not inherit from Nocturnal class.", "Nocturnal", simpleClassName);
     }   
@@ -655,7 +655,8 @@ public class Tester {
      */
     @Test
     public void testRaccoonSuperclass() {
-        Class superclass = Raccoon.getSuperclass();
+        Class aClass = Raccoon.class;
+        Class superclass = aClass.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Raccoon class does not inherit from Nocturnal class.", "Nocturnal", simpleClassName);
     }   
@@ -665,7 +666,8 @@ public class Tester {
      */
     @Test
     public void testBeaverSuperclass() {
-        Class superclass = Beaver.getSuperclass();
+        Class aClass = Beaver.class;
+        Class superclass = aClass.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Beaver class does not inherit from Diurnal class.", "Diurnal", simpleClassName);
     }   
@@ -676,7 +678,8 @@ public class Tester {
      */
     @Test
     public void testPorcupineSuperclass() {
-        Class superclass = Porcupine.getSuperclass();
+        Class aClass = Porcupine.class;
+        Class superclass = aClass.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Porcupine class does not inherit from Crepuscular class.", "Crepuscular", simpleClassName);
     }  
@@ -686,7 +689,8 @@ public class Tester {
      */
     @Test
     public void testCoyoteSuperclass() {
-        Class superclass = Coyote.getSuperclass();
+        Class aClass = Coyote.class;
+        Class superclass = aClass.getSuperclass();
         String simpleClassName = superclass.getSimpleName();
         assertEquals("Coyote class does not inherit from Crepuscular class.", "Crepuscular", simpleClassName);
     }   
