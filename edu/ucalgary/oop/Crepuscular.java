@@ -7,9 +7,13 @@ package edu.ucalgary.oop;
  * @since 1.0
  */
 public class Crepuscular extends Animal{
-    private static final int[] FEEDING_HOURS = {8, 9, 10};
+    private static final int FEED_START_HOUR = 8;
 
-    public static int[] getFeedingHours() {
-        return FEEDING_HOURS;
+    public Crepuscular(String nickname, int numAnimals) {
+        super(nickname, numAnimals);
+    }
+
+    public static int getFeedStartHour() {
+        return FEED_START_HOUR;
     }
 }

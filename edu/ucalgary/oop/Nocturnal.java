@@ -7,9 +7,13 @@ package edu.ucalgary.oop;
  * @since 1.0
  */
 abstract class Nocturnal extends Animal{
-    private static final int[] FEEDING_HOURS = {0, 1, 2};
+    private static final int FEED_START_HOUR = 0;
 
-    public static int[] getFeedingHours() {
-        return FEEDING_HOURS;
+    public Nocturnal(String nickname, int numAnimals) {
+        super(nickname, numAnimals);
+    }
+
+    public static int getFeedStartHour() {
+        return FEED_START_HOUR;
     }
 }

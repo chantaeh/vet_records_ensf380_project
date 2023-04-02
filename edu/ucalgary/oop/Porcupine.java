@@ -10,26 +10,22 @@ package edu.ucalgary.oop;
 
  public class Porcupine extends Crepuscular{
     private static final int FEED_MINS = 5;
-    private static final int FEEDPREP_MINS = 0;
-    private static final int CAGECLEAN_MINS = 10;
-
-    private String name;
-    private int numAnimals;
+    private static final int FEEDING_PREP_MINS = 0;
+    private static final int CAGE_CLEAN_MINS = 10;
 
     public Porcupine(String name, int numAnimals) {
-        this.name = name;
-        this.numAnimals = numAnimals;
+        super(name, numAnimals);
     }
 
-    public int getFeedMins() {
+    public static int getFeedMins() {
         return FEED_MINS;
     }
 
-    public int getFeedinPrepMins() {
-        return FEEDPREP_MINS;
+    public static int getFeedingPrepMins() {
+        return FEEDING_PREP_MINS;
     }
 
-    public int getCageCleanMins() {
-        return CAGECLEAN_MINS;
+    public static int getCageCleanMins() {
+        return CAGE_CLEAN_MINS;
     }
 }
