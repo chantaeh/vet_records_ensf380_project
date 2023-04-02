@@ -45,7 +45,7 @@ public class Scheduler {
 
     public void createConnection(){
         try{
-            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "username", "password");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
         } 
         catch (SQLException e) {
             e.printStackTrace();
