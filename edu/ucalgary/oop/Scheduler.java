@@ -283,7 +283,7 @@ public class Scheduler {
             // Open a BufferedReader and write schedule to file
             out = new BufferedWriter(new FileWriter("schedule.txt"));
             
-            out.write(scheduleStr, 0, 0);
+            out.write(scheduleStr, 0, scheduleStr.length());
             return true;
         } catch (IOException ioe) {
             return false;
@@ -306,11 +306,12 @@ public class Scheduler {
         scheduler.createConnection();
 
         // Create and add tasks to arraylist
-        scheduler.treatmentTasks();
-        scheduler.feedingTasks();
-        scheduler.cleaningTasks();
+        // scheduler.treatmentTasks();
+        // scheduler.feedingTasks();
+        // scheduler.cleaningTasks();
         
-        Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        // Schedule schedule = new Schedule(scheduler.getOverallTasks());
+        // String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        // scheduler.printFile(formattedSchedule);
     }
 }
