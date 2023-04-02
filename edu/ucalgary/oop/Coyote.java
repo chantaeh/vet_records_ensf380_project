@@ -21,7 +21,7 @@ package edu.ucalgary.oop;
         return FEED_MINS;
     }
 
-    public int getFeedinPrepMins() {
+    public int getFeedingPrepMins() {
         return FEEDPREP_MINS;
     }
 
