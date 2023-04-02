@@ -218,9 +218,9 @@ public class Scheduler {
 
                 Task singleTask = new Task(
                     "Cage cleaning",
-                    5,
-                    1,
-                    1,
+                    cleaningTime.get(results.getString("AnimalSpecies")),
+                    24,
+                    0,
                     createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
 
