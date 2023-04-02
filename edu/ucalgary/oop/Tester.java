@@ -581,10 +581,9 @@ public class Tester {
     String animalNickname = "name";
     int numAnimals = 1;
 
-    /*
-     * test the constructor with invalid data
+    /**
+     * Test that the Animal constructor throws in IllegalArgumentException given invalid input
      */
-
     @Test
     public void testAnimalConstructorInvalidData(){
         boolean exceptionThrown = false;
@@ -598,32 +597,38 @@ public class Tester {
 
     }
 
-    /*
-     * test the constructor with valid data
+    /**
+     * Test that the Animal constructor creates an Animal object given valid input
      */
-
     @Test
     public void testAnimalConstructor(){
         Animal animal = new Animal(animalNickname, numAnimals);
         assertNotNull("Object was not created by Animal when correct data was given ", animal);
     }
 
-    /*
-     * test the getters and setters
-     */
+    /* Test the Animal class getters and setters */
 
+    /**
+     * Test Animal class's getAnimalNickname() method
+     */
     @Test
     public void testGetAnimalNickname(){
         Animal animal = new Animal( animalNickname, numAnimals);
         assertEquals("AnimalNickname was not returned correctly", animalNickname, animal.getAnimalNickname());
     }
 
+    /**
+     * Test Animal class's getNumAnimals() method
+     */
     @Test
     public void testGetNumAnimals(){
         Animal animal = new Animal( animalNickname, numAnimals);
         assertEquals("NumAnimals was not returned correctly", numAnimals, animal.getNumAnimals());
     }
 
+    /**
+     * Test Animal class's setAnimalNickname() method
+     */
     @Test
     public void testSetAnimalNickname(){
         Animal animal = new Animal( animalNickname, numAnimals);
@@ -631,6 +636,9 @@ public class Tester {
         assertEquals("AnimalNickname was not set correctly", animalNickname, animal.getAnimalNickname());
     }
 
+    /**
+     * Test Animal class's setNumAnimals() method
+     */
     @Test
     public void testSetNumAnimals(){
         Animal animal = new Animal(animalNickname, numAnimals);
@@ -638,9 +646,7 @@ public class Tester {
         assertEquals("NumAnimals was not set correctly", numAnimals, animal.getNumAnimals());
     }
 
-
-
-    
+    /* Tests for Nocturnal, Diurnal, Crepuscular classes */    
 
     /**
      * Test that Nocturnal inherits from Animal
