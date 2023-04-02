@@ -1,6 +1,8 @@
 /**
  * JUnit Tester class
  * @author Group 25
+ * @version 1.1
+ * @since 1.1
  */
 
 package edu.ucalgary.oop;
@@ -16,18 +18,20 @@ import java.lang.reflect.*;
 
 public class Tester {
       
-    /*fox tests */
-    /*test getFeedingHours inherited from nocturnal*/
+    /**
+     * Thes that getFeedStartHour is inherited from nocturnal
+     */
     @Test
-    public void testFoxGetFeedingHours() {
-        Fox fox = new Fox("Fox", 1);
-        
+    public void testFoxGetFeedStartHour() {       
         int expected = 0;
         int actual = Fox.getFeedStartHour();
         
         assertEquals("Fox class is not inheriting getFeedStartHour from Nocturnal class", expected, actual);
     }
-    /*test fox constructor */
+    
+    /**
+     * Test Fox contructor
+     */
     @Test
     public void testFox() {
         String name = "Fox";
@@ -37,32 +41,41 @@ public class Tester {
         
         assertEquals("Fox Constructor does not return 'name' correctly", name, fox.getAnimalNickname());
         assertEquals("Fox Constructor does not return 'numAnimals' correctly", numAnimals, fox.getNumAnimals());
-        }
+    }
 
     
-    /*test fox methods */
+    /**
+     * Test Fox class's getFeedMins() method
+     */
     @Test
     public void testFoxGetFeedMins() {
         Fox fox = new Fox("Fox", 1);
         assertEquals("Fox method GetFeedMins() does not return correct time.", 5, fox.getFeedMins());
     }
 
+    /**
+     * Test Fox class's getFeedingPrepMins() method
+     */
     @Test
     public void testFoxGetFeedingPrepMins() {
         Fox fox = new Fox("Fox", 1);
         assertEquals("Fox method GetFeedingPrepMins() does not return correct time.",5, fox.getFeedingPrepMins());
     }
 
+    /**
+     * Test Fox class's getCageCleanMins() method
+     */
     @Test
     public void testFoxGetCageCleanMins() {
         Fox fox = new Fox("Fox", 1);
         assertEquals("Fox method GetCageCleanMins() does not return correct time.", 5, fox.getCageCleanMins());
     }
 
-    /* raccoon tests */
-    /*test getFeedingHours inherited from nocturnal*/
+    /**
+     * Test that Raccoon inherits the method 
+     */
     @Test
-    public void testRaccoonGetFeedingHours() {
+    public void testRaccoonGetFeedStartHour() {
         
         int expected = 0;
         int actual = Raccoon.getFeedStartHour();
@@ -100,9 +113,9 @@ public class Tester {
     }    
 
     /*beaver tests */
-    /*test getFeedingHours inherited from diurnal  */
+    /*test getFeedStartHour inherited from diurnal  */
     @Test
-    public void testBeaverGetFeedingHours() {
+    public void testBeavergetFeedStartHour() {
         
         int expected = 8;
         int actual = Beaver.getFeedStartHour();
@@ -141,14 +154,14 @@ public class Tester {
     }    
 
     /*porcupine tests */
-    /*test getFeedingHours inherited from crepuscular*/
+    /*test getFeedStartHour inherited from crepuscular*/
     @Test
-    public void testPorcupineGetFeedingHours() {
+    public void testPorcupinegetFeedStartHour() {
         
         int expected = 19;
         int actual = Porcupine.getFeedStartHour();
         
-        assertEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
+        assertEquals("Porcupine class is not inheriting getFeedStartHour from Crepuscular class",expected, actual);
     }
     /*test porcupine constructor */
     @Test
@@ -180,14 +193,14 @@ public class Tester {
         assertEquals("Porcupine method GetCageCleanMins() does not return correct time.", 10, porcupine.getCageCleanMins());
     }
     /*coyote tests */
-   /*test getFeedingHours inherited from crepuscular*/
+   /*test getFeedStartHour inherited from crepuscular*/
    @Test
-   public void testCoyoteGetFeedingHours() {
+   public void testCoyotegetFeedStartHour() {
        
        int expected = 19;
        int  actual = Coyote.getFeedStartHour();
        
-       assertEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
+       assertEquals("Coyote class is not inheriting getFeedStartHour from Crepuscular class",expected, actual);
    }
    /*test coyote constructor */
    @Test
@@ -601,7 +614,7 @@ public class Tester {
      * Test Nocturnal class's static getter method
      */
     @Test
-    public void testNocturnalGetFeedingHours() {
+    public void testNocturnalgetFeedStartHour() {
         int expectedNocturnalHours = 0;
         int actualNocturnalHours = Nocturnal.getFeedStartHour();
 
@@ -612,7 +625,7 @@ public class Tester {
      * Test Diurnal class's static getter method 
      */
     @Test
-    public void testDiurnalGetFeedingHours() {
+    public void testDiurnalgetFeedStartHour() {
         int expectedDiurnalHours = 8;
         int  actualDiurnalHours = Diurnal.getFeedStartHour();
 
@@ -624,7 +637,7 @@ public class Tester {
      * Test Crepuscular class's static getter method
      */
     @Test
-    public void testCrepuscularGetFeedingHours() {
+    public void testCrepusculargetFeedStartHour() {
         int expectedCrepuscHours = 19;
         int actualCrepuscHours = Crepuscular.getFeedStartHour();
 
