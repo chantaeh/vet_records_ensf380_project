@@ -23,19 +23,19 @@ public class Scheduler {
 
     HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
-        put("Fox", new ArrayList<Integer>(Arrays.asList(5, 5, 0)));
-        put("Raccoon", new ArrayList<Integer>(Arrays.asList(0, 5, 0)));
-        put("Beaver", new ArrayList<Integer>(Arrays.asList(0, 5, 8)));
-        put("Porcupine", new ArrayList<Integer>(Arrays.asList(0, 5, 19)));
-        put("Coyote", new ArrayList<Integer>(Arrays.asList(10, 5, 19)));
+        put("fox", new ArrayList<Integer>(Arrays.asList(5, 5, 0)));
+        put("raccoon", new ArrayList<Integer>(Arrays.asList(0, 5, 0)));
+        put("beaver", new ArrayList<Integer>(Arrays.asList(0, 5, 8)));
+        put("porcupine", new ArrayList<Integer>(Arrays.asList(0, 5, 19)));
+        put("coyote", new ArrayList<Integer>(Arrays.asList(10, 5, 19)));
     }};
 
     HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
-        put("Fox", 5);
-        put("Raccoon", 5);
-        put("Beaver", 5);
-        put("Porcupine", 10);
-        put("Coyote", 5);
+        put("fox", 5);
+        put("raccoon", 5);
+        put("beaver", 5);
+        put("porcupine", 10);
+        put("coyote", 5);
     }};
 
     public Scheduler() {
@@ -69,14 +69,13 @@ public class Scheduler {
             results = myStmt.executeQuery(table);
             
             while (results.next()){
-                System.out.print(results.getString("AnimalNickname") + " ");
-                System.out.print(results.getString("AnimalSpecies") + " ");
-                System.out.print(results.getString("Description") + " ");
-                System.out.print(results.getString("Duration") + " ");
-                System.out.print(results.getString("MaxWindow") + " ");
-                System.out.print(results.getString("StartHour") + " ");
-                System.out.println("");
-                
+                // System.out.print(results.getString("AnimalNickname") + " ");
+                // System.out.print(results.getString("AnimalSpecies") + " ");
+                // System.out.print(results.getString("Description") + " ");
+                // System.out.print(results.getString("Duration") + " ");
+                // System.out.print(results.getString("MaxWindow") + " ");
+                // System.out.print(results.getString("StartHour") + " ");
+                // System.out.println("");
                 
                 Task singleTask = new Task(
                 results.getString("Description"),
@@ -88,7 +87,6 @@ public class Scheduler {
             
                 overallTasks.add(singleTask);
             
-                
             }
             
             myStmt.close();
@@ -99,6 +97,10 @@ public class Scheduler {
         catch (IllegalAccessException ex) {
             ex.printStackTrace();
         }
+
+        // for (Task task : overallTasks) {
+        //     System.out.println(task.getAnimal().getAnimalNickname());
+        // }
     }    
 
     /**
@@ -108,20 +110,20 @@ public class Scheduler {
      * @return animal object
      */
     public Animal createAnimal(String species, String name) {
-        if (species == "Fox") {
-            return new Fox(name, -1);
+        if (species.equals("fox")) {
+            return new Fox(name, 1);
         }
-        else if (species == "Raccoon") {
-            return new Raccoon(name, -1);
+        else if (species.equals("raccoon")) {
+            return new Raccoon(name, 1);
         }
-        else if (species == "Beaver") {
-            return new Beaver(name, -1);
+        else if (species.equals("beaver")) {
+            return new Beaver(name, 1);
         }
-        else if (species == "Porcupine") {
-            return new Porcupine(name, -1);   
+        else if (species.equals("porcupine")) {
+            return new Porcupine(name, 1);   
         }
-        else if (species == "Coyote") {
-            return new Coyote(name, -1);
+        else if (species.equals("coyote")) {
+            return new Coyote(name, 1);
         }
         else {
             return null;
@@ -135,11 +137,11 @@ public class Scheduler {
      */
     public void feedingTasks() {
         HashMap<String, ArrayList<String>> animalGroups = new HashMap<String, ArrayList<String>>() {{
-            put("Fox", new ArrayList<String>());
-            put("Raccoon", new ArrayList<String>());
-            put("Beaver", new ArrayList<String>());
-            put("Porcupine", new ArrayList<String>());
-            put("Coyote", new ArrayList<String>());
+            put("fox", new ArrayList<String>());
+            put("raccoon", new ArrayList<String>());
+            put("beaver", new ArrayList<String>());
+            put("porcupine", new ArrayList<String>());
+            put("coyote", new ArrayList<String>());
         }};
 
         ResultSet results; 
@@ -166,11 +168,18 @@ public class Scheduler {
 
         // Create grouped tasks for feeding
         for (Map.Entry<String, ArrayList<String>> entry : animalGroups.entrySet()) {
+            if (animalGroups.get(entry.getKey()).size() == 0) {
+                continue;
+            }
+
             String animalNames = String.valueOf(animalGroups.get(entry.getKey()).size()) + ": ";
             for (String name : entry.getValue()) {
                 animalNames += name + ", "; 
             }
             animalNames = animalNames.substring(0, animalNames.length() - 2);
+
+            System.out.println(entry.getKey());
+            System.out.println(animalNames);
 
             try {
                 Task singleTask = new Task(
@@ -211,8 +220,8 @@ public class Scheduler {
                 Task singleTask = new Task(
                     "Cage cleaning",
                     5,
-                    -1,
-                    -1,
+                    1,
+                    1,
                     createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
 
@@ -275,8 +284,8 @@ public class Scheduler {
 
         // Create and add tasks to arraylist
         scheduler.treatmentTasks();
-        // scheduler.feedingTasks();
-        // scheduler.cleaningTasks();
+        scheduler.feedingTasks();
+        scheduler.cleaningTasks();
         
         // Schedule schedule = new Schedule(scheduler.getOverallTasks());
         // String formattedSchedule = getFormatted(schedule.getDailyTasks());
