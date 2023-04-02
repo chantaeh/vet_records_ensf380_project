@@ -69,28 +69,34 @@ public class Scheduler {
             results = myStmt.executeQuery(table);
             
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.print(results.getString("Description") + " ");
-                // System.out.print(results.getString("Duration") + " ");
-                // System.out.print(results.getString("MaxWindow") + " ");
-                // System.out.print(results.getString("StartHour") + " ");
-                // System.out.println("");
-
+                System.out.print(results.getString("AnimalNickname") + " ");
+                System.out.print(results.getString("AnimalSpecies") + " ");
+                System.out.print(results.getString("Description") + " ");
+                System.out.print(results.getString("Duration") + " ");
+                System.out.print(results.getString("MaxWindow") + " ");
+                System.out.print(results.getString("StartHour") + " ");
+                System.out.println("");
+                
+                
                 Task singleTask = new Task(
-                    results.getString("Description"),
-                    Integer.parseInt(results.getString("Duration")),
-                    Integer.parseInt(results.getString("MaxWindow")),
-                    Integer.parseInt(results.getString("StartHour")),
-                    createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
+                results.getString("Description"),
+                Integer.parseInt(results.getString("Duration")),
+                Integer.parseInt(results.getString("MaxWindow")),
+                Integer.parseInt(results.getString("StartHour")),
+                createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
-
+            
                 overallTasks.add(singleTask);
+            
+                
             }
             
             myStmt.close();
         } 
         catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        catch (IllegalAccessException ex) {
             ex.printStackTrace();
         }
     }    
@@ -166,15 +172,20 @@ public class Scheduler {
             }
             animalNames = animalNames.substring(0, animalNames.length() - 2);
 
-            Task singleTask = new Task(
-                "Feeding",
-                feedingTime.get(entry.getKey()).get(0) + feedingTime.get(entry.getKey()).get(1)*animalGroups.get(entry.getKey()).size(),
-                3,
-                feedingTime.get(entry.getKey()).get(2),
-                createAnimal(entry.getKey(), animalNames)
-            );
-
-            overallTasks.add(singleTask);
+            try {
+                Task singleTask = new Task(
+                    "Feeding",
+                    feedingTime.get(entry.getKey()).get(0) + feedingTime.get(entry.getKey()).get(1)*animalGroups.get(entry.getKey()).size(),
+                    3,
+                    feedingTime.get(entry.getKey()).get(2),
+                    createAnimal(entry.getKey(), animalNames)
+                );
+    
+                overallTasks.add(singleTask);
+            }
+            catch (IllegalAccessException ex) {
+                ex.printStackTrace();
+            }
         }
 
     }
@@ -213,6 +224,9 @@ public class Scheduler {
         catch (SQLException ex) {
             ex.printStackTrace();
         }
+        catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -228,10 +242,10 @@ public class Scheduler {
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
             if (hourlyTasks != null) {
                 if (Schedule.timeUsed(hourlyTasks) > 60) {
-                    outputString += String.valueof(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
+                    outputString += String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
                 }
                 else {
-                    outputString += String.valueof(hourlyTasks.get(0).getStartHour()) + ":00\n";
+                    outputString += String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
                 }
 
                 for (Task task : hourlyTasks) {
@@ -241,7 +255,7 @@ public class Scheduler {
                     }
                     else if (task.getDescription() == "Feeding") {
                         outputString += "* " + task.getDescription();
-                        outputString += " - " + task.getclass().getName(); 
+                        outputString += " - " + task.getClass().getName(); 
                         outputString += " (" + task.getAnimal().getAnimalNickname() + ")\n";
                     }
                     else {
@@ -261,10 +275,10 @@ public class Scheduler {
 
         // Create and add tasks to arraylist
         scheduler.treatmentTasks();
-        scheduler.feedingTasks();
-        scheduler.cleaningTasks();
+        // scheduler.feedingTasks();
+        // scheduler.cleaningTasks();
         
-        Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        // Schedule schedule = new Schedule(scheduler.getOverallTasks());
+        // String formattedSchedule = getFormatted(schedule.getDailyTasks());
     }
 }
