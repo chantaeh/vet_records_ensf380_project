@@ -148,7 +148,7 @@ public class Tester {
     public void testPorcupineGetFeedingHours() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
         
-        int[] expected = {0, 1, 2};
+        int[] expected = {19, 20, 21};
         int[] actual = porcupine.getFeedingHours();
         
         assertArrayEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
