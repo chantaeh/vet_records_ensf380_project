@@ -22,10 +22,10 @@ public class Tester {
     public void testFoxGetFeedingHours() {
         Fox fox = new Fox("Fox", 1);
         
-        int[] expected = {0, 1, 2};
-        int[] actual = fox.getFeedingHours();
+        int expected = 0;
+        int actual = Fox.getFeedStartHour();
         
-        assertArrayEquals("Fox class is not inheriting getFeedingHours from Nocturnal class", expected, actual);
+        assertEquals("Fox class is not inheriting getFeedStartHour from Nocturnal class", expected, actual);
     }
     /*test fox constructor */
     @Test
@@ -63,12 +63,11 @@ public class Tester {
     /*test getFeedingHours inherited from nocturnal*/
     @Test
     public void testRaccoonGetFeedingHours() {
-        Raccoon raccoon = new Raccoon("Raccoon", 1);
         
-        int[] expected = {0, 1, 2};
-        int[] actual = raccoon.getFeedingHours();
+        int expected = 0;
+        int actual = Raccoon.getFeedStartHour();
         
-        assertArrayEquals("Raccoon class is not inheriting getFeedingHours from Nocturnal class",expected, actual);
+        assertEquals("Raccoon class is not inheriting getFeedStartHour from Nocturnal class",expected, actual);
     }
     /*test raccoon constructor */
     @Test
@@ -104,12 +103,11 @@ public class Tester {
     /*test getFeedingHours inherited from diurnal  */
     @Test
     public void testBeaverGetFeedingHours() {
-        Beaver beaver = new Beaver("Beaver", 1);
         
-        int[] expected = {8, 9, 10};
-        int[] actual = beaver.getFeedingHours();
+        int expected = 8;
+        int actual = Beaver.getFeedStartHour();
         
-        assertArrayEquals("Beaver class is not inheriting getFeedingHours from Diurnal class", expected, actual);
+        assertEquals("Beaver class is not inheriting getFeedStartHour from Diurnal class", expected, actual);
     }
     /*test beaver constructor */
     @Test
@@ -146,12 +144,11 @@ public class Tester {
     /*test getFeedingHours inherited from crepuscular*/
     @Test
     public void testPorcupineGetFeedingHours() {
-        Porcupine porcupine = new Porcupine("Porcupine", 1);
         
-        int[] expected = {19, 20, 21};
-        int[] actual = porcupine.getFeedingHours();
+        int expected = 19;
+        int actual = Porcupine.getFeedStartHour();
         
-        assertArrayEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
+        assertEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
     }
     /*test porcupine constructor */
     @Test
@@ -186,12 +183,11 @@ public class Tester {
    /*test getFeedingHours inherited from crepuscular*/
    @Test
    public void testCoyoteGetFeedingHours() {
-       Coyote coyote = new Coyote("Coyote", 1);
        
-       int[] expected = {19, 20, 21};
-       int[] actual = coyote.getFeedingHours();
+       int expected = 19;
+       int  actual = Coyote.getFeedStartHour();
        
-       assertArrayEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
+       assertEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
    }
    /*test coyote constructor */
    @Test
@@ -606,12 +602,10 @@ public class Tester {
      */
     @Test
     public void testNocturnalGetFeedingHours() {
-        int[] expectedNocturnalHours = {0, 1, 2};
-        int[] actualNocturnalHours = Nocturnal.getFeedingHours();
+        int expectedNocturnalHours = 0;
+        int actualNocturnalHours = Nocturnal.getFeedStartHour();
 
-        for (int i = 0; i < expectedNocturnalHours.length; i++) {
-            assertEquals("Nocturnal method getFeedingHours() does not return correct result.", expectedNocturnalHours[i], actualNocturnalHours[i]);
-        }
+            assertEquals("Nocturnal method getFeedStartHour() does not return correct result.", expectedNocturnalHours, actualNocturnalHours);
     } 
     
     /**
@@ -619,12 +613,11 @@ public class Tester {
      */
     @Test
     public void testDiurnalGetFeedingHours() {
-        int[] expectedDiurnalHours = {8, 9, 10};
-        int[] actualDiurnalHours = Diurnal.getFeedingHours();
+        int expectedDiurnalHours = 8;
+        int  actualDiurnalHours = Diurnal.getFeedStartHour();
 
-        for (int i = 0; i < expectedDiurnalHours.length; i++) {
-            assertEquals("Diurnal method getFeedingHours() does not return correct result.", expectedDiurnalHours[i], actualDiurnalHours[i]);
-        }
+            assertEquals("Diurnal method getFeedStartHour() does not return correct result.", expectedDiurnalHours, actualDiurnalHours);
+        
     } 
 
     /**
@@ -632,12 +625,11 @@ public class Tester {
      */
     @Test
     public void testCrepuscularGetFeedingHours() {
-        int[] expectedCrepuscHours = {19, 20, 21};
-        int[] actualCrepuscHours = Crepuscular.getFeedingHours();
+        int expectedCrepuscHours = 19;
+        int actualCrepuscHours = Crepuscular.getFeedStartHour();
 
-        for (int i = 0; i < expectedCrepuscHours.length; i++) {
-            assertEquals("Crepuscular method getFeedingHours() does not return correct result.", expectedCrepuscHours[i], actualCrepuscHours[i]);
-        }
+        
+            assertEquals("Crepuscular method getFeedStartHour() does not return correct result.", expectedCrepuscHours, actualCrepuscHours);
     } 
 
     /**
