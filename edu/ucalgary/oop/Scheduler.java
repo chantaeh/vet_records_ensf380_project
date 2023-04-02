@@ -153,9 +153,11 @@ public class Scheduler {
             while (results.next()){
                 // System.out.print(results.getString("AnimalNickname") + " ");
                 // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println("");
+                // System.out.println();
 
-                animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
+                if (animalGroups.containsKey(results.getString("AnimalSpecies"))) {
+                    animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
+                }
             }   
 
             myStmt.close();
