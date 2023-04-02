@@ -188,7 +188,7 @@ public class Tester {
    public void testCoyoteGetFeedingHours() {
        Coyote coyote = new Coyote("Coyote", 1);
        
-       int[] expected = {0, 1, 2};
+       int[] expected = {19, 20, 21};
        int[] actual = coyote.getFeedingHours();
        
        assertArrayEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
@@ -244,7 +244,7 @@ public class Tester {
         } catch (IllegalArgumentException e) {
         exceptionThrown = true;
         }
-        assertTrue("IllegalArgumentException was not thrown when name was null", exceptionThrown);
+            assertTrue("IllegalArgumentException was not thrown when name was null", exceptionThrown);
         exceptionThrown = false;
     }
         
