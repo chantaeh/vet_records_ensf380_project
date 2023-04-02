@@ -312,5 +312,6 @@ public class Scheduler {
         Schedule schedule = new Schedule(scheduler.getOverallTasks());
         String formattedSchedule = getFormatted(schedule.getDailyTasks());
         System.out.println(formattedSchedule);
+        scheduler.printFile(formattedSchedule);
     }
 }
