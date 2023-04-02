@@ -2,6 +2,9 @@ package edu.ucalgary.oop;
 
 /* 
  * Task class
+ * @author Youssef
+ * @version 1.0
+ * @since 1.0
  *
  */
 public class Task {
