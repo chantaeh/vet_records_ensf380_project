@@ -17,15 +17,15 @@ package edu.ucalgary.oop;
         super(name, numAnimals);
     }
 
-    public int getFeedMins() {
+    public static int getFeedMins() {
         return FEED_MINS;
     }
 
-    public int getFeedingPrepMins() {
+    public static int getFeedingPrepMins() {
         return FEEDPREP_MINS;
     }
 
-    public int getCageCleanMins() {
+    public static int getCageCleanMins() {
         return CAGECLEAN_MINS;
     }
 }
