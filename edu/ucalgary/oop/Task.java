@@ -18,13 +18,13 @@ public class Task {
      * @param maxWindow
      * @param startHour
      * @param animal
-     * @throws IllegalAccessException
+     * @throws IlleagalArgumentException
      */
 
-    public Task(String description, int duration, int maxWindow, int startHour, Animal animal) throws IllegalAccessException {
+    public Task(String description, int duration, int maxWindow, int startHour, Animal animal) throws IllegalArgumentException {
         
         if (duration < 0 || maxWindow < 0 || startHour < 0 || startHour > 23) {
-            throw new IllegalAccessException("Invalid input");
+            throw new IllegalArgumentException("Invalid input");
         }
 
         this.description = description;

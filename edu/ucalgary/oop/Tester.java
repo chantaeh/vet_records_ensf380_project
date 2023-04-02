@@ -354,6 +354,7 @@ public class Tester {
     int duration = 1;
     int maxWindow = 2;
     int startHour = 3;
+    Animal animal = new Animal("animal", 1);
 
     /*
      * test the constructor with invalid data
@@ -363,7 +364,7 @@ public class Tester {
     public void testTaskConstructorInvalidData(){
         boolean exceptionThrown = false;
         try{
-            Task task = new Task(description, -1, maxWindow, startHour);
+            Task task = new Task(description, -1, maxWindow, startHour, animal);
         }
         catch(IllegalArgumentException e){
             exceptionThrown = true;
@@ -372,7 +373,7 @@ public class Tester {
         exceptionThrown = false;
 
         try{
-            Task task = new Task(description, duration, -1, startHour);
+            Task task = new Task(description, duration, -1, startHour, animal);
         }
         catch(IllegalArgumentException e){
             exceptionThrown = true;
@@ -381,7 +382,7 @@ public class Tester {
         exceptionThrown = false;
 
         try{
-            Task task = new Task(description, duration, maxWindow, -1);
+            Task task = new Task(description, duration, maxWindow, -1, animal);
         }
         catch(IllegalArgumentException e){
             exceptionThrown = true;
@@ -390,7 +391,7 @@ public class Tester {
         exceptionThrown = false;
 
         try{
-            Task task = new Task(description, duration, maxWindow, 24);
+            Task task = new Task(description, duration, maxWindow, 24,  animal);
         }
         catch(IllegalArgumentException e){
             exceptionThrown = true;
@@ -405,7 +406,7 @@ public class Tester {
     
     @Test
     public void testTaskConstructor(){
-        Task task = new Task();
+        Task task = new Task( description, duration, maxWindow, startHour, animal);
         assertNotNull("Object was not created by Task when correct data was given ", task);
     }
 
@@ -415,52 +416,52 @@ public class Tester {
 
     @Test
     public void testGetDescription(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         assertEquals("Description was not returned correctly", description, task.getDescription());
     }
 
     @Test
     public void testGetDuration(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour,   animal);
         assertEquals("Duration was not returned correctly", duration, task.getDuration());
     }
 
     @Test
     public void testGetMaxWindow(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         assertEquals("MaxWindow was not returned correctly", maxWindow, task.getMaxWindow());
     }
 
     @Test
     public void testGetStartHour(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         assertEquals("StartHour was not returned correctly", startHour, task.getStartHour());
     }
 
     @Test
     public void testSetDescription(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         task.setDescription(description);
         assertEquals("Description was not set correctly", description, task.getDescription());
     }
 
     @Test
     public void testSetDuration(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         task.setDuration(duration);
         assertEquals("Duration was not set correctly", duration, task.getDuration());
     }
 
     @Test
     public void testSetMaxWindow(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         task.setMaxWindow(maxWindow);
         assertEquals("MaxWindow was not set correctly", maxWindow, task.getMaxWindow());
     }
 
     @Test
     public void testSetStartHour(){
-        Task task = new Task(description, duration, maxWindow, startHour);
+        Task task = new Task(description, duration, maxWindow, startHour, animal);
         task.setStartHour(startHour);
         assertEquals("StartHour was not set correctly", startHour, task.getStartHour());
     }
