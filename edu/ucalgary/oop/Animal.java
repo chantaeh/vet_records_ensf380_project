@@ -20,6 +20,9 @@ public class Animal {
         if (numAnimals < 0) {
             throw new IllegalArgumentException("Invalid input");
         }
+        if (animalNickname == null) {
+            throw new IllegalArgumentException("Invalid input");
+        }
         
         this.animalNickname = animalNickname;
         this.numAnimals = numAnimals;
