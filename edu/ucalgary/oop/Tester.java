@@ -147,10 +147,9 @@ public class Tester {
     @Test
     public void testPorcupineGetFeedingHours() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
-        Crepuscular crepuscular = porcupine;  // Upcast to crepuscular
         
         int[] expected = {0, 1, 2};
-        int[] actual = nocturnal.getFeedingHours();
+        int[] actual = porcupine.getFeedingHours();
         
         assertArrayEquals("Porcupine class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
     }
@@ -162,7 +161,7 @@ public class Tester {
         
         Porcupine porcupine = new Porcupine(name, numAnimals);
         
-        assertEquals("Porcupine Constructor does not return 'name' correctly", name, porcupine.getName());
+        assertEquals("Porcupine Constructor does not return 'name' correctly", name, porcupine.getAnimalNickname());
         assertEquals("Porcupine Constructor does not return 'numAnimals' correctly", numAnimals, porcupine.getNumAnimals());
         }
     /*test porcupine methods */
@@ -188,10 +187,9 @@ public class Tester {
    @Test
    public void testCoyoteGetFeedingHours() {
        Coyote coyote = new Coyote("Coyote", 1);
-       Crepuscular crepuscular = Coyote;  // Upcast to crepuscular
        
        int[] expected = {0, 1, 2};
-       int[] actual = nocturnal.getFeedingHours();
+       int[] actual = coyote.getFeedingHours();
        
        assertArrayEquals("Coyote class is not inheriting getFeedingHours from Crepuscular class",expected, actual);
    }
@@ -203,7 +201,7 @@ public class Tester {
        
        Coyote coyote = new Coyote(name, numAnimals);
        
-       assertEquals("Coyote Constructor does not return 'name' correctly", name, coyote.getName());
+       assertEquals("Coyote Constructor does not return 'name' correctly", name, coyote.getAnimalNickname());
        assertEquals("Coyote Constructor does not return 'numAnimals' correctly", numAnimals, coyote.getNumAnimals());
        }
     /*test coyote methods*/
