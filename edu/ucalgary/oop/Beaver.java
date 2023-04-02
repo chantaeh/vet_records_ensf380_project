@@ -10,7 +10,7 @@ package edu.ucalgary.oop;
 
  public class Beaver extends Diurnal{
     private static final int FEED_MINS = 5;
-    private static final int FEED_PREP_MINS = 0;
+    private static final int FEEDING_PREP_MINS = 0;
     private static final int CAGE_CLEAN_MINS = 5;
 
     public Beaver(String name, int numAnimals) {
@@ -22,7 +22,7 @@ package edu.ucalgary.oop;
     }
 
     public static int getFeedingPrepMins() {
-        return FEED_PREP_MINS;
+        return FEEDING_PREP_MINS;
     }
 
     public static int getCageCleanMins() {
