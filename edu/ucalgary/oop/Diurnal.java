@@ -6,7 +6,7 @@ package edu.ucalgary.oop;
  * @version 1.0
  * @since 1.0
  */
-public abstract class Diurnal extends Animal{
+abstract class Diurnal extends Animal{
     private static final int FEED_START_HOUR = 8;
 
     public Diurnal(String nickname, int numAnimals) {
