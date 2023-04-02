@@ -23,19 +23,24 @@ public class Scheduler {
 
     HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
-        put("fox", new ArrayList<Integer>(Arrays.asList(5, 5, 0)));
-        put("raccoon", new ArrayList<Integer>(Arrays.asList(0, 5, 0)));
-        put("beaver", new ArrayList<Integer>(Arrays.asList(0, 5, 8)));
-        put("porcupine", new ArrayList<Integer>(Arrays.asList(0, 5, 19)));
-        put("coyote", new ArrayList<Integer>(Arrays.asList(10, 5, 19)));
+        put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
+            Fox.getFeedMins(), Fox.getFeedStartHour())));
+        put("raccoon", new ArrayList<Integer>(Arrays.asList(Raccoon.getFeedingPrepMins(), 
+            Raccoon.getFeedMins(), Raccoon.getFeedStartHour())));
+        put("beaver", new ArrayList<Integer>(Arrays.asList(Beaver.getFeedingPrepMins(), 
+            Beaver.getFeedMins(), Beaver.getFeedStartHour())));
+        put("porcupine", new ArrayList<Integer>(Arrays.asList(Porcupine.getFeedingPrepMins(), 
+            Porcupine.getFeedMins(), Porcupine.getFeedStartHour())));
+        put("coyote", new ArrayList<Integer>(Arrays.asList(Coyote.getFeedingPrepMins(), 
+            Coyote.getFeedMins(), Coyote.getFeedStartHour())));
     }};
 
     HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
-        put("fox", 5);
-        put("raccoon", 5);
-        put("beaver", 5);
-        put("porcupine", 10);
-        put("coyote", 5);
+        put("fox", Fox.getCageCleanMins());
+        put("raccoon", Raccoon.getCageCleanMins());
+        put("beaver", Beaver.getCageCleanMins());
+        put("porcupine", Porcupine.getCageCleanMins());
+        put("coyote", Coyote.getCageCleanMins());
     }};
 
     private ArrayList<String> orphanedAnimals = new ArrayList<String>();
