@@ -180,9 +180,6 @@ public class Scheduler {
             }
             animalNames = animalNames.substring(0, animalNames.length() - 2);
 
-            System.out.println(entry.getKey());
-            System.out.println(animalNames);
-
             try {
                 Task singleTask = new Task(
                     "Feeding",
@@ -248,25 +245,25 @@ public class Scheduler {
     public static String getFormatted(ArrayList<ArrayList<Task>> dailyTasks) {
         String outputString = "";
 
-        outputString = "Schedule for " + LocalDate.now().toString() + "\n\n";
+        outputString = "Schedule for " + LocalDate.now().plusDays(1).toString() + "\n";
 
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
-            if (hourlyTasks != null) {
+            if (hourlyTasks.size() != 0) {
                 if (Schedule.timeUsed(hourlyTasks) > 60) {
-                    outputString += String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
+                    outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
                 }
                 else {
-                    outputString += String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
+                    outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
                 }
 
                 for (Task task : hourlyTasks) {
-                    if (task.getDescription() != "Feeding" && task.getDescription() != "Cage cleaning") {
+                    if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
                         outputString += "* " + task.getDescription(); 
                         outputString += " (" + task.getAnimal().getAnimalNickname() + ")\n";
                     }
-                    else if (task.getDescription() == "Feeding") {
+                    else if (task.getDescription().equals("Feeding")) {
                         outputString += "* " + task.getDescription();
-                        outputString += " - " + task.getClass().getName(); 
+                        outputString += " - " + task.getAnimal().getClass().getSimpleName().toLowerCase(); 
                         outputString += " (" + task.getAnimal().getAnimalNickname() + ")\n";
                     }
                     else {
@@ -288,8 +285,13 @@ public class Scheduler {
         scheduler.treatmentTasks();
         scheduler.feedingTasks();
         scheduler.cleaningTasks();
+
+        // for (Task task : scheduler.getOverallTasks()) {
+        //     System.out.println(task.getDescription());
+        // }
         
-        // Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        // String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        Schedule schedule = new Schedule(scheduler.getOverallTasks());
+        String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        System.out.println(formattedSchedule);
     }
 }
