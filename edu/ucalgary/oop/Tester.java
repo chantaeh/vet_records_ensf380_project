@@ -495,34 +495,47 @@ public class Tester {
         assertNotNull("Object was not created by Task when correct data was given ", task);
     }
 
-    /*
-     * test the getters and setters
-     */
+    /* Test Task class getters and setters */
 
+    /**
+     * Test Task class's method getDescription()
+     */
     @Test
     public void testGetDescription(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
         assertEquals("Description was not returned correctly", description, task.getDescription());
     }
 
+    /**
+     * Test Task class's method getDuration()
+     */
     @Test
     public void testGetDuration(){
         Task task = new Task(description, duration, maxWindow, startHour,   animal);
         assertEquals("Duration was not returned correctly", duration, task.getDuration());
     }
 
+    /**
+     * Test Task class's method getMaxWindow()
+     */
     @Test
     public void testGetMaxWindow(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
         assertEquals("MaxWindow was not returned correctly", maxWindow, task.getMaxWindow());
     }
 
+    /**
+     * Test Task class's method getStartHour()
+     */
     @Test
     public void testGetStartHour(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
         assertEquals("StartHour was not returned correctly", startHour, task.getStartHour());
     }
 
+    /**
+     * Test Task class's method setDescription()
+     */
     @Test
     public void testSetDescription(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
@@ -530,6 +543,9 @@ public class Tester {
         assertEquals("Description was not set correctly", description, task.getDescription());
     }
 
+    /**
+     * Test Task class's method setDuration()
+     */
     @Test
     public void testSetDuration(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
@@ -537,6 +553,9 @@ public class Tester {
         assertEquals("Duration was not set correctly", duration, task.getDuration());
     }
 
+    /**
+     * Test Task class's method setMaxWindow()
+     */
     @Test
     public void testSetMaxWindow(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
@@ -544,6 +563,9 @@ public class Tester {
         assertEquals("MaxWindow was not set correctly", maxWindow, task.getMaxWindow());
     }
 
+    /**
+     * Test Task class's method setStartHour
+     */
     @Test
     public void testSetStartHour(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
