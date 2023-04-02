@@ -422,12 +422,11 @@ public class Tester {
     int startHour = 3;
     Animal animal = new Animal("animal", 1);
 
-    /*
-     * test the constructor with invalid data
+    /**
+     * Test that Task constructor throws an IllegalArgumentException given a negative duration
      */
-
     @Test
-    public void testTaskConstructorInvalidData(){
+    public void testTaskConstructorWithNegativeDuration(){
         boolean exceptionThrown = false;
         try{
             Task task = new Task(description, -1, maxWindow, startHour, animal);
@@ -436,7 +435,14 @@ public class Tester {
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when duration was negative", exceptionThrown);
-        exceptionThrown = false;
+    }
+
+    /**
+     * Test that Task constructor throws an IllegalArgumentException given a negative maxWindow
+     */
+    @Test
+    public void testTaskConstructorWithNegativeMaxWindow() {
+        boolean exceptionThrown = false;
 
         try{
             Task task = new Task(description, duration, -1, startHour, animal);
@@ -445,7 +451,14 @@ public class Tester {
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when maxWindow was negative", exceptionThrown);
-        exceptionThrown = false;
+    }
+
+    /**
+     * Test that Task constructor throws an IllegalArgumentException given a negative startHour
+     */
+    @Test
+    public void testTaskConstructorWithNegativeStartHour() {
+        boolean exceptionThrown = false;
 
         try{
             Task task = new Task(description, duration, maxWindow, -1, animal);
@@ -454,7 +467,14 @@ public class Tester {
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when startHour was negative", exceptionThrown);
-        exceptionThrown = false;
+    }
+
+    /**
+     * Test that Task constructor throws an IllegalArgumentException given a too-large startHour
+     */
+    @Test
+    public void testTaskConstructorWithInvalidStartHour() {
+        boolean exceptionThrown = false;
 
         try{
             Task task = new Task(description, duration, maxWindow, 24,  animal);
@@ -466,10 +486,9 @@ public class Tester {
 
     }
 
-    /*
-     * test the constructor with valid data
+    /**
+     * Test Task constructor with valid data
      */
-    
     @Test
     public void testTaskConstructor(){
         Task task = new Task( description, duration, maxWindow, startHour, animal);
