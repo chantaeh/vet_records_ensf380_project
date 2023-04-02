@@ -177,17 +177,20 @@ public class Tester {
         assertEquals("Beaver method GetCageCleanMins() does not return correct time.", 5, beaver.getCageCleanMins());
     }    
 
-    /*porcupine tests */
-    /*test getFeedStartHour inherited from crepuscular*/
+    /**
+     * Test that Porpupine inherits the method getFeedStartHour() from Crepuscular
+     */
     @Test
     public void testPorcupinegetFeedStartHour() {
-        
         int expected = 19;
         int actual = Porcupine.getFeedStartHour();
         
         assertEquals("Porcupine class is not inheriting getFeedStartHour from Crepuscular class",expected, actual);
     }
-    /*test porcupine constructor */
+   
+    /**
+     * Test Porcupine constructor
+     */
     @Test
     public void testPorcupine() {
         String name = "Porcupine";
@@ -198,19 +201,28 @@ public class Tester {
         assertEquals("Porcupine Constructor does not return 'name' correctly", name, porcupine.getAnimalNickname());
         assertEquals("Porcupine Constructor does not return 'numAnimals' correctly", numAnimals, porcupine.getNumAnimals());
         }
-    /*test porcupine methods */
+    
+    /**
+     * Test Porcupine class's getFeedMins() method
+     */
     @Test
     public void testPorcurpineGetFeedMins() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
         assertEquals("Porcupine method GetFeedMins() does not return correct time.", 5, porcupine.getFeedMins());
     }
 
+    /**
+     * Test Porcupine class's getFeedingPrepMins() method
+     */
     @Test
     public void testPorcurpineGetFeedingPrepMins() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
         assertEquals("Porcupine method GetFeedingPrepMins() does not return correct time.", 0, porcupine.getFeedingPrepMins());
     }
 
+    /**
+     * Test Porcupine class's getCageCleanMins() method
+     */
     @Test
     public void testPorcurpineGetCageCleanMins() {
         Porcupine porcupine = new Porcupine("Porcupine", 1);
