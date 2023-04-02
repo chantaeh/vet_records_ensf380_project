@@ -21,10 +21,9 @@ public class Tester {
     @Test
     public void testFoxGetFeedingHours() {
         Fox fox = new Fox("Fox", 1);
-        Nocturnal nocturnal = Fox;  // Upcast to nocturnal
         
         int[] expected = {0, 1, 2};
-        int[] actual = nocturnal.getFeedingHours();
+        int[] actual = fox.getFeedingHours();
         
         assertArrayEquals("Fox class is not inheriting getFeedingHours from Nocturnal class", expected, actual);
     }
@@ -36,7 +35,7 @@ public class Tester {
         
         Fox fox = new Fox(name, numAnimals);
         
-        assertEquals("Fox Constructor does not return 'name' correctly", name, fox.getName());
+        assertEquals("Fox Constructor does not return 'name' correctly", name, fox.getAnimalNickname());
         assertEquals("Fox Constructor does not return 'numAnimals' correctly", numAnimals, fox.getNumAnimals());
         }
 
@@ -65,10 +64,9 @@ public class Tester {
     @Test
     public void testRaccoonGetFeedingHours() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
-        Nocturnal nocturnal = Raccoon;  // Upcast to nocturnal
         
         int[] expected = {0, 1, 2};
-        int[] actual = nocturnal.getFeedingHours();
+        int[] actual = raccoon.getFeedingHours();
         
         assertArrayEquals("Raccoon class is not inheriting getFeedingHours from Nocturnal class",expected, actual);
     }
@@ -80,7 +78,7 @@ public class Tester {
         
         Raccoon raccoon = new Raccoon(name, numAnimals);
         
-        assertEquals("Raccoon Constructor does not return 'name' correctly", name, raccoon.getName());
+        assertEquals("Raccoon Constructor does not return 'name' correctly", name, raccoon.getAnimalNickname());
         assertEquals("Raccoon Constructor does not return 'numAnimals' correctly", numAnimals, raccoon.getNumAnimals());
         }
     /*test raccoon methods */
@@ -107,10 +105,9 @@ public class Tester {
     @Test
     public void testBeaverGetFeedingHours() {
         Beaver beaver = new Beaver("Beaver", 1);
-        Diurnal diurnal = beaver;  // Upcast to Diurnal
         
         int[] expected = {8, 9, 10};
-        int[] actual = diurnal.getFeedingHours();
+        int[] actual = beaver.getFeedingHours();
         
         assertArrayEquals("Beaver class is not inheriting getFeedingHours from Diurnal class", expected, actual);
     }
@@ -122,7 +119,7 @@ public class Tester {
         
         Beaver beaver = new Beaver(name, numAnimals);
         
-        assertEquals("Beaver Constructor does not return 'name' correctly", name, beaver.getName());
+        assertEquals("Beaver Constructor does not return 'name' correctly", name, beaver.getAnimalNickname());
         assertEquals("Beaver Constructor does not return 'numAnimals' correctly", numAnimals, beaver.getNumAnimals());
         }
 
