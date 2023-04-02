@@ -26,27 +26,34 @@ public class Scheduler {
 
     HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
-        put("Fox", new ArrayList<Integer>(Arrays.asList(5, 5, 0)));
-        put("Raccoon", new ArrayList<Integer>(Arrays.asList(0, 5, 0)));
-        put("Beaver", new ArrayList<Integer>(Arrays.asList(0, 5, 8)));
-        put("Porcupine", new ArrayList<Integer>(Arrays.asList(0, 5, 19)));
-        put("Coyote", new ArrayList<Integer>(Arrays.asList(10, 5, 19)));
+        put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
+            Fox.getFeedMins(), Fox.getFeedStartHour())));
+        put("raccoon", new ArrayList<Integer>(Arrays.asList(Raccoon.getFeedingPrepMins(), 
+            Raccoon.getFeedMins(), Raccoon.getFeedStartHour())));
+        put("beaver", new ArrayList<Integer>(Arrays.asList(Beaver.getFeedingPrepMins(), 
+            Beaver.getFeedMins(), Beaver.getFeedStartHour())));
+        put("porcupine", new ArrayList<Integer>(Arrays.asList(Porcupine.getFeedingPrepMins(), 
+            Porcupine.getFeedMins(), Porcupine.getFeedStartHour())));
+        put("coyote", new ArrayList<Integer>(Arrays.asList(Coyote.getFeedingPrepMins(), 
+            Coyote.getFeedMins(), Coyote.getFeedStartHour())));
     }};
 
     HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
-        put("Fox", 5);
-        put("Raccoon", 5);
-        put("Beaver", 5);
-        put("Porcupine", 10);
-        put("Coyote", 5);
+        put("fox", Fox.getCageCleanMins());
+        put("raccoon", Raccoon.getCageCleanMins());
+        put("beaver", Beaver.getCageCleanMins());
+        put("porcupine", Porcupine.getCageCleanMins());
+        put("coyote", Coyote.getCageCleanMins());
     }};
+
+    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
 
     public Scheduler() {
     }
 
     public void createConnection(){
         try{
-            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "username", "password");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
         } 
         catch (SQLException e) {
             e.printStackTrace();
@@ -64,7 +71,7 @@ public class Scheduler {
         try {                    
             Statement myStmt = dbConnect.createStatement();
 
-            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour\n";
+            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour, TASKS.TaskID\n";
             table += "FROM TREATMENTS\n";
             table += "JOIN ANIMALS ON TREATMENTS.AnimalID = ANIMALS.AnimalID\n";
             table += "JOIN TASKS ON TREATMENTS.TaskID = TASKS.TaskID;";
@@ -72,15 +79,6 @@ public class Scheduler {
             results = myStmt.executeQuery(table);
             
             while (results.next()){
-                System.out.print(results.getString("AnimalNickname") + " ");
-                System.out.print(results.getString("AnimalSpecies") + " ");
-                System.out.print(results.getString("Description") + " ");
-                System.out.print(results.getString("Duration") + " ");
-                System.out.print(results.getString("MaxWindow") + " ");
-                System.out.print(results.getString("StartHour") + " ");
-                System.out.println("");
-                
-                
                 Task singleTask = new Task(
                 results.getString("Description"),
                 Integer.parseInt(results.getString("Duration")),
@@ -88,10 +86,13 @@ public class Scheduler {
                 Integer.parseInt(results.getString("StartHour")),
                 createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
+
+                if (Integer.parseInt(results.getString("TaskID")) == 1 && !orphanedAnimals.contains(results.getString("AnimalNickname"))) {
+                    orphanedAnimals.add(results.getString("AnimalNickname"));
+                }
             
                 overallTasks.add(singleTask);
             
-                
             }
             
             myStmt.close();
@@ -111,20 +112,20 @@ public class Scheduler {
      * @return animal object
      */
     public Animal createAnimal(String species, String name) {
-        if (species == "Fox") {
-            return new Fox(name, -1);
+        if (species.equals("fox")) {
+            return new Fox(name, 1);
         }
-        else if (species == "Raccoon") {
-            return new Raccoon(name, -1);
+        else if (species.equals("raccoon")) {
+            return new Raccoon(name, 1);
         }
-        else if (species == "Beaver") {
-            return new Beaver(name, -1);
+        else if (species.equals("beaver")) {
+            return new Beaver(name, 1);
         }
-        else if (species == "Porcupine") {
-            return new Porcupine(name, -1);   
+        else if (species.equals("porcupine")) {
+            return new Porcupine(name, 1);   
         }
-        else if (species == "Coyote") {
-            return new Coyote(name, -1);
+        else if (species.equals("coyote")) {
+            return new Coyote(name, 1);
         }
         else {
             return null;
@@ -138,11 +139,11 @@ public class Scheduler {
      */
     public void feedingTasks() {
         HashMap<String, ArrayList<String>> animalGroups = new HashMap<String, ArrayList<String>>() {{
-            put("Fox", new ArrayList<String>());
-            put("Raccoon", new ArrayList<String>());
-            put("Beaver", new ArrayList<String>());
-            put("Porcupine", new ArrayList<String>());
-            put("Coyote", new ArrayList<String>());
+            put("fox", new ArrayList<String>());
+            put("raccoon", new ArrayList<String>());
+            put("beaver", new ArrayList<String>());
+            put("porcupine", new ArrayList<String>());
+            put("coyote", new ArrayList<String>());
         }};
 
         ResultSet results; 
@@ -154,11 +155,9 @@ public class Scheduler {
             
 
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println("");
-                
-                animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
+                if (!orphanedAnimals.contains(results.getString("AnimalNickname"))) {
+                    animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
+                }
             }   
 
             myStmt.close();
@@ -169,6 +168,10 @@ public class Scheduler {
 
         // Create grouped tasks for feeding
         for (Map.Entry<String, ArrayList<String>> entry : animalGroups.entrySet()) {
+            if (animalGroups.get(entry.getKey()).size() == 0) {
+                continue;
+            }
+
             String animalNames = String.valueOf(animalGroups.get(entry.getKey()).size()) + ": ";
             for (String name : entry.getValue()) {
                 animalNames += name + ", "; 
@@ -183,7 +186,7 @@ public class Scheduler {
                     feedingTime.get(entry.getKey()).get(2),
                     createAnimal(entry.getKey(), animalNames)
                 );
-    
+
                 overallTasks.add(singleTask);
             }
             catch (IllegalAccessException ex) {
@@ -207,15 +210,11 @@ public class Scheduler {
             results = myStmt.executeQuery("SELECT * FROM ANIMALS");
             
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println("");
-
                 Task singleTask = new Task(
                     "Cage cleaning",
-                    5,
-                    -1,
-                    -1,
+                    cleaningTime.get(results.getString("AnimalSpecies")),
+                    24,
+                    0,
                     createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
 
@@ -240,25 +239,25 @@ public class Scheduler {
     public static String getFormatted(ArrayList<ArrayList<Task>> dailyTasks) {
         String outputString = "";
 
-        outputString = "Schedule for " + LocalDate.now().toString() + "\n\n";
+        outputString = "Schedule for " + LocalDate.now().plusDays(1).toString() + "\n";
 
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
-            if (hourlyTasks != null) {
+            if (hourlyTasks.size() != 0) {
                 if (Schedule.timeUsed(hourlyTasks) > 60) {
-                    outputString += String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
+                    outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
                 }
                 else {
-                    outputString += String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
+                    outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
                 }
 
                 for (Task task : hourlyTasks) {
-                    if (task.getDescription() != "Feeding" && task.getDescription() != "Cage cleaning") {
+                    if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
                         outputString += "* " + task.getDescription(); 
                         outputString += " (" + task.getAnimal().getAnimalNickname() + ")\n";
                     }
-                    else if (task.getDescription() == "Feeding") {
+                    else if (task.getDescription().equals("Feeding")) {
                         outputString += "* " + task.getDescription();
-                        outputString += " - " + task.getClass().getName(); 
+                        outputString += " - " + task.getAnimal().getClass().getSimpleName().toLowerCase(); 
                         outputString += " (" + task.getAnimal().getAnimalNickname() + ")\n";
                     }
                     else {
@@ -306,12 +305,12 @@ public class Scheduler {
         scheduler.createConnection();
 
         // Create and add tasks to arraylist
-        // scheduler.treatmentTasks();
-        // scheduler.feedingTasks();
-        // scheduler.cleaningTasks();
+        scheduler.treatmentTasks();
+        scheduler.feedingTasks();
+        scheduler.cleaningTasks();
         
-        // Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        // String formattedSchedule = getFormatted(schedule.getDailyTasks());
-        // scheduler.printFile(formattedSchedule);
+        Schedule schedule = new Schedule(scheduler.getOverallTasks());
+        String formattedSchedule = getFormatted(schedule.getDailyTasks());
+        System.out.println(formattedSchedule);
     }
 }
