@@ -471,7 +471,7 @@ public class Tester {
      */
 
     String animalNickname = "name";
-    String numAnimals = "1";
+    int numAnimals = 1;
 
     /*
      * test the constructor with invalid data
@@ -481,7 +481,7 @@ public class Tester {
     public void testAnimalConstructorInvalidData(){
         boolean exceptionThrown = false;
         try{
-            Animal animal = new Animal(animalNickname, "-1");
+            Animal animal = new Animal(animalNickname, -1);
         }
         catch(IllegalArgumentException e){
             exceptionThrown = true;
@@ -496,7 +496,7 @@ public class Tester {
 
     @Test
     public void testAnimalConstructor(){
-        Animal animal = new Animal( animalNickname, numAnimals);
+        Animal animal = new Animal(animalNickname, numAnimals);
         assertNotNull("Object was not created by Animal when correct data was given ", animal);
     }
 
