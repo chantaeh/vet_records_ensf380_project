@@ -72,7 +72,7 @@ public class Tester {
     }
 
     /**
-     * Test that Raccoon inherits the method 
+     * Test that Raccoon inherits the method getFeedStartHour() from Nocturnal
      */
     @Test
     public void testRaccoonGetFeedStartHour() {
@@ -82,7 +82,10 @@ public class Tester {
         
         assertEquals("Raccoon class is not inheriting getFeedStartHour from Nocturnal class",expected, actual);
     }
-    /*test raccoon constructor */
+    
+    /**
+     * Test Raccoon constructor
+     */
     @Test
     public void testRaccoon() {
         String name = "Raccoon";
@@ -93,36 +96,49 @@ public class Tester {
         assertEquals("Raccoon Constructor does not return 'name' correctly", name, raccoon.getAnimalNickname());
         assertEquals("Raccoon Constructor does not return 'numAnimals' correctly", numAnimals, raccoon.getNumAnimals());
         }
-    /*test raccoon methods */
+    
+    /**
+     * Test Raccoon class's getFeedMins() method
+     */
     @Test
     public void testRaccoonGetFeedMins() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
         assertEquals("Raccoon method GetFeedMins() does not return correct time.", 5, raccoon.getFeedMins());
     }
 
+    /**
+     * Test Raccoon class's getFeedingPrepMins() method
+     */
     @Test
     public void testRaccoonGetFeedingPrepMins() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
         assertEquals("Raccoon method GetFeedingPrepMins() does not return correct time.", 0, raccoon.getFeedingPrepMins());
     }
 
+    /**
+     * Test Raccoon class's getCageCleanMins() method
+     */
     @Test
     public void testRaccoonGetCageCleanMins() {
         Raccoon raccoon = new Raccoon("Raccoon", 1);
         assertEquals("Raccoon method GetCageCleanMins() does not return correct time.", 5, raccoon.getCageCleanMins());
     }    
 
-    /*beaver tests */
-    /*test getFeedStartHour inherited from diurnal  */
+    /**
+     * Test that Beaver inherits the method getFeedStartHour() from Diurnal
+     */
     @Test
-    public void testBeavergetFeedStartHour() {
+    public void testBeaverGetFeedStartHour() {
         
         int expected = 8;
         int actual = Beaver.getFeedStartHour();
         
         assertEquals("Beaver class is not inheriting getFeedStartHour from Diurnal class", expected, actual);
     }
-    /*test beaver constructor */
+    
+    /**
+     * Test Beaver constructor
+     */
     @Test
     public void testBeaver() {
         String name = "Beaver";
@@ -134,19 +150,27 @@ public class Tester {
         assertEquals("Beaver Constructor does not return 'numAnimals' correctly", numAnimals, beaver.getNumAnimals());
         }
 
-    /*test beaver methods */
+    /**
+     * Test Beaver class's getFeedMins() method
+     */
     @Test
     public void testBeaverGetFeedMins() {
         Beaver beaver = new Beaver("Beaver", 1);
         assertEquals("Beaver method GetFeedMins() does not return correct time.", 5, beaver.getFeedMins());
     }
 
+    /**
+     * Test Beaver class's getFeedingPrepMins() method
+     */
     @Test
     public void testBeaverGetFeedingPrepMins() {
         Beaver beaver = new Beaver("Beaver", 1);
         assertEquals("Beaver method GetFeedingPrepMins() does not return correct time.", 0, beaver.getFeedingPrepMins());
     }
-
+    
+    /**
+     * Test Beaver class's getCageCleanMins() method
+     */
     @Test
     public void testBeaverGetCageCleanMins() {
         Beaver beaver = new Beaver("Beaver", 1);
