@@ -17,8 +17,7 @@ package edu.ucalgary.oop;
     private int numAnimals;
 
     public Raccoon(String name, int numAnimals) {
-        this.name = name;
-        this.numAnimals = numAnimals;
+        super(name, numAnimals);
     }
 
     public int getFeedMins() {

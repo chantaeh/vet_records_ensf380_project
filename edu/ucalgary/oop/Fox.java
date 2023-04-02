@@ -13,12 +13,8 @@ package edu.ucalgary.oop;
     private static final int FEEDPREP_MINS = 5;
     private static final int CAGECLEAN_MINS = 5;
 
-    private String name;
-    private int numAnimals;
-
     public Fox(String name, int numAnimals) {
-        this.name = name;
-        this.numAnimals = numAnimals;
+        super(name, numAnimals);
     }
 
     public int getFeedMins() {
