@@ -17,6 +17,10 @@ public class Scheduler {
 
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
+    public void getOverallTasks() {
+        return overallTasks;
+    }
+
     HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
         put("Fox", new ArrayList<Integer>(Arrays.asList(5, 5, 0)));
@@ -260,7 +264,7 @@ public class Scheduler {
         scheduler.feedingTasks();
         scheduler.cleaningTasks();
         
-        Schedule schedule = new schedule(overallTasks);
+        Schedule schedule = new schedule(getOverallTasks);
         String formattedSchedule = schedule.getFormatted(schedule.getDailyTasks());
     }
 }
