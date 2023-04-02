@@ -38,6 +38,8 @@ public class Scheduler {
         put("coyote", 5);
     }};
 
+    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
+
     public Scheduler() {
     }
 
@@ -84,6 +86,11 @@ public class Scheduler {
                 Integer.parseInt(results.getString("StartHour")),
                 createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
+
+                String word = "feeding";
+                if (singleTask.getDescription().toLowerCase().contains(word.toLowerCase())) {
+                    orphanedAnimals.add(results.getString("AnimalNickname"));
+                }
             
                 overallTasks.add(singleTask);
             
@@ -157,7 +164,7 @@ public class Scheduler {
                 // System.out.print(results.getString("AnimalSpecies") + " ");
                 // System.out.println();
 
-                if (animalGroups.containsKey(results.getString("AnimalSpecies"))) {
+                if (!orphanedAnimals.contains(results.getString("AnimalNickname"))) {
                     animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
                 }
             }   
@@ -188,7 +195,7 @@ public class Scheduler {
                     feedingTime.get(entry.getKey()).get(2),
                     createAnimal(entry.getKey(), animalNames)
                 );
-    
+
                 overallTasks.add(singleTask);
             }
             catch (IllegalAccessException ex) {
