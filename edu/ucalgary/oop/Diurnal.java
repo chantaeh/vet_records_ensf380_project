@@ -7,7 +7,7 @@ package edu.ucalgary.oop;
  * @since 1.0
  */
 public class Diurnal extends Animal{
-    private static final int[] FEEDING_HOURS = {19, 20, 21};
+    private static final int[] FEEDING_HOURS = {8, 9, 10};
 
     public Diurnal(String nickname, int numAnimals) {
         super(nickname, numAnimals);
