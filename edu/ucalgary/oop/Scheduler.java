@@ -17,7 +17,7 @@ public class Scheduler {
 
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
-    public void getOverallTasks() {
+    public ArrayList<Task> getOverallTasks() {
         return overallTasks;
     }
 
@@ -264,7 +264,7 @@ public class Scheduler {
         scheduler.feedingTasks();
         scheduler.cleaningTasks();
         
-        Schedule schedule = new schedule(getOverallTasks);
-        String formattedSchedule = schedule.getFormatted(schedule.getDailyTasks());
+        Schedule schedule = new Schedule(scheduler.getOverallTasks());
+        String formattedSchedule = getFormatted(schedule.getDailyTasks());
     }
 }

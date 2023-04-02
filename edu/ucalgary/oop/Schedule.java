@@ -37,7 +37,7 @@ public class Schedule {
                 int minHour = task.getStartHour() - 1;
                 int minHourTime = timeUsed(dailyTasks.get(minHour));
 
-                for (int i = task.getStartHour() - 1; i < task.getStartHour() - 1 + task.getDuration(); i++) {
+                for (int i = task.getStartHour() - 1; i < task.getStartHour() - 1 + task.getMaxWindow(); i++) {
                     int timeUsed = timeUsed(dailyTasks.get(i));
                     if (timeUsed < minHourTime) {
                         minHour = i;
