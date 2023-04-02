@@ -76,14 +76,6 @@ public class Scheduler {
             results = myStmt.executeQuery(table);
             
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.print(results.getString("Description") + " ");
-                // System.out.print(results.getString("Duration") + " ");
-                // System.out.print(results.getString("MaxWindow") + " ");
-                // System.out.print(results.getString("StartHour") + " ");
-                // System.out.println("");
-                
                 Task singleTask = new Task(
                 results.getString("Description"),
                 Integer.parseInt(results.getString("Duration")),
@@ -108,10 +100,6 @@ public class Scheduler {
         catch (IllegalAccessException ex) {
             ex.printStackTrace();
         }
-
-        // for (Task task : overallTasks) {
-        //     System.out.println(task.getAnimal().getAnimalNickname());
-        // }
     }    
 
     /**
@@ -164,10 +152,6 @@ public class Scheduler {
             
 
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println();
-
                 if (!orphanedAnimals.contains(results.getString("AnimalNickname"))) {
                     animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
                 }
@@ -223,10 +207,6 @@ public class Scheduler {
             results = myStmt.executeQuery("SELECT * FROM ANIMALS");
             
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println("");
-
                 Task singleTask = new Task(
                     "Cage cleaning",
                     cleaningTime.get(results.getString("AnimalSpecies")),
@@ -296,10 +276,6 @@ public class Scheduler {
         scheduler.treatmentTasks();
         scheduler.feedingTasks();
         scheduler.cleaningTasks();
-
-        // for (Task task : scheduler.getOverallTasks()) {
-        //     System.out.println(task.getDescription());
-        // }
         
         Schedule schedule = new Schedule(scheduler.getOverallTasks());
         String formattedSchedule = getFormatted(schedule.getDailyTasks());
