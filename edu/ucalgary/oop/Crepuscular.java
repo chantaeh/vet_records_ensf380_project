@@ -6,7 +6,7 @@ package edu.ucalgary.oop;
  * @version 1.0
  * @since 1.0
  */
-public class Crepuscular extends Animal{
+public abstract class Crepuscular extends Animal{
     private static final int[] FEEDING_HOURS = {19, 20, 21};
 
     public Crepuscular(String nickname, int numAnimals) {
