@@ -15,45 +15,43 @@ public class Schedule {
     private ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
 
     public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException{
+        // Create empty array for each hour
+        for (int i = 0; i < 24; i++) {
+            ArrayList<Task> newArray = new ArrayList<>();
+            dailyTasks.add(newArray);
+        }
+
         // Allocate medical tasks
         for (Task task : everyTasks) {
             int hour = task.getStartHour();
-
-            if (task.getDescription() != "Feeding" && task.getDescription() != "Cage cleaning") {
-                if (dailyTasks.get(hour - 1) == null) {
-                    ArrayList<Task> hourlyTasks = new ArrayList<>();
-                    hourlyTasks.add(task);
-                    dailyTasks.add(hour - 1, hourlyTasks);
-                }
-                else {
-                    dailyTasks.get(hour - 1).add(task);
-                }
+            if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
+                dailyTasks.get(hour).add(task);
             }
         }
 
         // Allocate feeding tasks
         for (Task task : everyTasks) { 
-            if (task.getDescription() == "Feeding") {
-                int minHour = task.getStartHour() - 1;
+            if (task.getDescription().equals("Feeding")) {
+                int minHour = task.getStartHour();
                 int minHourTime = timeUsed(dailyTasks.get(minHour));
 
-                for (int i = task.getStartHour() - 1; i < task.getStartHour() - 1 + task.getMaxWindow(); i++) {
+                for (int i = task.getStartHour(); i < task.getStartHour() + task.getMaxWindow(); i++) {
                     int timeUsed = timeUsed(dailyTasks.get(i));
                     if (timeUsed < minHourTime) {
                         minHour = i;
                         minHourTime = timeUsed;
                     }
                 }
-
+                task.setStartHour(minHour);
                 dailyTasks.get(minHour).add(task);
             }
         }
 
         // Allocate cage cleaning tasks
         for (Task task : everyTasks) { 
-            if (task.getDescription() == "Cage cleaning") {
+            if (task.getDescription().equals("Cage cleaning")) {
                 int minHour = 0;
-                int minHourTime = 0;
+                int minHourTime = timeUsed(dailyTasks.get(minHour));
 
                 for (int i = 1; i < 24; i++) {
                     int timeUsed = timeUsed(dailyTasks.get(i));
@@ -62,7 +60,7 @@ public class Schedule {
                         minHourTime = timeUsed;
                     }
                 }
-
+                task.setStartHour(minHour);
                 dailyTasks.get(minHour).add(task);
             }
         }
@@ -72,14 +70,13 @@ public class Schedule {
             if (timeUsed(hourlyTasks) > 120) {
                 String message = "Change the start hour for the following tasks: ";
                 for (Task task : hourlyTasks) {
-                    if (task.getDescription() != "Feeding" && task.getDescription() != "Cage cleaning") {
+                    if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
                         message += task.getDescription() + ", ";
                     }
                 }
                 throw new IllegalArgumentException(message);
             }
         }
-
     }
 
     /**
