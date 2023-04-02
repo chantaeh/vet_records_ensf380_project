@@ -282,7 +282,10 @@ public class Tester {
     }   
     
     /*TESTS FOR ILLEGALARGUMENTEXCEPTION OF THE CONSTRUCTORS FOR FOX, RACCOON, ETC. */
-    /*Fox constructor test for illegalargumentexception*/
+    
+    /**
+     * Test that Fox constructor throws IllegalArgumentException given invalid input
+     */
     @Test
     public void testFoxConstructorInvalidData() {
         boolean exceptionThrown = false;
@@ -307,7 +310,9 @@ public class Tester {
     }
         
 
-    /*Raccoon constructor test for illegalargumentexception*/
+    /**
+     * Test that Raccoon constructor throws IllegalArgumentException given invalid input
+     */
     @Test
     public void testRaccoonConstructorInvalidData() {
         boolean exceptionThrown = false;
@@ -331,7 +336,9 @@ public class Tester {
         exceptionThrown = false;
     }
 
-    /*Beaver constructor test for illegalargumentexception*/
+    /**
+     * Test that Beaver constructor throws IllegalArgumentException given invalid input
+     */
     @Test
     public void testBeaverConstructorInvalidData() {
         boolean exceptionThrown = false;
@@ -355,7 +362,9 @@ public class Tester {
         exceptionThrown = false;
     }
 
-    /*Porcupine constructor test for illegalargumentexception*/
+    /**
+     * Test that Porcupine constructor throws IllegalArgumentException given invalid input
+     */
     @Test
     public void testPorcupineConstructorInvalidData() {
         boolean exceptionThrown = false;
@@ -379,7 +388,9 @@ public class Tester {
         exceptionThrown = false;
     }
 
-    /*Coyote constructor test for illegalargumentexception*/
+    /**
+     * Test that Coyote constructor throws IllegalArgumentException given invalid input
+     */
     @Test
     public void testCoyoteConstructorInvalidData() {
         boolean exceptionThrown = false;
@@ -403,10 +414,7 @@ public class Tester {
         exceptionThrown = false;
     }
 
-    /*
-     * Tests of the Task class
-     */
-    
+    /* Tests for Task class */
     
     String description = "description";
     int duration = 1;
