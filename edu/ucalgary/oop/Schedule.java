@@ -65,13 +65,6 @@ public class Schedule {
             }
         }
 
-        // for (int i = 0; i < 24; i++) {
-        //     System.out.println(i + "hour");
-        //     for (Task task : dailyTasks.get(i)) {
-        //         System.out.println(task.getStartHour() + " - " + task.getDescription());
-        //     }
-        // }
-
         // Check if there is enough time to complete the tasks
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
             if (timeUsed(hourlyTasks) > 120) {
@@ -84,7 +77,6 @@ public class Schedule {
                 throw new IllegalArgumentException(message);
             }
         }
-
     }
 
     /**

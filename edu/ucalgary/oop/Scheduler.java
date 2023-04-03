@@ -1,5 +1,8 @@
 package edu.ucalgary.oop;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.*;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -23,27 +26,34 @@ public class Scheduler {
 
     HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
-        put("fox", new ArrayList<Integer>(Arrays.asList(5, 5, 0)));
-        put("raccoon", new ArrayList<Integer>(Arrays.asList(0, 5, 0)));
-        put("beaver", new ArrayList<Integer>(Arrays.asList(0, 5, 8)));
-        put("porcupine", new ArrayList<Integer>(Arrays.asList(0, 5, 19)));
-        put("coyote", new ArrayList<Integer>(Arrays.asList(10, 5, 19)));
+        put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
+            Fox.getFeedMins(), Fox.getFeedStartHour())));
+        put("raccoon", new ArrayList<Integer>(Arrays.asList(Raccoon.getFeedingPrepMins(), 
+            Raccoon.getFeedMins(), Raccoon.getFeedStartHour())));
+        put("beaver", new ArrayList<Integer>(Arrays.asList(Beaver.getFeedingPrepMins(), 
+            Beaver.getFeedMins(), Beaver.getFeedStartHour())));
+        put("porcupine", new ArrayList<Integer>(Arrays.asList(Porcupine.getFeedingPrepMins(), 
+            Porcupine.getFeedMins(), Porcupine.getFeedStartHour())));
+        put("coyote", new ArrayList<Integer>(Arrays.asList(Coyote.getFeedingPrepMins(), 
+            Coyote.getFeedMins(), Coyote.getFeedStartHour())));
     }};
 
     HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
-        put("fox", 5);
-        put("raccoon", 5);
-        put("beaver", 5);
-        put("porcupine", 10);
-        put("coyote", 5);
+        put("fox", Fox.getCageCleanMins());
+        put("raccoon", Raccoon.getCageCleanMins());
+        put("beaver", Beaver.getCageCleanMins());
+        put("porcupine", Porcupine.getCageCleanMins());
+        put("coyote", Coyote.getCageCleanMins());
     }};
+
+    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
 
     public Scheduler() {
     }
 
     public void createConnection(){
         try{
-            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "username", "password");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
         } 
         catch (SQLException e) {
             e.printStackTrace();
@@ -61,7 +71,7 @@ public class Scheduler {
         try {                    
             Statement myStmt = dbConnect.createStatement();
 
-            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour\n";
+            String table = "SELECT ANIMALS.AnimalNickname, ANIMALS.AnimalSpecies, TASKS.Description, TASKS.Duration, TASKS.MaxWindow, TREATMENTS.StartHour, TASKS.TaskID\n";
             table += "FROM TREATMENTS\n";
             table += "JOIN ANIMALS ON TREATMENTS.AnimalID = ANIMALS.AnimalID\n";
             table += "JOIN TASKS ON TREATMENTS.TaskID = TASKS.TaskID;";
@@ -69,14 +79,6 @@ public class Scheduler {
             results = myStmt.executeQuery(table);
             
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.print(results.getString("Description") + " ");
-                // System.out.print(results.getString("Duration") + " ");
-                // System.out.print(results.getString("MaxWindow") + " ");
-                // System.out.print(results.getString("StartHour") + " ");
-                // System.out.println("");
-                
                 Task singleTask = new Task(
                 results.getString("Description"),
                 Integer.parseInt(results.getString("Duration")),
@@ -84,6 +86,10 @@ public class Scheduler {
                 Integer.parseInt(results.getString("StartHour")),
                 createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
+
+                if (Integer.parseInt(results.getString("TaskID")) == 1 && !orphanedAnimals.contains(results.getString("AnimalNickname"))) {
+                    orphanedAnimals.add(results.getString("AnimalNickname"));
+                }
             
                 overallTasks.add(singleTask);
             
@@ -97,10 +103,6 @@ public class Scheduler {
         catch (IllegalAccessException ex) {
             ex.printStackTrace();
         }
-
-        // for (Task task : overallTasks) {
-        //     System.out.println(task.getAnimal().getAnimalNickname());
-        // }
     }    
 
     /**
@@ -153,11 +155,7 @@ public class Scheduler {
             
 
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println();
-
-                if (animalGroups.containsKey(results.getString("AnimalSpecies"))) {
+                if (!orphanedAnimals.contains(results.getString("AnimalNickname"))) {
                     animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
                 }
             }   
@@ -188,7 +186,7 @@ public class Scheduler {
                     feedingTime.get(entry.getKey()).get(2),
                     createAnimal(entry.getKey(), animalNames)
                 );
-    
+
                 overallTasks.add(singleTask);
             }
             catch (IllegalAccessException ex) {
@@ -212,10 +210,6 @@ public class Scheduler {
             results = myStmt.executeQuery("SELECT * FROM ANIMALS");
             
             while (results.next()){
-                // System.out.print(results.getString("AnimalNickname") + " ");
-                // System.out.print(results.getString("AnimalSpecies") + " ");
-                // System.out.println("");
-
                 Task singleTask = new Task(
                     "Cage cleaning",
                     cleaningTime.get(results.getString("AnimalSpecies")),
@@ -276,6 +270,35 @@ public class Scheduler {
         return outputString;
     }
 
+    /**
+     * Writes the given string to a text file
+     * @param scheduleStr
+     * @return True if the schedule was successfully printed, false otherwise
+     */
+    public boolean printFile(String scheduleStr) {
+        BufferedWriter out = null;
+
+        try {
+            // Open a BufferedReader and write schedule to file
+            out = new BufferedWriter(new FileWriter("schedule.txt"));
+            
+            out.write(scheduleStr, 0, scheduleStr.length());
+            return true;
+        } catch (IOException ioe) {
+            return false;
+        } finally {
+            if (out != null) {
+                // Close BufferedReader object
+                try {
+                    out.close();
+                }
+                catch (IOException e) {
+                    System.out.println("Couldn't close file schedule.txt");
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
         
         Scheduler scheduler = new Scheduler();
@@ -285,13 +308,10 @@ public class Scheduler {
         scheduler.treatmentTasks();
         scheduler.feedingTasks();
         scheduler.cleaningTasks();
-
-        // for (Task task : scheduler.getOverallTasks()) {
-        //     System.out.println(task.getDescription());
-        // }
         
         Schedule schedule = new Schedule(scheduler.getOverallTasks());
         String formattedSchedule = getFormatted(schedule.getDailyTasks());
         System.out.println(formattedSchedule);
+        scheduler.printFile(formattedSchedule);
     }
 }

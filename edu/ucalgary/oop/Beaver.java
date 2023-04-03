@@ -10,22 +10,22 @@ package edu.ucalgary.oop;
 
  public class Beaver extends Diurnal{
     private static final int FEED_MINS = 5;
-    private static final int FEEDPREP_MINS = 0;
-    private static final int CAGECLEAN_MINS = 5;
+    private static final int FEEDING_PREP_MINS = 0;
+    private static final int CAGE_CLEAN_MINS = 5;
 
     public Beaver(String name, int numAnimals) {
         super(name, numAnimals);
     }
 
-    public int getFeedMins() {
+    public static int getFeedMins() {
         return FEED_MINS;
     }
 
-    public int getFeedingPrepMins() {
-        return FEEDPREP_MINS;
+    public static int getFeedingPrepMins() {
+        return FEEDING_PREP_MINS;
     }
 
-    public int getCageCleanMins() {
-        return CAGECLEAN_MINS;
+    public static int getCageCleanMins() {
+        return CAGE_CLEAN_MINS;
     }
 }
