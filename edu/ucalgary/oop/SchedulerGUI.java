@@ -48,7 +48,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     // window that opens from the edit task button
     private void openEditDialog() {
         // create dialog box
-        JDialog dialog = new JDialog(this, "Edit Tasks", true);
+        JDialog dialog = new JDialog(this, "Edit Tasks", false);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 1));
     
