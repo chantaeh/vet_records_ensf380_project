@@ -973,13 +973,13 @@ public class Tester {
         Coyote coyote = new Coyote("Narseh", 2);
         Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
         Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
-        ArrayList<Task> dailyTasks = new ArrayList<>();
-        dailyTasks.add(task1);
-        dailyTasks.add(task2);
-        Schedule schedule = new Schedule(dailyTasks);
+        ArrayList<Task> dailyTasks0 = new ArrayList<>(24);
+        dailyTasks0.add(task1);
+        dailyTasks0.add(task2);
+        Schedule schedule = new Schedule(dailyTasks0);
 
         ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
-        ArrayList<Task> hourTasks = new ArrayList<>();
+        ArrayList<Task> hourTasks = new ArrayList<>(24);
         hourTasks.add(task1);
         hourTasks.add(task2);
         dailyTasks.set(21, hourTasks);
@@ -989,7 +989,7 @@ public class Tester {
 
         assertEquals("getDailyTasks did not return expected result", expResult.size(), actResult.size());
 
-        for (int i = 0; i < list1.size(); i++) {
+        for (int i = 0; i < expResult.size(); i++) {
             assertEquals("getDailyTasks did not return expected result", expResult.get(i), actResult.get(i));
         }
     }
