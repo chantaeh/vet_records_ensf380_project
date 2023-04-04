@@ -42,9 +42,15 @@ public class Scheduler {
         put("coyote", Coyote.getCageCleanMins());
     }};
 
+    /**
+     * Default constructor
+     */
     public Scheduler() {
     }
 
+    /**
+     * Creates a connection with the mysql database
+     */
     public void createConnection(){
         try{
             dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
@@ -54,14 +60,16 @@ public class Scheduler {
         } 
     }
 
+    /**
+     * Gets the overallTasks
+     * @return ArrayList of Tasks
+     */
     public ArrayList<Task> getOverallTasks() {
         return overallTasks;
     }
 
     /**
      * Add treatment tasks to the overall tasks
-     * @param none
-     * @return none
      */
     public void treatmentTasks() {
         ResultSet results;
@@ -132,8 +140,6 @@ public class Scheduler {
 
     /**
      * Add feeding tasks to the overall tasks
-     * @param none
-     * @return none
      */
     public void feedingTasks() {
         HashMap<String, ArrayList<String>> animalGroups = new HashMap<String, ArrayList<String>>() {{
@@ -196,8 +202,6 @@ public class Scheduler {
 
      /**
      * Add cleaning tasks to the overall tasks
-     * @param none
-     * @return none
      */
     public void cleaningTasks() {
         ResultSet results;
@@ -271,7 +275,7 @@ public class Scheduler {
     /**
      * Writes the given string to a text file
      * @param scheduleStr
-     * @return True if the schedule was successfully printed, false otherwise
+     * @return true if the schedule was successfully printed, false otherwise
      */
     public boolean printFile(String scheduleStr) {
         BufferedWriter out = null;
