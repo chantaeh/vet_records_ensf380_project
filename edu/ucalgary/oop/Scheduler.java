@@ -307,19 +307,5 @@ public class Scheduler {
         overallTasks.clear();
     }
 
-    public static void main(String[] args) {
-        
-        Scheduler scheduler = new Scheduler();
-        scheduler.createConnection();
 
-        // Create and add tasks to arraylist
-        scheduler.treatmentTasks();
-        scheduler.feedingTasks();
-        scheduler.cleaningTasks();
-        
-        Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        String formattedSchedule = getFormatted(schedule.getDailyTasks());
-        System.out.println(formattedSchedule);
-        scheduler.printFile(formattedSchedule);
-    }
 }
