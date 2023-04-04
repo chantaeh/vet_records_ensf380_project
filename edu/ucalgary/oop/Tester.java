@@ -541,8 +541,10 @@ public class Tester {
     @Test
     public void testSetDescription(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setDescription(description);
-        assertEquals("Description was not set correctly", description, task.getDescription());
+        String expected = "Changed description";
+        task.setDescription(expected);
+        String actual = task.getDescription();
+        assertEquals("Description was not set correctly", expected, actual);
     }
 
     /**
@@ -551,8 +553,10 @@ public class Tester {
     @Test
     public void testSetDuration(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setDuration(duration);
-        assertEquals("Duration was not set correctly", duration, task.getDuration());
+        int expected = 15;
+        task.setDuration(expected);
+        int actual = task.getDuration();
+        assertEquals("Duration was not set correctly", expected, actual);
     }
 
     /**
@@ -561,8 +565,10 @@ public class Tester {
     @Test
     public void testSetMaxWindow(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setMaxWindow(maxWindow);
-        assertEquals("MaxWindow was not set correctly", maxWindow, task.getMaxWindow());
+        int expected = 5;
+        task.setMaxWindow(expected);
+        int actual = task.getMaxWindow();
+        assertEquals("MaxWindow was not set correctly", expected, actual);
     }
 
     /**
@@ -571,10 +577,11 @@ public class Tester {
     @Test
     public void testSetStartHour(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setStartHour(startHour);
-        assertEquals("StartHour was not set correctly", startHour, task.getStartHour());
+        int expected = 20;
+        task.setStartHour(expected);
+        int actual = task.getStartHour();
+        assertEquals("StartHour was not set correctly", expected, actual);
     }
-
 
     /*
      *   Tests of the animal class
