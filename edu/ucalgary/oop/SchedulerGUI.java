@@ -458,7 +458,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == printBtn) {
 
             // print schedule to .txt file
-
+            scheduler.clear();
             scheduler.treatmentTasks();
             scheduler.feedingTasks();
             scheduler.cleaningTasks();
