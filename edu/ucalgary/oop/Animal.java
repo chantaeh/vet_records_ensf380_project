@@ -2,7 +2,10 @@ package edu.ucalgary.oop;
 
 /* 
  * Animal class
- *
+ * author Youssef
+ * @version 1.0
+ * @since 1.0
+ * 
  */
 
 public class Animal {
@@ -18,6 +21,9 @@ public class Animal {
 
     public Animal(String animalNickname, int numAnimals) throws IllegalArgumentException {
         if (numAnimals < 0) {
+            throw new IllegalArgumentException("Invalid input");
+        }
+        if (animalNickname == null) {
             throw new IllegalArgumentException("Invalid input");
         }
         

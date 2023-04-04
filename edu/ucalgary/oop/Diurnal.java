@@ -6,8 +6,8 @@ package edu.ucalgary.oop;
  * @version 1.0
  * @since 1.0
  */
-public class Diurnal extends Animal{
-    private static final int FEED_START_HOUR = 19;
+abstract class Diurnal extends Animal{
+    private static final int FEED_START_HOUR = 8;
 
     public Diurnal(String nickname, int numAnimals) {
         super(nickname, numAnimals);
