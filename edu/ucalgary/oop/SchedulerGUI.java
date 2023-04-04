@@ -11,6 +11,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     private JTextArea outputArea;
 
     private Scheduler scheduler = new Scheduler();
+    private Connection dbConnect = null;
 
     public SchedulerGUI() {
         super("EWR Scheduler");
@@ -23,7 +24,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         editTaskBtn.addActionListener(this);
         // creating connection to database
         scheduler.createConnection();
-        Connection dbConnect = scheduler.getDbConnect();
+        dbConnect = scheduler.getDbConnect();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -55,7 +56,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         // create buttons
         JButton addButton = new JButton("Add Tasks or Treatments");
         JButton deleteButton = new JButton("delete Tasks or Treatments");
-        JButton moveButton = new JButton("Move Treatment Start Hours")
+        JButton moveButton = new JButton("Move Treatment Start Hours");
         
         panel.add(addButton);
         panel.add(deleteButton);
@@ -104,8 +105,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 while (rs.next()) {
                     animalNicknames.add(rs.getString("AnimalNickname"));
                 }
-            } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+            } catch (Exception exception) {
+            System.out.println("Exception: " + exception.getMessage());
             } finally {
                 try {
                     if (rs != null) {
@@ -114,8 +115,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                     if (stmt != null) {
                         stmt.close();
                     }
-                } catch (Exception e) {
-                    System.out.println("Exception: " + e.getMessage());
+                } catch (Exception exe) {
+                    System.out.println("Exception: " + exe.getMessage());
                 }
             }
     
@@ -154,8 +155,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         }
                         String insertTreatmentSql = String.format("INSERT INTO TREATMENTS (AnimalID, TaskID, StartHour) VALUES (%d, %d, %d)", animalID, taskID, startHour);
                         stmt.executeUpdate(insertTreatmentSql);
-                    } catch (Exception e) {
-                        System.out.println("Exception: " + e.getMessage());
+                    } catch (Exception exe) {
+                        System.out.println("Exception: " + exe.getMessage());
                     }
                     
                     // close dialog box
@@ -309,8 +310,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         animalID = rs.getInt("AnimalID");
                         treatmentID = rs.getInt("TreatmentID");
                     }
-                } catch (Exception e) {
-                    System.out.println("Exception: " + e.getMessage());
+                } catch (Exception exeception) {
+                    System.out.println("Exception: " + exeception.getMessage());
                 } finally {
                     try {
                         if (rs != null) {
@@ -319,8 +320,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         if (stmt != null) {
                             stmt.close();
                         }
-                    } catch (Exception e) {
-                        System.out.println("Exception: " + e.getMessage());
+                    } catch (Exception exe) {
+                        System.out.println("Exception: " + exe.getMessage());
                     }
                 }
         
@@ -334,15 +335,15 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                     // close dialog box
                     deleteDialog.dispose();
                     
-                } catch (Exception e) {
-                    System.out.println("Exception: " + e.getMessage());
+                } catch (Exception exeception) {
+                    System.out.println("Exception: " + exeception.getMessage());
                 } finally {
                     try {
                         if (stmt != null) {
                             stmt.close();
                         }
-                    } catch (Exception e) {
-                        System.out.println("Exception: " + e.getMessage());
+                    } catch (Exception exe) {
+                        System.out.println("Exception: " + exe.getMessage());
                     }
                 }
             }
@@ -385,8 +386,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 for (int i = 0; i <= 23; i++) {
                     startHourDropDown.addItem(i);
                 }
-                addPanel.add(new JLabel("Start Hour: "));
-                addPanel.add(startHourDropDown);
+                panel.add(new JLabel("Start Hour: "));
+                panel.add(startHourDropDown);
                 
                 // create submit button
                 JButton submitButton = new JButton("Submit");
@@ -394,7 +395,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                     public void actionPerformed(ActionEvent e) {
                         // get selected treatment and start hour
                         String selectedTreatment = (String) treatmentDropdown.getSelectedItem();
-                        int selectedStartHour = (int) startHourDropdown.getSelectedItem();
+                        int selectedStartHour = (int) startHourDropDown.getSelectedItem();
                         String[] parts = selectedTreatment.split(", ");
                         String animalNickname = parts[0];
                         String taskDescription = parts[1];
@@ -424,7 +425,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 dialog.pack();
                 dialog.setVisible(true);
             }
-        });
+        }
 
 
     public void actionPerformed(ActionEvent e) {
