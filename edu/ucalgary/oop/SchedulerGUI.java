@@ -9,6 +9,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
     private JTextArea outputArea;
     private Connection connectDB;
+    private Schedule schedule;
 
     
     private Scheduler scheduler = new Scheduler();
@@ -447,30 +448,42 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (e.getSource() == generateBtn) {
              // generate schedule
             //if backup volunteers are needed, generate pop up prompt to remind user to confirm/call the backup volunteer
-            scheduler.clear();
-            scheduler.treatmentTasks();
-            scheduler.feedingTasks();
-            scheduler.cleaningTasks();
-            
-            Schedule schedule = new Schedule(scheduler.getOverallTasks());
-            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
-            outputArea.setText(formattedSchedule);
+            generateSchedule();
+        
         } else if (e.getSource() == printBtn) {
-
+            if (schedule == null) {
+                outputArea.setText("Please generate a schedule first!");
+                return;
+            }
             // print schedule to .txt file
             scheduler.clear();
             scheduler.treatmentTasks();
             scheduler.feedingTasks();
             scheduler.cleaningTasks();
             
-            Schedule schedule = new Schedule(scheduler.getOverallTasks());
-            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
-            scheduler.printFile(formattedSchedule);
-            outputArea.setText("Schedule printed to file!");
+           // Schedule schedule = new Schedule(scheduler.getOverallTasks());
+            //String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
+            //scheduler.printFile(formattedSchedule);
+            //outputArea.setText("Schedule printed to file!");
         } else if (e.getSource() == editTaskBtn) {
 
             openEditDialog();
             // outputArea.setText("Tasks Edited!");
+        }
+    }
+    private void generateSchedule(){
+        scheduler.clear();
+        scheduler.treatmentTasks();
+        scheduler.feedingTasks();
+        scheduler.cleaningTasks();
+        try{
+         schedule = new Schedule(scheduler.getOverallTasks());
+        String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
+        outputArea.setText(formattedSchedule);
+        }
+        catch ( TaskOverflowException ex){
+            outputArea.setText(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
 
