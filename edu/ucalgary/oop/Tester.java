@@ -640,9 +640,11 @@ public class Tester {
      */
     @Test
     public void testSetAnimalNickname(){
-        Animal animal = new Animal( animalNickname, numAnimals);
-        animal.setAnimalNickname(animalNickname);
-        assertEquals("AnimalNickname was not set correctly", animalNickname, animal.getAnimalNickname());
+        Animal animal = new Animal(animalNickname, numAnimals);
+        String expected = "New name";
+        animal.setAnimalNickname(expected);
+        String actual = animal.getAnimalNickname();
+        assertEquals("AnimalNickname was not set correctly", expected, actual);
     }
 
     /**
@@ -651,8 +653,10 @@ public class Tester {
     @Test
     public void testSetNumAnimals(){
         Animal animal = new Animal(animalNickname, numAnimals);
-        animal.setNumAnimals(numAnimals);
-        assertEquals("NumAnimals was not set correctly", numAnimals, animal.getNumAnimals());
+        int expected = 3;
+        animal.setNumAnimals(expected);
+        int actual = animal.getNumAnimals();
+        assertEquals("NumAnimals was not set correctly", expected, actual);
     }
 
     /* Tests for Nocturnal, Diurnal, Crepuscular classes */    
