@@ -17,14 +17,10 @@ import java.util.jar.Attributes.Name;
 
 public class Scheduler {
     private Connection dbConnect;
-
+    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
-    public ArrayList<Task> getOverallTasks() {
-        return overallTasks;
-    }
-
-    HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
+    private HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
         put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
             Fox.getFeedMins(), Fox.getFeedStartHour())));
@@ -38,15 +34,13 @@ public class Scheduler {
             Coyote.getFeedMins(), Coyote.getFeedStartHour())));
     }};
 
-    HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
+    private HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
         put("fox", Fox.getCageCleanMins());
         put("raccoon", Raccoon.getCageCleanMins());
         put("beaver", Beaver.getCageCleanMins());
         put("porcupine", Porcupine.getCageCleanMins());
         put("coyote", Coyote.getCageCleanMins());
     }};
-
-    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
 
     public Scheduler() {
     }
@@ -58,6 +52,10 @@ public class Scheduler {
         catch (SQLException e) {
             e.printStackTrace();
         } 
+    }
+
+    public ArrayList<Task> getOverallTasks() {
+        return overallTasks;
     }
 
     /**
