@@ -11,7 +11,7 @@ import java.util.jar.Attributes.Name;
 /**
  * Class that creates tasks
  * @author Tony
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 
