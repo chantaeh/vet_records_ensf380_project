@@ -51,8 +51,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         JDialog dialog = new JDialog(this, "Edit Tasks", true);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 1));
-        dialog.add(panel);
-        
+    
         // create buttons
         JButton addButton = new JButton("Add Tasks or Treatments");
         JButton deleteButton = new JButton("delete Tasks or Treatments");
@@ -61,6 +60,12 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         panel.add(addButton);
         panel.add(deleteButton);
         panel.add(moveButton);
+
+        dialog.getContentPane().add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+        dialog.setAlwaysOnTop(true);
         
         // set button action listeners
         addButton.addActionListener(new ActionListener() {
@@ -172,193 +177,194 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             }
         });
 
-        deleteButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // handle delete button click event
+        // deleteButton.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         // handle delete button click event
                 
-                // create dialog box for deleting task
-                JDialog deleteDialog = new JDialog(dialog, "Delete Task", true);
-                JPanel deletePanel = new JPanel(new GridLayout(0, 2));
-                deleteDialog.add(deletePanel);
+        //         // create dialog box for deleting task
+        //         JDialog deleteDialog = new JDialog(dialog, "Delete Task", true);
+        //         JPanel deletePanel = new JPanel(new GridLayout(0, 2));
+        //         deleteDialog.add(deletePanel);
                 
-                // add animal-task dropdown list
-                ArrayList<String> animalTaskList = new ArrayList<String>();
-                Statement stmt = null;
-                ResultSet rs = null;
-                try {
-                    stmt = dbConnect.createStatement();
-                    String selectSql = "SELECT ANIMALS.AnimalNickname, TASKS.Description " +
-                    "FROM TREATMENTS " +
-                    "JOIN ANIMALS ON TREATMENTS.AnimalID=ANIMALS.AnimalID " +
-                    "JOIN TASKS ON TREATMENTS.TaskID=TASKS.TaskID";
-                    rs = stmt.executeQuery(selectSql);
+        //         // add animal-task dropdown list
+        //         ArrayList<String> animalTaskList = new ArrayList<String>();
+        //         Statement stmt = null;
+        //         ResultSet rs = null;
+        //         try {
+        //             stmt = dbConnect.createStatement();
+        //             String selectSql = "SELECT ANIMALS.AnimalNickname, TASKS.Description " +
+        //             "FROM TREATMENTS " +
+        //             "JOIN ANIMALS ON TREATMENTS.AnimalID=ANIMALS.AnimalID " +
+        //             "JOIN TASKS ON TREATMENTS.TaskID=TASKS.TaskID";
+        //             rs = stmt.executeQuery(selectSql);
                     
-                    // add animal-task pairs to ArrayList
-                    while (rs.next()) {
-                        animalTaskList.add(rs.getString("AnimalNickname") + ": " + rs.getString("Description"));
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Exception: " + ex.getMessage());
-                } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (Exception ex) {
-                        System.out.println("Exception: " + ex.getMessage());
-                    }
-                }
+        //             // add animal-task pairs to ArrayList
+        //             while (rs.next()) {
+        //                 animalTaskList.add(rs.getString("AnimalNickname") + ": " + rs.getString("Description"));
+        //             }
+        //         } catch (Exception ex) {
+        //             System.out.println("Exception: " + ex.getMessage());
+        //         } finally {
+        //             try {
+        //                 if (rs != null) {
+        //                     rs.close();
+        //                 }
+        //                 if (stmt != null) {
+        //                     stmt.close();
+        //                 }
+        //             } catch (Exception ex) {
+        //                 System.out.println("Exception: " + ex.getMessage());
+        //             }
+        //         }
                 
-                JComboBox<String> animalTaskComboBox = new JComboBox<String>(animalTaskList.toArray(new String[animalTaskList.size()]));
-                deletePanel.add(new JLabel("Animal-Task: "));
-                deletePanel.add(animalTaskComboBox);
+        //         // JComboBox<String> animalTaskComboBox = new JComboBox<String>(animalTaskList.toArray(new String[animalTaskList.size()]));
+        //         deletePanel.add(new JLabel("Animal-Task: "));
+        //         deletePanel.add(animalTaskComboBox);
                 
-                // add task dropdown list
-                ArrayList<String> taskList = new ArrayList<String>();
-                stmt = null;
-                rs = null;
-                try {
-                    stmt = dbConnect.createStatement();
-                    String selectSql = "SELECT Description FROM TASKS";
-                    rs = stmt.executeQuery(selectSql);
+        //         // add task dropdown list
+        //         ArrayList<String> taskList = new ArrayList<String>();
+        //         stmt = null;
+        //         rs = null;
+        //         try {
+        //             stmt = dbConnect.createStatement();
+        //             String selectSql = "SELECT Description FROM TASKS";
+        //             rs = stmt.executeQuery(selectSql);
                     
-                    // add tasks to ArrayList
-                    while (rs.next()) {
-                        taskList.add(rs.getString("Description"));
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Exception: " + ex.getMessage());
-                } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (Exception ex) {
-                        System.out.println("Exception: " + ex.getMessage());
-                    }
-                }
+        //             // add tasks to ArrayList
+        //             while (rs.next()) {
+        //                 taskList.add(rs.getString("Description"));
+        //             }
+        //         } catch (Exception ex) {
+        //             System.out.println("Exception: " + ex.getMessage());
+        //         } finally {
+        //             try {
+        //                 if (rs != null) {
+        //                     rs.close();
+        //                 }
+        //                 if (stmt != null) {
+        //                     stmt.close();
+        //                 }
+        //             } catch (Exception ex) {
+        //                 System.out.println("Exception: " + ex.getMessage());
+        //             }
+        //         }
                 
-                JComboBox<String> taskComboBox = new JComboBox<String>(taskList.toArray(new String[taskList.size()]));
-                deletePanel.add(new JLabel("Task: "));
-                deletePanel.add(taskComboBox);
-                
-        // add submit button
-        JButton submitButton = new JButton("Submit");
-        submitButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // handle submit button click event
+        //         JComboBox<String> taskComboBox = new JComboBox<String>(taskList.toArray(new String[taskList.size()]));
+        //         deletePanel.add(new JLabel("Task: "));
+        //         deletePanel.add(taskComboBox);
+        //     }
+        // });       
+        // // add submit button
+        // JButton submitButton = new JButton("Submit");
+        // submitButton.addActionListener(new ActionListener() {
+        //     public void actionPerformed(ActionEvent e) {
+        //         // handle submit button click event
         
-                // get selected animal-task and task
-                String animalTask = (String) animalTaskComboBox.getSelectedItem();
-                String task = (String) taskComboBox.getSelectedItem();
+        //         // get selected animal-task and task
+        //         String animalTask = (String) animalTaskComboBox.getSelectedItem();
+        //         String task = (String) taskComboBox.getSelectedItem();
         
-                // get task ID
-                int taskID = -1;
-                Statement stmt = null;
-                ResultSet rs = null;
-                try {
-                    stmt = dbConnect.createStatement();
-                    String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
-                    rs = stmt.executeQuery(selectSql);
+        //         // get task ID
+        //         int taskID = -1;
+        //         Statement stmt = null;
+        //         ResultSet rs = null;
+        //         try {
+        //             stmt = dbConnect.createStatement();
+        //             String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
+        //             rs = stmt.executeQuery(selectSql);
         
-                    // get task ID
-                    if (rs.next()) {
-                        taskID = rs.getInt("TaskID");
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Exception: " + ex.getMessage());
-                } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (Exception ex) {
-                        System.out.println("Exception: " + ex.getMessage());
-                    }
-                }
+        //             // get task ID
+        //             if (rs.next()) {
+        //                 taskID = rs.getInt("TaskID");
+        //             }
+        //         } catch (Exception ex) {
+        //             System.out.println("Exception: " + ex.getMessage());
+        //         } finally {
+        //             try {
+        //                 if (rs != null) {
+        //                     rs.close();
+        //                 }
+        //                 if (stmt != null) {
+        //                     stmt.close();
+        //                 }
+        //             } catch (Exception ex) {
+        //                 System.out.println("Exception: " + ex.getMessage());
+        //             }
+        //         }
         
-                // get animal ID and treatment ID
-                int animalID = -1;
-                int treatmentID = -1;
-                String[] animalTaskArray = animalTask.split(": ");
-                String animalNickname = animalTaskArray[0];
-                String taskDescription = animalTaskArray[1];
-                stmt = null;
-                rs = null;
-                try {
-                    stmt = dbConnect.createStatement();
-                    String selectSql = "SELECT ANIMALS.AnimalID, TREATMENTS.TreatmentID " +
-                    "FROM TREATMENTS " +
-                    "JOIN ANIMALS ON TREATMENTS.AnimalID=ANIMALS.AnimalID " +
-                    "JOIN TASKS ON TREATMENTS.TaskID=TASKS.TaskID " +
-                    "WHERE ANIMALS.AnimalNickname='" + animalNickname + "' " +
-                    "AND TASKS.Description='" + taskDescription + "'";
+        //         // get animal ID and treatment ID
+        //         int animalID = -1;
+        //         int treatmentID = -1;
+        //         String[] animalTaskArray = animalTask.split(": ");
+        //         String animalNickname = animalTaskArray[0];
+        //         String taskDescription = animalTaskArray[1];
+        //         stmt = null;
+        //         rs = null;
+        //         try {
+        //             stmt = dbConnect.createStatement();
+        //             String selectSql = "SELECT ANIMALS.AnimalID, TREATMENTS.TreatmentID " +
+        //             "FROM TREATMENTS " +
+        //             "JOIN ANIMALS ON TREATMENTS.AnimalID=ANIMALS.AnimalID " +
+        //             "JOIN TASKS ON TREATMENTS.TaskID=TASKS.TaskID " +
+        //             "WHERE ANIMALS.AnimalNickname='" + animalNickname + "' " +
+        //             "AND TASKS.Description='" + taskDescription + "'";
     
-                    rs = stmt.executeQuery(selectSql);
+        //             rs = stmt.executeQuery(selectSql);
         
-                    // get animal ID and treatment ID
-                    if (rs.next()) {
-                        animalID = rs.getInt("AnimalID");
-                        treatmentID = rs.getInt("TreatmentID");
-                    }
-                } catch (Exception exeception) {
-                    System.out.println("Exception: " + exeception.getMessage());
-                } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (Exception exe) {
-                        System.out.println("Exception: " + exe.getMessage());
-                    }
-                }
+        //             // get animal ID and treatment ID
+        //             if (rs.next()) {
+        //                 animalID = rs.getInt("AnimalID");
+        //                 treatmentID = rs.getInt("TreatmentID");
+        //             }
+        //         } catch (Exception exeception) {
+        //             System.out.println("Exception: " + exeception.getMessage());
+        //         } finally {
+        //             try {
+        //                 if (rs != null) {
+        //                     rs.close();
+        //                 }
+        //                 if (stmt != null) {
+        //                     stmt.close();
+        //                 }
+        //             } catch (Exception exe) {
+        //                 System.out.println("Exception: " + exe.getMessage());
+        //             }
+        //         }
         
-                // delete treatment
-                stmt = null;
-                try {
-                    stmt = dbConnect.createStatement();
-                    String deleteSql = "DELETE FROM TREATMENTS WHERE TreatmentID=" + treatmentID;
-                    int rowsAffected = stmt.executeUpdate(deleteSql);
+        //         // delete treatment
+        //         stmt = null;
+        //         try {
+        //             stmt = dbConnect.createStatement();
+        //             String deleteSql = "DELETE FROM TREATMENTS WHERE TreatmentID=" + treatmentID;
+        //             int rowsAffected = stmt.executeUpdate(deleteSql);
         
-                    // close dialog box
-                    deleteDialog.dispose();
+        //             // close dialog box
+        //             deleteDialog.dispose();
                     
-                } catch (Exception exeception) {
-                    System.out.println("Exception: " + exeception.getMessage());
-                } finally {
-                    try {
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (Exception exe) {
-                        System.out.println("Exception: " + exe.getMessage());
-                    }
-                }
-            }
-        });
-        deletePanel.add(submitButton);
-        }
+        //         } catch (Exception exeception) {
+        //             System.out.println("Exception: " + exeception.getMessage());
+        //         } finally {
+        //             try {
+        //                 if (stmt != null) {
+        //                     stmt.close();
+        //                 }
+        //             } catch (Exception exe) {
+        //                 System.out.println("Exception: " + exe.getMessage());
+        //             }
+        //         }
+        //     }
+        // });
+        // deletePanel.add(submitButton);
+    
         
-    });
+    // });
 
         moveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // create dialog box
-                JDialog dialog = new JDialog(dialog, "Move Treatment Start Hours", true);
+                JDialog moveDialog = new JDialog(dialog, "Move Treatment Start Hours", true);
                 JPanel panel = new JPanel(new GridLayout(2, 1));
-                dialog.add(panel);
+                moveDialog.add(panel);
                 
                 // get all treatments from the database
                 ArrayList<String> treatments = new ArrayList<String>();
@@ -425,8 +431,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 dialog.pack();
                 dialog.setVisible(true);
             }
-        }
-
+        });
+    }    
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == generateBtn) {
@@ -454,7 +460,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         } else if (e.getSource() == editTaskBtn) {
 
             openEditDialog();
-            outputArea.setText("Tasks Edited!");
+            // outputArea.setText("Tasks Edited!");
         }
     }
 
