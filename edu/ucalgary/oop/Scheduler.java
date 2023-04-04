@@ -52,6 +52,7 @@ public class Scheduler {
 
     /**
      * Creates a connection with the mysql database
+     * 
      */
     public void createConnection(){
         try{
@@ -305,9 +306,17 @@ public class Scheduler {
         }
     }
 
+    /**
+     *  Clears the overall tasks arraylist
+     */
     public void clear() {
         overallTasks.clear();
     }
+
+    /**
+     * gets the number of backup volunteers needed
+     * @return the number of backup volunteers needed
+     */
     public int getNumBackupVolunteers() {
         return numBackupVolunteers;
     }
