@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class Schedule {
     private ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
 
-    public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException{
+    public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException, TaskOverflowException {
         // Create empty array for each hour
         for (int i = 0; i < 24; i++) {
             ArrayList<Task> newArray = new ArrayList<>();
@@ -74,7 +74,7 @@ public class Schedule {
                         message += task.getDescription() + ", ";
                     }
                 }
-                throw new IllegalArgumentException(message);
+                throw new TaskOverflowException(message);
             }
         }
     }
