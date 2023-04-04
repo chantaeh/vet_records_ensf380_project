@@ -455,19 +455,14 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 outputArea.setText("Please generate a schedule first!");
                 return;
             }
-            // print schedule to .txt file
-            scheduler.clear();
-            scheduler.treatmentTasks();
-            scheduler.feedingTasks();
-            scheduler.cleaningTasks();
             
-           // Schedule schedule = new Schedule(scheduler.getOverallTasks());
-            //String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
-            //scheduler.printFile(formattedSchedule);
-            //outputArea.setText("Schedule printed to file!");
+            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
+            scheduler.printFile(formattedSchedule);
+            outputArea.setText("Schedule printed to file!");
         } else if (e.getSource() == editTaskBtn) {
-
+            schedule = null;
             openEditDialog();
+            
             // outputArea.setText("Tasks Edited!");
         }
     }
