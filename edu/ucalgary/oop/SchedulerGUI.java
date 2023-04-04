@@ -425,8 +425,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 dialog.pack();
                 dialog.setVisible(true);
             }
-        }
-
+        });
+    }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == generateBtn) {
@@ -458,7 +458,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         }
     }
 
+
     public static void main(String[] args) {
         new SchedulerGUI();
     }
+
 }
