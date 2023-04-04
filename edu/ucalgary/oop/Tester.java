@@ -433,7 +433,7 @@ public class Tester {
         try{
             Task task = new Task(description, -1, maxWindow, startHour, animal);
         }
-        catch(IllegalArgumentException e){
+        catch(IllegalAccessException e){
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when duration was negative", exceptionThrown);
@@ -449,7 +449,7 @@ public class Tester {
         try{
             Task task = new Task(description, duration, -1, startHour, animal);
         }
-        catch(IllegalArgumentException e){
+        catch(IllegalAccessException e){
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when maxWindow was negative", exceptionThrown);
@@ -922,8 +922,14 @@ public class Tester {
      */
     @Test
     public void testScheduleConstructor() {
+        Task task = null;
         Fox fox = new Fox("Snowball", 1);
-        Task task = new Task("Eyedrops", 25, 1, 22, fox);
+        try {
+            task = new Task("Eyedrops", 25, 1, 22, fox);
+        }
+        catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task);
         Schedule schedule = new Schedule(dailyTasks);
@@ -949,10 +955,19 @@ public class Tester {
      */
     @Test
     public void testScheduleTimeUsed() {
+        Task task1 = null;
+        Task task2 = null;
+
         Fox fox = new Fox("Snowball", 1);
         Coyote coyote = new Coyote("Narseh", 2);
-        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
-        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        try {
+            task1 = new Task("Eyedrops", 25, 1, 22, fox);
+            task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        }
+        catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } 
+
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task1);
         dailyTasks.add(task2);
@@ -969,10 +984,18 @@ public class Tester {
      */
     @Test
     public void testScheduleGetDailyTasks() {
+        Task task1 = null;
+        Task task2 = null;
+
         Fox fox = new Fox("Snowball", 1);
         Coyote coyote = new Coyote("Narseh", 2);
-        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
-        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        try {
+            task1 = new Task("Eyedrops", 25, 1, 22, fox);
+            task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        }
+        catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        } 
         ArrayList<Task> dailyTasks0 = new ArrayList<>(24);
         dailyTasks0.add(task1);
         dailyTasks0.add(task2);
@@ -1001,10 +1024,19 @@ public class Tester {
      */
     @Test
     public void testSchedulerGetFromatted() {
+        Task task1 = null;
+        Task task2 = null;
+
         Fox fox = new Fox("Snowball", 1);
         Coyote coyote = new Coyote("Narseh", 2);
-        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
-        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+
+        try {
+            task1 = new Task("Eyedrops", 25, 1, 22, fox);
+            task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        }
+        catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task1);
         dailyTasks.add(task2);
