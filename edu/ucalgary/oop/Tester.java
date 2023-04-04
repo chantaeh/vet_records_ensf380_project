@@ -11,10 +11,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 
 import org.junit.*;
 import java.lang.reflect.*;
+import java.time.LocalDate;
 
 public class Tester {
       
@@ -825,16 +827,14 @@ public class Tester {
     /**
      * Test that Schedule constructor throws an IllegalArgumentException given an invalid Task
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testScheduleConstructorException() {
         Fox fox = new Fox("Snowball", 1);
         Task task = new Task("Eyedrops", 25, 1, 30, fox);
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task);
 
-        assertThrows("Invalid tasks should throw an exception", IllegalArgumentException.class, () -> {
-            Schedule schedule = new Schedule(dailyTasks);
-        });
+        Schedule schedule = new Schedule(new ArrayList<Task>((Arrays.asList(new Task("Eyedrops", 25, 1, 30, fox)))));
     }
 
     /**
@@ -852,7 +852,7 @@ public class Tester {
         Schedule schedule = new Schedule(dailyTasks);
 
         int expResult = 35;
-        int actResult = schedule.timeUsed(schedule.getOverallTask().get(21));
+        int actResult = Schedule.timeUsed(schedule.getDailyTasks().get(22));
 
         assertEquals("timeUsed did not return expected result", expResult, actResult);
     }
@@ -903,10 +903,11 @@ public class Tester {
         dailyTasks.add(task2);
         Schedule schedule = new Schedule(dailyTasks);
 
-        String expResult = "22:00\n";
+        String expResult = "Schedule for " + LocalDate.now().plusDays(1) + "\n\n";
+        expResult += "22:00\n";
         expResult += "* Eyedrops (Snowball)\n";
-        expResult += "* Give fluid injection (Narseh)";
-        String actResult = scheduler.getFormatted(schedule.getOverallTask());
+        expResult += "* Give fluid injection (Narseh)\n";
+        String actResult = Scheduler.getFormatted(schedule.getDailyTasks());
 
         assertEquals("getFormatted did not return expected result", expResult, actResult);
     }
