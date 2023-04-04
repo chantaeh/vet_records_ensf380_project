@@ -541,8 +541,10 @@ public class Tester {
     @Test
     public void testSetDescription(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setDescription(description);
-        assertEquals("Description was not set correctly", description, task.getDescription());
+        String expected = "Changed description";
+        task.setDescription(expected);
+        String actual = task.getDescription();
+        assertEquals("Description was not set correctly", expected, actual);
     }
 
     /**
@@ -551,8 +553,10 @@ public class Tester {
     @Test
     public void testSetDuration(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setDuration(duration);
-        assertEquals("Duration was not set correctly", duration, task.getDuration());
+        int expected = 15;
+        task.setDuration(expected);
+        int actual = task.getDuration();
+        assertEquals("Duration was not set correctly", expected, actual);
     }
 
     /**
@@ -561,8 +565,10 @@ public class Tester {
     @Test
     public void testSetMaxWindow(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setMaxWindow(maxWindow);
-        assertEquals("MaxWindow was not set correctly", maxWindow, task.getMaxWindow());
+        int expected = 5;
+        task.setMaxWindow(expected);
+        int actual = task.getMaxWindow();
+        assertEquals("MaxWindow was not set correctly", expected, actual);
     }
 
     /**
@@ -571,10 +577,11 @@ public class Tester {
     @Test
     public void testSetStartHour(){
         Task task = new Task(description, duration, maxWindow, startHour, animal);
-        task.setStartHour(startHour);
-        assertEquals("StartHour was not set correctly", startHour, task.getStartHour());
+        int expected = 20;
+        task.setStartHour(expected);
+        int actual = task.getStartHour();
+        assertEquals("StartHour was not set correctly", expected, actual);
     }
-
 
     /*
      *   Tests of the animal class
@@ -633,9 +640,11 @@ public class Tester {
      */
     @Test
     public void testSetAnimalNickname(){
-        Animal animal = new Animal( animalNickname, numAnimals);
-        animal.setAnimalNickname(animalNickname);
-        assertEquals("AnimalNickname was not set correctly", animalNickname, animal.getAnimalNickname());
+        Animal animal = new Animal(animalNickname, numAnimals);
+        String expected = "New name";
+        animal.setAnimalNickname(expected);
+        String actual = animal.getAnimalNickname();
+        assertEquals("AnimalNickname was not set correctly", expected, actual);
     }
 
     /**
@@ -644,9 +653,107 @@ public class Tester {
     @Test
     public void testSetNumAnimals(){
         Animal animal = new Animal(animalNickname, numAnimals);
-        animal.setNumAnimals(numAnimals);
-        assertEquals("NumAnimals was not set correctly", numAnimals, animal.getNumAnimals());
+        int expected = 3;
+        animal.setNumAnimals(expected);
+        int actual = animal.getNumAnimals();
+        assertEquals("NumAnimals was not set correctly", expected, actual);
     }
+
+    /**
+     * Test polymorphism of Animal class through Coyote
+     */
+    @Test
+    public void testAnimalCoyotePolymorphism() {
+        String expectedName = "CoyoteName";
+        int expectedNum = 2;
+        Animal animal = new Coyote(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Coyote did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Coyote did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Beaver
+     */
+    @Test
+    public void testAnimalBeaverPolymorphism() {
+        String expectedName = "BeaverName";
+        int expectedNum = 2;
+        Animal animal = new Beaver(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Beaver did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Beaver did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Porcupine
+     */
+    @Test
+    public void testAnimalPorcupinePolymorphism() {
+        String expectedName = "PorcupineName";
+        int expectedNum = 2;
+        Animal animal = new Porcupine(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Porcupine did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Porcupine did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Raccoon
+     */
+    @Test
+    public void testAnimalRaccoonPolymorphism() {
+        String expectedName = "RaccoonName";
+        int expectedNum = 2;
+        Animal animal = new Raccoon(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Raccoon did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Raccoon did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Fox
+     */
+    @Test
+    public void testAnimalFoxPolymorphism() {
+        String expectedName = "FoxName";
+        int expectedNum = 2;
+        Animal animal = new Fox(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Fox did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Fox did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
 
     /* Tests for Nocturnal, Diurnal, Crepuscular classes */    
 
@@ -866,24 +973,25 @@ public class Tester {
         Coyote coyote = new Coyote("Narseh", 2);
         Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
         Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
-        ArrayList<Task> dailyTasks = new ArrayList<>();
-        dailyTasks.add(task1);
-        dailyTasks.add(task2);
-        Schedule schedule = new Schedule(dailyTasks);
+        ArrayList<Task> dailyTasks0 = new ArrayList<>(24);
+        dailyTasks0.add(task1);
+        dailyTasks0.add(task2);
+        Schedule schedule = new Schedule(dailyTasks0);
 
-        ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
-        ArrayList<Task> hourTasks = new ArrayList<>();
-        hourTasks.add(task1);
-        hourTasks.add(task2);
-        dailyTasks.set(21, hourTasks);
+        ArrayList<ArrayList<Task>> expextedDailyTasks = new ArrayList<ArrayList<Task>>(24);
+        for (int i = 0; i < 24; i++) {
+            ArrayList<Task> hourTasks = new ArrayList<>(24);
+            expextedDailyTasks.add(hourTasks);
+        }
+        expextedDailyTasks.set(22, new ArrayList<Task>(Arrays.asList(task1, task2)));
 
-        ArrayList<ArrayList<Task>> expResult = dailyTasks;
-        ArrayList<ArrayList<Task>> actResult = schedule.getDailyTasks();
+        ArrayList<ArrayList<Task>> actualDailyTasks = schedule.getDailyTasks();
 
-        assertEquals("getDailyTasks did not return expected result", expResult.size(), actResult.size());
+        assertEquals("getDailyTasks did not return expected result; incorrect return value size"
+            , expextedDailyTasks.size(), actualDailyTasks.size());
 
-        for (int i = 0; i < list1.size(); i++) {
-            assertEquals("getDailyTasks did not return expected result", expResult.get(i), actResult.get(i));
+        for (int i = 0; i < expextedDailyTasks.size(); i++) {
+            assertEquals("getDailyTasks did not return expected result", expextedDailyTasks.get(i), actualDailyTasks.get(i));
         }
     }
 
