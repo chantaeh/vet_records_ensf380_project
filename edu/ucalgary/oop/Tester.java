@@ -978,19 +978,20 @@ public class Tester {
         dailyTasks0.add(task2);
         Schedule schedule = new Schedule(dailyTasks0);
 
-        ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
-        ArrayList<Task> hourTasks = new ArrayList<>(24);
-        hourTasks.add(task1);
-        hourTasks.add(task2);
-        dailyTasks.set(21, hourTasks);
+        ArrayList<ArrayList<Task>> expextedDailyTasks = new ArrayList<ArrayList<Task>>(24);
+        for (int i = 0; i < 24; i++) {
+            ArrayList<Task> hourTasks = new ArrayList<>(24);
+            expextedDailyTasks.add(hourTasks);
+        }
+        expextedDailyTasks.set(22, new ArrayList<Task>(Arrays.asList(task1, task2)));
 
-        ArrayList<ArrayList<Task>> expResult = dailyTasks;
-        ArrayList<ArrayList<Task>> actResult = schedule.getDailyTasks();
+        ArrayList<ArrayList<Task>> actualDailyTasks = schedule.getDailyTasks();
 
-        assertEquals("getDailyTasks did not return expected result", expResult.size(), actResult.size());
+        assertEquals("getDailyTasks did not return expected result; incorrect return value size"
+            , expextedDailyTasks.size(), actualDailyTasks.size());
 
-        for (int i = 0; i < expResult.size(); i++) {
-            assertEquals("getDailyTasks did not return expected result", expResult.get(i), actResult.get(i));
+        for (int i = 0; i < expextedDailyTasks.size(); i++) {
+            assertEquals("getDailyTasks did not return expected result", expextedDailyTasks.get(i), actualDailyTasks.get(i));
         }
     }
 
