@@ -94,6 +94,10 @@ public class Schedule {
         return timeUsed;
     }
 
+    /**
+     * Getter for dailyTasks
+     * @return dailyTasks
+     */
     public ArrayList<ArrayList<Task>> getDailyTasks() {
         return dailyTasks;
     }
