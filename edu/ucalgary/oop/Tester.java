@@ -1023,7 +1023,7 @@ public class Tester {
      *  Test that the format for the schedule output is correct
      */
     @Test
-    public void testSchedulerGetFromatted() {
+    public void testSchedulerGetFormatted() {
         Task task1 = null;
         Task task2 = null;
 
