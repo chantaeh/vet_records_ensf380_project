@@ -480,6 +480,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             outputArea.setText(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        catch (Exception ex){
+            outputArea.setText(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
     }
 
 
