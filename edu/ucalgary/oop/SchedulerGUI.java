@@ -10,6 +10,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     private JTextArea outputArea;
     private Connection connectDB;
 
+    
+    private Scheduler scheduler = new Scheduler();
+
     public SchedulerGUI() {
         super("EWR Scheduler");
         setSize(600, 400);
@@ -19,7 +22,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         generateBtn.addActionListener(this);
         printBtn.addActionListener(this);
         editTaskBtn.addActionListener(this);
-
+        // creating connection to database
+        scheduler.createConnection();
         /* commented out to test gui itself for now
         try {
             // connect to the database
@@ -30,6 +34,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             System.exit(1);
         }
         */
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
@@ -53,7 +58,13 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (e.getSource() == generateBtn) {
              // generate schedule
             //if backup volunteers are needed, generate pop up prompt to remind user to confirm/call the backup volunteer
-            outputArea.setText("Schedule Generated!");
+            scheduler.treatmentTasks();
+            scheduler.feedingTasks();
+            scheduler.cleaningTasks();
+            
+            Schedule schedule = new Schedule(scheduler.getOverallTasks());
+            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
+            outputArea.setText(formattedSchedule);
         } else if (e.getSource() == printBtn) {
 
             // print schedule to .txt file
