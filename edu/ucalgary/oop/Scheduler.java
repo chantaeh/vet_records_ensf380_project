@@ -100,7 +100,7 @@ public class Scheduler {
         catch (SQLException ex) {
             ex.printStackTrace();
         }
-        catch (IllegalAccessException ex) {
+        catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
     }    
@@ -189,7 +189,7 @@ public class Scheduler {
 
                 overallTasks.add(singleTask);
             }
-            catch (IllegalAccessException ex) {
+            catch (IllegalArgumentException ex) {
                 ex.printStackTrace();
             }
         }
@@ -226,7 +226,7 @@ public class Scheduler {
         catch (SQLException ex) {
             ex.printStackTrace();
         }
-        catch (IllegalAccessException ex) {
+        catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
     }

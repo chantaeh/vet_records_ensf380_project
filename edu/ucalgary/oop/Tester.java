@@ -433,7 +433,7 @@ public class Tester {
         try{
             Task task = new Task(description, -1, maxWindow, startHour, animal);
         }
-        catch(IllegalAccessException e){
+        catch(IllegalArgumentException e){
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when duration was negative", exceptionThrown);
@@ -449,7 +449,7 @@ public class Tester {
         try{
             Task task = new Task(description, duration, -1, startHour, animal);
         }
-        catch(IllegalAccessException e){
+        catch(IllegalArgumentException e){
             exceptionThrown = true;
         }
         assertTrue("IllegalArgumentException was not thrown when maxWindow was negative", exceptionThrown);
@@ -927,7 +927,7 @@ public class Tester {
         try {
             task = new Task("Eyedrops", 25, 1, 22, fox);
         }
-        catch (IllegalAccessException ex) {
+        catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
         ArrayList<Task> dailyTasks = new ArrayList<>();
@@ -964,7 +964,7 @@ public class Tester {
             task1 = new Task("Eyedrops", 25, 1, 22, fox);
             task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
         }
-        catch (IllegalAccessException ex) {
+        catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         } 
 
@@ -993,7 +993,7 @@ public class Tester {
             task1 = new Task("Eyedrops", 25, 1, 22, fox);
             task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
         }
-        catch (IllegalAccessException ex) {
+        catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         } 
         ArrayList<Task> dailyTasks0 = new ArrayList<>(24);
@@ -1034,7 +1034,7 @@ public class Tester {
             task1 = new Task("Eyedrops", 25, 1, 22, fox);
             task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
         }
-        catch (IllegalAccessException ex) {
+        catch (IllegalArgumentException ex) {
             ex.printStackTrace();
         }
         ArrayList<Task> dailyTasks = new ArrayList<>();
