@@ -659,6 +659,102 @@ public class Tester {
         assertEquals("NumAnimals was not set correctly", expected, actual);
     }
 
+    /**
+     * Test polymorphism of Animal class through Coyote
+     */
+    @Test
+    public void testAnimalCoyotePolymorphism() {
+        String expectedName = "CoyoteName";
+        int expectedNum = 2;
+        Animal animal = new Coyote(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Coyote did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Coyote did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Beaver
+     */
+    @Test
+    public void testAnimalBeaverPolymorphism() {
+        String expectedName = "BeaverName";
+        int expectedNum = 2;
+        Animal animal = new Beaver(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Beaver did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Beaver did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Porcupine
+     */
+    @Test
+    public void testAnimalPorcupinePolymorphism() {
+        String expectedName = "PorcupineName";
+        int expectedNum = 2;
+        Animal animal = new Porcupine(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Porcupine did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Porcupine did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Raccoon
+     */
+    @Test
+    public void testAnimalRaccoonPolymorphism() {
+        String expectedName = "RaccoonName";
+        int expectedNum = 2;
+        Animal animal = new Raccoon(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Raccoon did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Raccoon did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+    /**
+     * Test polymorphism of Animal class through Fox
+     */
+    @Test
+    public void testAnimalFoxPolymorphism() {
+        String expectedName = "FoxName";
+        int expectedNum = 2;
+        Animal animal = new Fox(expectedName, expectedNum);
+
+        // Test superclass methods
+        String actualName = animal.getAnimalNickname();
+        int actualNum = animal.getNumAnimals();
+
+        assertEquals("Animal object created as Fox did not have correct nickname.", 
+            expectedName, actualName);
+        assertEquals("Animal object created as Fox did not have correct numAnimals", 
+            expectedNum, actualNum);
+    }
+
+
     /* Tests for Nocturnal, Diurnal, Crepuscular classes */    
 
     /**
