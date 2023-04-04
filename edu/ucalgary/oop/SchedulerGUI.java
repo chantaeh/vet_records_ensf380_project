@@ -484,6 +484,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             outputArea.setText(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        if(scheduler.getNumBackupVolunteers() > 0){
+            JOptionPane.showMessageDialog(null,scheduler.getNumBackupVolunteers() + " Backup volunteer(s) needed ");
+        }
     }
 
 

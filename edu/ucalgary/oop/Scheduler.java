@@ -17,6 +17,7 @@ import java.util.jar.Attributes.Name;
 
 public class Scheduler {
     private Connection dbConnect;
+    private static int numBackupVolunteers = 0;
 
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
@@ -242,6 +243,7 @@ public class Scheduler {
      */
     public static String getFormatted(ArrayList<ArrayList<Task>> dailyTasks) {
         String outputString = "";
+        numBackupVolunteers = 0;
 
         outputString = "Schedule for " + LocalDate.now().plusDays(1).toString() + "\n";
 
@@ -249,6 +251,7 @@ public class Scheduler {
             if (hourlyTasks.size() != 0) {
                 if (Schedule.timeUsed(hourlyTasks) > 60) {
                     outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
+                    numBackupVolunteers+=1;
                 }
                 else {
                     outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
@@ -305,6 +308,9 @@ public class Scheduler {
 
     public void clear() {
         overallTasks.clear();
+    }
+    public int getNumBackupVolunteers() {
+        return numBackupVolunteers;
     }
 
 
