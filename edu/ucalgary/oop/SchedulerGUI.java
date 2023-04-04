@@ -447,6 +447,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (e.getSource() == generateBtn) {
              // generate schedule
             //if backup volunteers are needed, generate pop up prompt to remind user to confirm/call the backup volunteer
+            scheduler.clear();
             scheduler.treatmentTasks();
             scheduler.feedingTasks();
             scheduler.cleaningTasks();

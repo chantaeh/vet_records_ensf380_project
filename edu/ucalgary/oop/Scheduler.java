@@ -303,6 +303,10 @@ public class Scheduler {
         }
     }
 
+    public void clear() {
+        overallTasks.clear();
+    }
+
     public static void main(String[] args) {
         
         Scheduler scheduler = new Scheduler();
