@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
 
+
 public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
     private JTextArea outputArea;
