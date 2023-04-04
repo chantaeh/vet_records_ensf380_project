@@ -59,6 +59,10 @@ public class Scheduler {
             e.printStackTrace();
         } 
     }
+    
+    public Connection getDbConnect() {
+        return dbConnect;
+    }
 
     /**
      * Add treatment tasks to the overall tasks
