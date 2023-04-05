@@ -11,20 +11,16 @@ import java.util.jar.Attributes.Name;
 /**
  * Class that creates tasks
  * @author Tony
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 
 public class Scheduler {
     private Connection dbConnect;
-
+    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
-    public ArrayList<Task> getOverallTasks() {
-        return overallTasks;
-    }
-
-    HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
+    private HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
         // [preparation, duration, startHour]
         put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
             Fox.getFeedMins(), Fox.getFeedStartHour())));
@@ -38,7 +34,7 @@ public class Scheduler {
             Coyote.getFeedMins(), Coyote.getFeedStartHour())));
     }};
 
-    HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
+    private HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
         put("fox", Fox.getCageCleanMins());
         put("raccoon", Raccoon.getCageCleanMins());
         put("beaver", Beaver.getCageCleanMins());
@@ -46,11 +42,15 @@ public class Scheduler {
         put("coyote", Coyote.getCageCleanMins());
     }};
 
-    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
-
+    /**
+     * Default constructor
+     */
     public Scheduler() {
     }
 
+    /**
+     * Creates a connection with the mysql database
+     */
     public void createConnection(){
         try{
             dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
@@ -61,9 +61,15 @@ public class Scheduler {
     }
 
     /**
+     * Gets the overallTasks
+     * @return ArrayList of Tasks
+     */
+    public ArrayList<Task> getOverallTasks() {
+        return overallTasks;
+    }
+
+    /**
      * Add treatment tasks to the overall tasks
-     * @param none
-     * @return none
      */
     public void treatmentTasks() {
         ResultSet results;
@@ -134,8 +140,6 @@ public class Scheduler {
 
     /**
      * Add feeding tasks to the overall tasks
-     * @param none
-     * @return none
      */
     public void feedingTasks() {
         HashMap<String, ArrayList<String>> animalGroups = new HashMap<String, ArrayList<String>>() {{
@@ -198,8 +202,6 @@ public class Scheduler {
 
      /**
      * Add cleaning tasks to the overall tasks
-     * @param none
-     * @return none
      */
     public void cleaningTasks() {
         ResultSet results;
@@ -273,7 +275,7 @@ public class Scheduler {
     /**
      * Writes the given string to a text file
      * @param scheduleStr
-     * @return True if the schedule was successfully printed, false otherwise
+     * @return true if the schedule was successfully printed, false otherwise
      */
     public boolean printFile(String scheduleStr) {
         BufferedWriter out = null;
