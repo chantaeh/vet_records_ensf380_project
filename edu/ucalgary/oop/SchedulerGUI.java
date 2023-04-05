@@ -73,11 +73,13 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     
         // create buttons
         JButton addButton = new JButton("Add Tasks or Treatments");
-        JButton deleteButton = new JButton("Delete Tasks or Treatments");
+        JButton deleteTaskButton = new JButton("Delete Task");
+        JButton deleteTmtButton = new JButton("Delete Treatment");
         JButton moveButton = new JButton("Move Treatment Start Hours");
         
         panel.add(addButton);
-        panel.add(deleteButton);
+        panel.add(deleteTaskButton);
+        panel.add(deleteTmtButton);
         panel.add(moveButton);
 
         dialog.getContentPane().add(panel);
@@ -197,9 +199,110 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             }
         });
 
-        deleteButton.addActionListener(new ActionListener() {
+        deleteTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // handle delete button click event
+                // handle delete task button click event
+                
+                // create dialog box for deleting task
+                JDialog deleteDialog = new JDialog(dialog, "Delete Task", true);
+                JPanel deletePanel = new JPanel(new GridLayout(0, 2));
+                deleteDialog.add(deletePanel);
+                
+                Statement stmt = null;
+                ResultSet rs = null;
+                
+                // add task dropdown list
+                ArrayList<String> taskList = new ArrayList<String>();
+                stmt = null;
+                rs = null;
+                try {
+                    stmt = dbConnect.createStatement();
+                    String selectSql = "SELECT Description FROM TASKS";
+                    rs = stmt.executeQuery(selectSql);
+                    
+                    // add tasks to ArrayList
+                    while (rs.next()) {
+                        taskList.add(rs.getString("Description"));
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Exception: " + ex.getMessage());
+                } finally {
+                    try {
+                        if (rs != null) {
+                            rs.close();
+                        }
+                        if (stmt != null) {
+                            stmt.close();
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
+                }
+                
+                JComboBox<String> taskComboBox = new JComboBox<String>(taskList.toArray(new String[taskList.size()]));
+                deletePanel.add(new JLabel("Task: "));
+                deletePanel.add(taskComboBox);
+      
+                // add submit button
+                JButton submitButton = new JButton("Submit");
+                submitButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        // handle submit button click event
+                
+                        // get selected animal-task and task
+                        String task = (String) taskComboBox.getSelectedItem();
+                
+                        // get task ID
+                        int taskID = -1;
+                        Statement stmt = null;
+                        ResultSet rs = null;
+                        try {
+                            stmt = dbConnect.createStatement();
+                            String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
+                            rs = stmt.executeQuery(selectSql);
+                
+                            // get task ID
+                            if (rs.next()) {
+                                taskID = rs.getInt("TaskID");
+
+                                String deleteSql = "DELETE FROM TASKS WHERE TaskID=" + taskID;
+                                int rowsAffected = stmt.executeUpdate(deleteSql);
+                                
+                                String deleteSql2 = "DELETE FROM TREATMENTS WHERE TaskID=" + taskID;
+                                int rowsAffected2 = stmt.executeUpdate(deleteSql2);
+
+                                // close dialog box
+                                deleteDialog.dispose();
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("Exception: " + ex.getMessage());
+                        } finally {
+                            try {
+                                if (rs != null) {
+                                    rs.close();
+                                }
+                                if (stmt != null) {
+                                    stmt.close();
+                                }
+                            } catch (Exception ex) {
+                                System.out.println("Exception: " + ex.getMessage());
+                            }
+                        }
+                    }
+                });
+                deletePanel.add(submitButton);
+
+                 // show dialog box
+                deleteDialog.pack();
+                deleteDialog.setLocationRelativeTo(dialog);
+                deleteDialog.setVisible(true);
+        
+            }  
+        });
+
+        deleteTmtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // handle delete task button click event
                 
                 // create dialog box for deleting task
                 JDialog deleteDialog = new JDialog(dialog, "Delete Task", true);
