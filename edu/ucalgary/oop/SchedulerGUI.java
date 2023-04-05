@@ -302,10 +302,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 
         deleteTmtButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // handle delete task button click event
+                // handle delete treatment button click event
                 
                 // create dialog box for deleting task
-                JDialog deleteDialog = new JDialog(dialog, "Delete Task", true);
+                JDialog deleteDialog = new JDialog(dialog, "Delete Treatment", true);
                 JPanel deletePanel = new JPanel(new GridLayout(0, 2));
                 deleteDialog.add(deletePanel);
                 
@@ -343,38 +343,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JComboBox<String> animalTaskComboBox = new JComboBox<String>(animalTaskList.toArray(new String[animalTaskList.size()]));
                 deletePanel.add(new JLabel("Treatments: "));
                 deletePanel.add(animalTaskComboBox);
-                
-                // add task dropdown list
-                ArrayList<String> taskList = new ArrayList<String>();
-                stmt = null;
-                rs = null;
-                try {
-                    stmt = dbConnect.createStatement();
-                    String selectSql = "SELECT Description FROM TASKS";
-                    rs = stmt.executeQuery(selectSql);
-                    
-                    // add tasks to ArrayList
-                    while (rs.next()) {
-                        taskList.add(rs.getString("Description"));
-                    }
-                } catch (Exception ex) {
-                    System.out.println("Exception: " + ex.getMessage());
-                } finally {
-                    try {
-                        if (rs != null) {
-                            rs.close();
-                        }
-                        if (stmt != null) {
-                            stmt.close();
-                        }
-                    } catch (Exception ex) {
-                        System.out.println("Exception: " + ex.getMessage());
-                    }
-                }
-                
-                JComboBox<String> taskComboBox = new JComboBox<String>(taskList.toArray(new String[taskList.size()]));
-                deletePanel.add(new JLabel("Task: "));
-                deletePanel.add(taskComboBox);
       
                 // add submit button
                 JButton submitButton = new JButton("Submit");
@@ -384,35 +352,34 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 
                         // get selected animal-task and task
                         String animalTask = (String) animalTaskComboBox.getSelectedItem();
-                        String task = (String) taskComboBox.getSelectedItem();
                 
                         // get task ID
-                        int taskID = -1;
+                        // int taskID = -1;
                         Statement stmt = null;
                         ResultSet rs = null;
-                        try {
-                            stmt = dbConnect.createStatement();
-                            String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
-                            rs = stmt.executeQuery(selectSql);
+                        // try {
+                        //     stmt = dbConnect.createStatement();
+                        //     String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
+                        //     rs = stmt.executeQuery(selectSql);
                 
-                            // get task ID
-                            if (rs.next()) {
-                                taskID = rs.getInt("TaskID");
-                            }
-                        } catch (Exception ex) {
-                            System.out.println("Exception: " + ex.getMessage());
-                        } finally {
-                            try {
-                                if (rs != null) {
-                                    rs.close();
-                                }
-                                if (stmt != null) {
-                                    stmt.close();
-                                }
-                            } catch (Exception ex) {
-                                System.out.println("Exception: " + ex.getMessage());
-                            }
-                        }
+                        //     // get task ID
+                        //     if (rs.next()) {
+                        //         taskID = rs.getInt("TaskID");
+                        //     }
+                        // } catch (Exception ex) {
+                        //     System.out.println("Exception: " + ex.getMessage());
+                        // } finally {
+                        //     try {
+                        //         if (rs != null) {
+                        //             rs.close();
+                        //         }
+                        //         if (stmt != null) {
+                        //             stmt.close();
+                        //         }
+                        //     } catch (Exception ex) {
+                        //         System.out.println("Exception: " + ex.getMessage());
+                        //     }
+                        // }
                 
                         // get animal ID and treatment ID
                         int animalID = -1;
