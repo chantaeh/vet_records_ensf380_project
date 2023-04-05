@@ -54,7 +54,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     
         // create buttons
         JButton addButton = new JButton("Add Tasks or Treatments");
-        JButton deleteButton = new JButton("delete Tasks or Treatments");
+        JButton deleteButton = new JButton("Delete Tasks or Treatments");
         JButton moveButton = new JButton("Move Treatment Start Hours");
         
         panel.add(addButton);
