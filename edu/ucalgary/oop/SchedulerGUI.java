@@ -10,7 +10,7 @@ import java.util.*;
 public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
     private JTextArea outputArea;
-    private Connection dbConnect = new Scheduler().getConnection() ;
+    private Connection connectDB;
     private Schedule schedule;
 
     
