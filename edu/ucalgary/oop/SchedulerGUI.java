@@ -1,10 +1,19 @@
 package edu.ucalgary.oop;
 
+/**
+ * Scheduler GUI class
+ * @author Group 25
+ * @version 1.2
+ * @since 1.1
+ */
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.*;
+
+
 
 public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
@@ -12,6 +21,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 
     private Scheduler scheduler = new Scheduler();
     private Connection dbConnect = null;
+
 
     public SchedulerGUI() {
         super("EWR Scheduler");
@@ -29,7 +39,11 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
-
+        /**
+     * sets up the main starting GUI
+     * @param none
+     * @return none
+     */
     private void setupGUI() {
         generateBtn = new JButton("Generate Schedule");
         printBtn = new JButton("Print to .txt File");
@@ -44,7 +58,12 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         add(panel, BorderLayout.NORTH);
         add(new JScrollPane(outputArea), BorderLayout.CENTER);
     }
-    
+    /**
+     * GUI for editing the database. Opened by editTaskButton on the main GUI.
+     * Includes three buttons for adding, deleting, and changing tasks and/or treatments in the database.
+     * @param none
+     * @return none
+     */
     // window that opens from the edit task button
     private void openEditDialog() {
         // create dialog box
@@ -111,8 +130,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                     while (rs.next()) {
                         animalNicknames.add(rs.getString("AnimalNickname"));
                     }
-                } catch (Exception exception) {
-                    System.out.println("Exception: " + exception.getMessage());
+                } catch (SQLException ex) {
+                    System.out.println("Exception: " + ex.getMessage());
                 } finally {
                     try {
                         if (rs != null) {
@@ -121,8 +140,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         if (stmt != null) {
                             stmt.close();
                         }
-                    } catch (Exception exe) {
-                        System.out.println("Exception: " + exe.getMessage());
+                    } catch (Exception ex) {
+                        System.out.println("Exception: " + ex.getMessage());
                     }
                 }
     
@@ -161,8 +180,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         }
                         String insertTreatmentSql = String.format("INSERT INTO TREATMENTS (AnimalID, TaskID, StartHour) VALUES (%d, %d, %d)", animalID, taskID, startHour);
                         stmt.executeUpdate(insertTreatmentSql);
-                    } catch (Exception exe) {
-                        System.out.println("Exception: " + exe.getMessage());
+                    } catch (Exception ex) {
+                        System.out.println("Exception: " + ex.getMessage());
                     }
                     
                     // close dialog box
@@ -316,8 +335,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                                 animalID = rs.getInt("AnimalID");
                                 treatmentID = rs.getInt("TreatmentID");
                             }
-                        } catch (Exception exeception) {
-                            System.out.println("Exception: " + exeception.getMessage());
+                        } catch (Exception ex) {
+                            System.out.println("Exception: " + ex.getMessage());
                         } finally {
                             try {
                                 if (rs != null) {
@@ -326,8 +345,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                                 if (stmt != null) {
                                     stmt.close();
                                 }
-                            } catch (Exception exe) {
-                                System.out.println("Exception: " + exe.getMessage());
+                            } catch (Exception ex) {
+                                System.out.println("Exception: " + ex.getMessage());
                             }
                         }
                 
@@ -341,15 +360,15 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                             // close dialog box
                             deleteDialog.dispose();
                             
-                        } catch (Exception exeception) {
-                            System.out.println("Exception: " + exeception.getMessage());
+                        } catch (Exception ex) {
+                            System.out.println("Exception: " + ex.getMessage());
                         } finally {
                             try {
                                 if (stmt != null) {
                                     stmt.close();
                                 }
-                            } catch (Exception exe) {
-                                System.out.println("Exception: " + exe.getMessage());
+                            } catch (Exception ex) {
+                                System.out.println("Exception: " + ex.getMessage());
                             }
                         }
                     }
@@ -441,8 +460,13 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         });
     }    
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == generateBtn) {
+    /**
+     * Performs corresponding actions according to the ActionEvent triggered by the user.
+     * @param action
+     * @return none
+     */
+    public void actionPerformed(ActionEvent action) {
+        if (action.getSource() == generateBtn) {
              // generate schedule
             //if backup volunteers are needed, generate pop up prompt to remind user to confirm/call the backup volunteer
             scheduler.treatmentTasks();
@@ -452,7 +476,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             Schedule schedule = new Schedule(scheduler.getOverallTasks());
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             outputArea.setText(formattedSchedule);
-        } else if (e.getSource() == printBtn) {
+        } else if (action.getSource() == printBtn) {
 
             // print schedule to .txt file
 
@@ -464,7 +488,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             scheduler.printFile(formattedSchedule);
             outputArea.setText("Schedule printed to file!");
-        } else if (e.getSource() == editTaskBtn) {
+        } else if (action.getSource() == editTaskBtn) {
 
             openEditDialog();
             // outputArea.setText("Tasks Edited!");
