@@ -50,7 +50,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         // create dialog box
         JDialog dialog = new JDialog(this, "Edit Tasks", false);
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1));
+        panel.setLayout(new GridLayout(3, 0));
     
         // create buttons
         JButton addButton = new JButton("Add Tasks or Treatments");
@@ -219,7 +219,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 }
                 
                 JComboBox<String> animalTaskComboBox = new JComboBox<String>(animalTaskList.toArray(new String[animalTaskList.size()]));
-                deletePanel.add(new JLabel("Animal-Task: "));
+                deletePanel.add(new JLabel("Treatments: "));
                 deletePanel.add(animalTaskComboBox);
                 
                 // add task dropdown list
@@ -368,8 +368,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 // create dialog box
                 JDialog moveDialog = new JDialog(dialog, "Move Treatment Start Hours", true);
-                JPanel panel = new JPanel(new GridLayout(2, 1));
-                moveDialog.add(panel);
+                JPanel movePanel = new JPanel(new GridLayout(0, 2));
+                moveDialog.add(movePanel);
                 
                 // get all treatments from the database
                 ArrayList<String> treatments = new ArrayList<String>();
@@ -380,7 +380,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         String animalNickname = rs.getString("AnimalNickname");
                         String taskDescription = rs.getString("Description");
                         int startHour = rs.getInt("StartHour");
-                        treatments.add(animalNickname + ", " + taskDescription + ", " + startHour + ":00");
+                        treatments.add(animalNickname + ", " + taskDescription + " @ " + startHour + ":00");
                     }
                     rs.close();
                     stmt.close();
@@ -390,15 +390,16 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 
                 // create dropdown list of treatments
                 JComboBox<String> treatmentDropdown = new JComboBox<String>(treatments.toArray(new String[0]));
-                panel.add(treatmentDropdown);
+                movePanel.add(new JLabel("Treatments: "));
+                movePanel.add(treatmentDropdown);
                 
                 // create dropdown list of start hours
                 JComboBox<Integer> startHourDropDown = new JComboBox<Integer>();
                 for (int i = 0; i <= 23; i++) {
                     startHourDropDown.addItem(i);
                 }
-                panel.add(new JLabel("Start Hour: "));
-                panel.add(startHourDropDown);
+                movePanel.add(new JLabel("Choose NEW Start Hour: "));
+                movePanel.add(startHourDropDown);
                 
                 // create submit button
                 JButton submitButton = new JButton("Submit");
@@ -430,7 +431,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         moveDialog.dispose();
                     }
                 });
-                panel.add(submitButton);
+                movePanel.add(submitButton);
                 
                 // show dialog box
                 moveDialog.pack();
