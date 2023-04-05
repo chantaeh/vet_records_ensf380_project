@@ -355,6 +355,11 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                     }
                 });
                 deletePanel.add(submitButton);
+
+                 // show dialog box
+                deleteDialog.pack();
+                deleteDialog.setLocationRelativeTo(dialog);
+                deleteDialog.setVisible(true);
         
             }  
         });
