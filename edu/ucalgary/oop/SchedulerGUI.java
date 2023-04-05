@@ -577,7 +577,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         String[] parts = selectedTreatment.split("; | @ ");
                         String animalNickname = parts[0];
                         String taskDescription = parts[1];
-                        int startHour = Integer.parseInt(parts[2].substring(0, 2));
+                        int startHour = Integer.parseInt(parts[2].split(":")[0]);
                         
                         // update start hour in the database
                         try {
