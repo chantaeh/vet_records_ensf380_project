@@ -408,7 +408,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         // get selected treatment and start hour
                         String selectedTreatment = (String) treatmentDropdown.getSelectedItem();
                         int selectedStartHour = (int) startHourDropDown.getSelectedItem();
-                        String[] parts = selectedTreatment.split(", ");
+                        String[] parts = selectedTreatment.split(", | @ ");
                         String animalNickname = parts[0];
                         String taskDescription = parts[1];
                         int startHour = Integer.parseInt(parts[2].substring(0, 2));
