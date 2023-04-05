@@ -71,6 +71,10 @@ public class Scheduler {
         return overallTasks;
     }
 
+    public void setOverallTasks(ArrayList<Task> overallTasks) {
+        this.overallTasks = overallTasks;
+    }
+
     /**
      * Add treatment tasks to the overall tasks
      */

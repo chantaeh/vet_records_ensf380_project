@@ -469,14 +469,14 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         }
     }
     private void generateSchedule(){
-        scheduler.clear();
+        scheduler.setOverallTasks(new ArrayList<Task>());
         scheduler.treatmentTasks();
         scheduler.feedingTasks();
         scheduler.cleaningTasks();
         try{
-         schedule = new Schedule(scheduler.getOverallTasks());
-        String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
-        outputArea.setText(formattedSchedule);
+            schedule = new Schedule(scheduler.getOverallTasks());
+            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
+            outputArea.setText(formattedSchedule);
         }
         catch ( TaskOverflowException ex){
             outputArea.setText(ex.getMessage());
