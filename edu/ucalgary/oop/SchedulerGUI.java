@@ -9,6 +9,8 @@ package edu.ucalgary.oop;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Path2D;
+
 import javax.swing.*;
 import java.sql.*;
 import java.util.*;
@@ -72,12 +74,14 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         panel.setLayout(new GridLayout(3, 0));
     
         // create buttons
-        JButton addButton = new JButton("Add Tasks or Treatments");
+        JButton addTaskButton = new JButton("Add Task");
+        JButton addTmtButton = new JButton("Add Treatment");
         JButton deleteTaskButton = new JButton("Delete Task");
         JButton deleteTmtButton = new JButton("Delete Treatment");
         JButton moveButton = new JButton("Move Treatment Start Hours");
         
-        panel.add(addButton);
+        panel.add(addTaskButton);
+        panel.add(addTmtButton);
         panel.add(deleteTaskButton);
         panel.add(deleteTmtButton);
         panel.add(moveButton);
@@ -89,9 +93,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         dialog.setAlwaysOnTop(true);
         
         // set button action listeners
-        addButton.addActionListener(new ActionListener() {
+        addTaskButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // handle add button click event
+                // handle add task button click event
                 
                 // create dialog box for adding task
                 JDialog addDialog = new JDialog(dialog, "Add Task", true);
@@ -118,7 +122,49 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 }
                 addPanel.add(new JLabel("Max Window (hours): "));
                 addPanel.add(windowComboBox);
-                
+
+            // add submit button
+            JButton submitButton = new JButton("Submit");
+            submitButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // get values from input fields
+                    String description = descriptionTextArea.getText();
+                    int duration = (int) durationComboBox.getSelectedItem();
+                    int window = (int) windowComboBox.getSelectedItem();
+                    
+                    // insert new task into database
+                    try {
+                        Statement stmt = dbConnect.createStatement();
+                        String insertSql = String.format("INSERT INTO TASKS (Description, Duration, MaxWindow) VALUES ('%s', %d, %d)", description, duration, window);
+                        stmt.executeUpdate(insertSql, Statement.RETURN_GENERATED_KEYS);
+                        ResultSet rs = stmt.getGeneratedKeys();
+                    } catch (Exception ex) {
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
+                    
+                    // close dialog box
+                    addDialog.dispose();
+                }
+            });
+            addPanel.add(submitButton);
+            
+            // show dialog box
+            addDialog.pack();
+            addDialog.setLocationRelativeTo(dialog);
+            addDialog.setVisible(true);
+            }
+        });
+
+        // set button action listeners
+        addTmtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // handle add treatment button click event
+
+                // create dialog box for adding treatment
+                JDialog addDialog = new JDialog(dialog, "Add Treatment", true);
+                JPanel addPanel = new JPanel(new GridLayout(0, 2));
+                addDialog.add(addPanel);
+            
                 // add animal drop down list
                 ArrayList<String> animalNicknames = new ArrayList<String>();
                 Statement stmt = null;
@@ -134,6 +180,23 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                     }
                 } catch (SQLException ex) {
                     System.out.println("Exception: " + ex.getMessage());
+                } 
+
+                // add task dropdown list
+                ArrayList<String> taskList = new ArrayList<String>();
+                stmt = null;
+                rs = null;
+                try {
+                    stmt = dbConnect.createStatement();
+                    String selectSql = "SELECT Description FROM TASKS";
+                    rs = stmt.executeQuery(selectSql);
+                    
+                    // add tasks to ArrayList
+                    while (rs.next()) {
+                        taskList.add(rs.getString("Description"));
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Exception: " + ex.getMessage());
                 } finally {
                     try {
                         if (rs != null) {
@@ -146,6 +209,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         System.out.println("Exception: " + ex.getMessage());
                     }
                 }
+
+                JComboBox<String> taskComboBox = new JComboBox<String>(taskList.toArray(new String[taskList.size()]));
+                addPanel.add(new JLabel("Task: "));
+                addPanel.add(taskComboBox);
     
                 JComboBox<String> animalComboBox = new JComboBox<String>(animalNicknames.toArray(new String[animalNicknames.size()]));
                 addPanel.add(new JLabel("Animal: "));
@@ -164,22 +231,32 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             submitButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     // get values from input fields
-                    String description = descriptionTextArea.getText();
-                    int duration = (int) durationComboBox.getSelectedItem();
-                    int window = (int) windowComboBox.getSelectedItem();
+                    
                     int animalID = animalComboBox.getSelectedIndex() + 1;
                     int startHour = (int) startHourComboBox.getSelectedItem();
+
+                    // get selected animal-task and task
+                    String task = (String) taskComboBox.getSelectedItem();
+                
+                    // get task ID
+                    int taskID = -1;
+                    Statement stmt = null;
+                    ResultSet rs = null;
+                    try {
+                        stmt = dbConnect.createStatement();
+                        String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
+                        rs = stmt.executeQuery(selectSql);
+            
+                        // get task ID
+                        if (rs.next()) {
+                            taskID = rs.getInt("TaskID");
+                        }
+                    } catch (Exception ex) {
+                        System.out.println("Exception: " + ex.getMessage());
+                    }
                     
                     // insert new task into database
                     try {
-                        Statement stmt = dbConnect.createStatement();
-                        String insertSql = String.format("INSERT INTO TASKS (Description, Duration, MaxWindow) VALUES ('%s', %d, %d)", description, duration, window);
-                        stmt.executeUpdate(insertSql, Statement.RETURN_GENERATED_KEYS);
-                        ResultSet rs = stmt.getGeneratedKeys();
-                        int taskID = -1;
-                        if (rs.next()) {
-                            taskID = rs.getInt(1);
-                        }
                         String insertTreatmentSql = String.format("INSERT INTO TREATMENTS (AnimalID, TaskID, StartHour) VALUES (%d, %d, %d)", animalID, taskID, startHour);
                         stmt.executeUpdate(insertTreatmentSql);
                     } catch (Exception ex) {
