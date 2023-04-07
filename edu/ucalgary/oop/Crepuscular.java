@@ -9,10 +9,19 @@ package edu.ucalgary.oop;
 abstract class Crepuscular extends Animal{
     private static final int FEED_START_HOUR = 19;
 
+    /**
+     * Constructor for Crepuscular class
+     * @param nickname
+     * @param numAnimals
+     */
     public Crepuscular(String nickname, int numAnimals) {
         super(nickname, numAnimals);
     }
 
+    /**
+     * Getter for FEED_START_HOUR
+     * @return FEED_START_HOUR
+     */
     public static int getFeedStartHour() {
         return FEED_START_HOUR;
     }

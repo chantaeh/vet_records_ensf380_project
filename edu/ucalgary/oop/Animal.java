@@ -65,10 +65,7 @@ public class Animal {
         this.numAnimals = numAnimals;
     }
 
-    public static void main(String[] args) {
-        Animal animal = new Raccoon("hello", 1);
-        System.out.println(animal.getClass());
-    }
+
     
     
 }

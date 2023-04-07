@@ -17,7 +17,9 @@ import java.util.jar.Attributes.Name;
 
 public class Scheduler {
     private Connection dbConnect;
-    private ArrayList<String> orphanedAnimals = new ArrayList<String>();
+    private ArrayList<String> orphanedAnimals = new ArrayList<String>();  
+    private static int numBackupVolunteers = 0;
+
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
 
     private HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
@@ -50,6 +52,7 @@ public class Scheduler {
 
     /**
      * Creates a connection with the mysql database
+     * 
      */
     public void createConnection(){
         try{
@@ -66,6 +69,10 @@ public class Scheduler {
      */
     public ArrayList<Task> getOverallTasks() {
         return overallTasks;
+    }
+
+    public void setOverallTasks(ArrayList<Task> overallTasks) {
+        this.overallTasks = overallTasks;
     }
 
     /**
@@ -240,6 +247,7 @@ public class Scheduler {
      */
     public static String getFormatted(ArrayList<ArrayList<Task>> dailyTasks) {
         String outputString = "";
+        numBackupVolunteers = 0;
 
         outputString = "Schedule for " + LocalDate.now().plusDays(1).toString() + "\n";
 
@@ -247,6 +255,7 @@ public class Scheduler {
             if (hourlyTasks.size() != 0) {
                 if (Schedule.timeUsed(hourlyTasks) > 60) {
                     outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00 [+ backup volunteer]\n";
+                    numBackupVolunteers+=1;
                 }
                 else {
                     outputString += "\n" + String.valueOf(hourlyTasks.get(0).getStartHour()) + ":00\n";
@@ -301,19 +310,20 @@ public class Scheduler {
         }
     }
 
-    public static void main(String[] args) {
-        
-        Scheduler scheduler = new Scheduler();
-        scheduler.createConnection();
-
-        // Create and add tasks to arraylist
-        scheduler.treatmentTasks();
-        scheduler.feedingTasks();
-        scheduler.cleaningTasks();
-        
-        Schedule schedule = new Schedule(scheduler.getOverallTasks());
-        String formattedSchedule = getFormatted(schedule.getDailyTasks());
-        System.out.println(formattedSchedule);
-        scheduler.printFile(formattedSchedule);
+    /**
+     *  Clears the overall tasks arraylist
+     */
+    public void clear() {
+        overallTasks.clear();
     }
+
+    /**
+     * gets the number of backup volunteers needed
+     * @return the number of backup volunteers needed
+     */
+    public int getNumBackupVolunteers() {
+        return numBackupVolunteers;
+    }
+
+
 }

@@ -13,18 +13,35 @@ package edu.ucalgary.oop;
     private static final int FEEDING_PREP_MINS = 0;
     private static final int CAGE_CLEAN_MINS = 5;
 
+    /**
+     * Constructor for Beaver class
+     * @param name
+     * @param numAnimals
+     */
     public Beaver(String name, int numAnimals) {
         super(name, numAnimals);
     }
 
+    /**
+     * Getter for FEED_MINS
+     * @return FEED_MINS
+     */
     public static int getFeedMins() {
         return FEED_MINS;
     }
 
+    /**
+     * Getter for FEEDING_PREP_MINS
+     * @return FEEDING_PREP_MINS
+     */
     public static int getFeedingPrepMins() {
         return FEEDING_PREP_MINS;
     }
 
+    /**
+     * Getter for CAGE_CLEAN_MINS
+     * @return CAGE_CLEAN_MINS
+     */
     public static int getCageCleanMins() {
         return CAGE_CLEAN_MINS;
     }
