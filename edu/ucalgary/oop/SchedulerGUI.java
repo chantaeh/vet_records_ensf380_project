@@ -656,6 +656,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         catch (TaskOverflowException ex){
             outputArea.setText(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
         }
         catch (Exception ex){
             outputArea.setText(ex.getMessage());
