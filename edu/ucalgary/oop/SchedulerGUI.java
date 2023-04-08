@@ -63,7 +63,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (dbConnect != null) {
             generateBtn = new JButton("Generate Schedule");
             printBtn = new JButton("Print to .txt File");
-            editTaskBtn = new JButton("Edit Tasks");
+            editTaskBtn = new JButton("Edit Schedule");
 
             panel.add(generateBtn);
             panel.add(printBtn);
