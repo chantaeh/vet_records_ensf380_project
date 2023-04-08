@@ -62,7 +62,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     }
     /**
      * GUI for editing the database. Opened by editTaskButton on the main GUI.
-     * Includes three buttons for adding, deleting, and changing tasks and/or treatments in the database.
+     * Includes five buttons for adding, deleting, and changing tasks and/or treatments in the database.
      * @param none
      * @return none
      */
