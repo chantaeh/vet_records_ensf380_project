@@ -13,7 +13,10 @@ import java.time.LocalDate;
 
 /**
  * JUnit Tester class
- * @author Group 25
+ * @author chantaeh
+ * @author andrewy94
+ * @author Youssef
+ * @author Tony
  * @version 1.2
  * @since 1.1
  */
