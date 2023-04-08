@@ -70,7 +70,8 @@ public class Schedule {
             int hour = 0;
             if (timeUsed(hourlyTasks) > 120) {
                 String message = "Too many tasks at time " + hour 
-                    + ":00.\nChange the start hour for one or more or the following tasks: \n";
+                    + ":00.\nChange the start hour for one or more or the following tasks by going"
+                    + " to Edit Tasks > Move Treatment Start Hours. \nThen regenerate the schedule.\n\n";
                 for (Task task : hourlyTasks) {
                     if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
                         message += task.getDescription() + ",\n";
