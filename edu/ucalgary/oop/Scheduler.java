@@ -10,6 +10,9 @@ import java.util.jar.Attributes.Name;
 
 /**
  * Class that creates tasks
+ * @author chantaeh
+ * @author andrewy94
+ * @author Youssef
  * @author Tony
  * @version 1.1
  * @since 1.0

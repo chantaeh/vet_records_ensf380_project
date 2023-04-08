@@ -3,7 +3,10 @@ package edu.ucalgary.oop;
 /**
  * Beaver class, which inherits from the abstract class Diurnal.
  * Returns required time in mins for feeding, feeding preparation and cage cleaning.
+ * @author chantaeh
  * @author andrewy94
+ * @author Youssef
+ * @author Tony
  * @version 1.0
  * @since 1.0
  */

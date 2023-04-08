@@ -6,6 +6,9 @@ import java.util.LinkedList;
 
 /**
  * Class that allocates task for each given hour
+ * @author chantaeh
+ * @author andrewy94
+ * @author Youssef
  * @author Tony
  * @version 1.0
  * @since 1.0

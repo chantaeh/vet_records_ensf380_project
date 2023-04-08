@@ -3,7 +3,10 @@ package edu.ucalgary.oop;
 /**
  * Fox class, which inherits from the abstract class Nocturnal.
  * Returns required time in mins for feeding, feeding preparation and cage cleaning.
+ * @author chantaeh
  * @author andrewy94
+ * @author Youssef
+ * @author Tony
  * @version 1.0
  * @since 1.0
  */
