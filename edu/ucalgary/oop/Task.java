@@ -1,11 +1,10 @@
 package edu.ucalgary.oop;
 
-/* 
+/**
  * Task class
  * @author Youssef
  * @version 1.0
  * @since 1.0
- *
  */
 public class Task {
     private String description;
@@ -14,18 +13,17 @@ public class Task {
     private int startHour;
     private Animal animal;
 
-    /*
+    /**
      * Constructor for Task class
-     * @param description
+     * @param description   
      * @param duration
-     * @param maxWindow
+     * @param maxWindow 
      * @param startHour
      * @param animal
      * @throws IlleagalArgumentException
      */
 
     public Task(String description, int duration, int maxWindow, int startHour, Animal animal) throws IllegalArgumentException {
-        
         if (duration < 0 || maxWindow < 0 || startHour < 0 || startHour > 23) {
             throw new IllegalArgumentException("Invalid input");
         }
@@ -37,7 +35,7 @@ public class Task {
         this.animal = animal;
     }
     
-    /*
+    /**
      * Getter for description
      * @return description
      */
@@ -45,7 +43,7 @@ public class Task {
         return description;
     }
     
-    /*
+    /**
      * Getter for duration
      * @return duration
      */
@@ -53,7 +51,7 @@ public class Task {
         return duration;
     }
 
-    /*
+    /**
      * Getter for maxWindow
      * @return maxWindow
      */
@@ -61,7 +59,7 @@ public class Task {
         return maxWindow;
     }
 
-    /*
+    /**
      * Getter for startHour
      * @return startHour
      */
@@ -69,7 +67,7 @@ public class Task {
         return startHour;
     }
 
-    /*
+    /**
      * Getter for animal
      * @return animal
      */
@@ -77,7 +75,7 @@ public class Task {
         return animal;
     }
 
-    /*
+    /**
      * Setter for description
      * @param description
      */
@@ -85,7 +83,7 @@ public class Task {
         this.description = description;
     }
 
-    /*
+    /**
      * Setter for duration
      * @param duration
      */
@@ -93,7 +91,7 @@ public class Task {
         this.duration = duration;
     }
 
-    /*
+    /**
      * Setter for maxWindow
      * @param maxWindow
      */
@@ -101,7 +99,7 @@ public class Task {
         this.maxWindow = maxWindow;
     }
 
-    /*
+    /**
      * Setter for startHour
      * @param startHour
      */
@@ -109,13 +107,12 @@ public class Task {
         this.startHour = startHour;
     }
 
-    /*
+    /**
      * Setter for animal
      * @param animal
      */
     public void setAnimal(Animal animal) {
         this.animal = animal;
     }
-    
     
 }
