@@ -456,29 +456,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                         // int taskID = -1;
                         Statement stmt = null;
                         ResultSet rs = null;
-                        // try {
-                        //     stmt = dbConnect.createStatement();
-                        //     String selectSql = "SELECT TaskID FROM TASKS WHERE Description='" + task + "'";
-                        //     rs = stmt.executeQuery(selectSql);
-                
-                        //     // get task ID
-                        //     if (rs.next()) {
-                        //         taskID = rs.getInt("TaskID");
-                        //     }
-                        // } catch (Exception ex) {
-                        //     System.out.println("Exception: " + ex.getMessage());
-                        // } finally {
-                        //     try {
-                        //         if (rs != null) {
-                        //             rs.close();
-                        //         }
-                        //         if (stmt != null) {
-                        //             stmt.close();
-                        //         }
-                        //     } catch (Exception ex) {
-                        //         System.out.println("Exception: " + ex.getMessage());
-                        //     }
-                        // }
                 
                         // get animal ID and treatment ID
                         int animalID = -1;
