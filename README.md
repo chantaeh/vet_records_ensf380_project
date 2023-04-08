@@ -4,6 +4,8 @@ W23 ENSF 380 Final Project
 
 ### Group 25
 - Chantae Ho (30141743)
+- Youssef Mamoun (30149233)
+- Andrew Yan (30110460)
 - Tony Tran (30141007)
 
 
