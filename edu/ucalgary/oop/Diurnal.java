@@ -3,7 +3,7 @@ package edu.ucalgary.oop;
 /**
  * Abstract class for Diurnal animals. Gives int array of feeding hours.
  * @author chantaeh 
- * @version 1.0
+ * @version 1.1
  * @since 1.0
  */
 abstract class Diurnal extends Animal{
