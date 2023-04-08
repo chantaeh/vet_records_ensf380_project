@@ -29,47 +29,52 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 
     public SchedulerGUI() {
         super("EWR Scheduler");
-        setSize(600, 400);
-        setupGUI();
-        setVisible(true);
-
-        generateBtn.addActionListener(this);
-        printBtn.addActionListener(this);
-        editTaskBtn.addActionListener(this);
+        
         // creating connection to database
         scheduler.createConnection();
-        dbConnect = scheduler.getDBConnect();
         try {
             // connect to the database
             Class.forName("com.mysql.cj.jdbc.Driver");
             dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            System.exit(1);
+        } catch (Exception ex) {}
+
+        setSize(600, 400);
+        setupGUI();
+        setVisible(true);
+
+        if (dbConnect != null) {
+            generateBtn.addActionListener(this);
+            printBtn.addActionListener(this);
+            editTaskBtn.addActionListener(this);
         }
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
-        /**
-     * sets up the main starting GUI
+    
+    /**
+     * Sets up the main starting GUI
      * @param none
      * @return none
      */
     private void setupGUI() {
-        generateBtn = new JButton("Generate Schedule");
-        printBtn = new JButton("Print to .txt File");
-        editTaskBtn = new JButton("Edit Tasks");
+        JPanel panel = new JPanel();
         outputArea = new JTextArea(20, 20);
 
-        JPanel panel = new JPanel();
-        panel.add(generateBtn);
-        panel.add(printBtn);
-        panel.add(editTaskBtn);
+        if (dbConnect != null) {
+            generateBtn = new JButton("Generate Schedule");
+            printBtn = new JButton("Print to .txt File");
+            editTaskBtn = new JButton("Edit Tasks");
 
+            panel.add(generateBtn);
+            panel.add(printBtn);
+            panel.add(editTaskBtn);
+        } else {
+            outputArea.setText("Unable to connect to the EWR database. Please restart the program.");
+        }
         add(panel, BorderLayout.NORTH);
         add(new JScrollPane(outputArea), BorderLayout.CENTER);
     }
+
     /**
      * GUI for editing the database. Opened by editTaskButton on the main GUI.
      * Includes five buttons for adding, deleting, and changing tasks and/or treatments in the database.
@@ -85,9 +90,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     
         // create buttons
         JButton addTaskButton = new JButton("Add Task");
-        JButton addTmtButton = new JButton("Add Treatment");
+        JButton addTmtButton = new JButton("Add Treatment to Animal");
         JButton deleteTaskButton = new JButton("Delete Task");
-        JButton deleteTmtButton = new JButton("Delete Treatment");
+        JButton deleteTmtButton = new JButton("Delete Treatment from Animal");
         JButton moveButton = new JButton("Move Treatment Start Hours");
         
         panel.add(addTaskButton);
