@@ -16,5 +16,6 @@ W23 ENSF 380 Final Project
 - 
 
 ### Notes
-- The schedule.txt file generated will be created in directory you are running the program from (likely this will be the ```ensf380_project``` directory).
+- Please ensure you have the EWR database available on your computer prior to starting the program.
 - A valid schedule must be generated before it can be printed to a file!
+- The schedule.txt file generated will be created in directory you are running the program from (likely this will be the ```ensf380_project``` directory).
