@@ -39,16 +39,14 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         // creating connection to database
         scheduler.createConnection();
         dbConnect = scheduler.getDBConnect();
-        /* commented out to test gui itself for now
         try {
             // connect to the database
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connectDB = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "root", "password");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "oop", "password");
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
         }
-        */
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
