@@ -12,7 +12,7 @@ W23 ENSF 380 Final Project
 - Run the tester file with the command: ```java -cp .;lib\hamcrest-core-1.3.jar;lib\junit-4.13.2.jar;lib\mysql-connector-java-8.0.23.jar org.junit.runner.JUnitCore edu.ucalgary.oop.Tester```
 - Run the GUI scheduler program with the command: ```java -cp .;lib\hamcrest-core-1.3.jar;lib\junit-4.13.2.jar;lib\mysql-connector-java-8.0.23.jar edu.ucalgary.oop.SchedulerGUI```
 
-## To run the program (on MacOS)"
+### To run the program (on MacOS):
 - 
 
 ### Notes
