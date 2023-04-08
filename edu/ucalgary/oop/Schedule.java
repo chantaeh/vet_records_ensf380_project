@@ -67,8 +67,10 @@ public class Schedule {
 
         // Check if there is enough time to complete the tasks
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
+            int hour = 0;
             if (timeUsed(hourlyTasks) > 120) {
-                String message = "Change the start hour for the following tasks: \n";
+                String message = "Too many tasks at time " + hour 
+                    + ":00.\nChange the start hour for one or more or the following tasks: \n";
                 for (Task task : hourlyTasks) {
                     if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
                         message += task.getDescription() + ",\n";
@@ -76,6 +78,7 @@ public class Schedule {
                 }
                 throw new TaskOverflowException(message);
             }
+            hour++;
         }
     }
 
