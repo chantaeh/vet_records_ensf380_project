@@ -1,12 +1,5 @@
 package edu.ucalgary.oop;
 
-/**
- * Scheduler GUI class
- * @author Group 25
- * @version 1.2
- * @since 1.1
- */
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Path2D;
@@ -15,18 +8,26 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
-
-
+/**
+ * Scheduler GUI class
+ * @author chantaeh
+ * @author andrewy94
+ * @author Youssef
+ * @author Tony
+ * @version 1.3
+ * @since 1.1
+ */
 public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
     private JTextArea outputArea;
     private Schedule schedule;
-
     
     private Scheduler scheduler = new Scheduler();
     private Connection dbConnect = null;
 
-
+    /**
+     * Constructor for SchedulerGUI class
+     */
     public SchedulerGUI() {
         super("EWR Scheduler");
         
@@ -53,8 +54,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     
     /**
      * Sets up the main starting GUI
-     * @param none
-     * @return none
      */
     private void setupGUI() {
         JPanel panel = new JPanel();
@@ -81,7 +80,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
      * @param none
      * @return none
      */
-    // window that opens from the edit task button
     private void openEditDialog() {
         // create dialog box
         JDialog dialog = new JDialog(this, "Edit Tasks", false);
@@ -639,13 +637,14 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             scheduler.printFile(formattedSchedule);
             outputArea.setText("Schedule printed to file!");
-        } else if (action.getSource() == editTaskBtn) {
-            
+        } else if (action.getSource() == editTaskBtn) {    
             openEditDialog();
-            
-            // outputArea.setText("Tasks Edited!");
         }
     }
+
+    /**
+     * Generates a Schedule object 
+     */
     private void generateSchedule(){
         scheduler.setOverallTasks(new ArrayList<Task>());
         scheduler.treatmentTasks();
@@ -656,7 +655,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             outputArea.setText(formattedSchedule);
         }
-        catch ( TaskOverflowException ex){
+        catch (TaskOverflowException ex){
             outputArea.setText(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -669,7 +668,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         }
     }
 
-
+    /**
+     * main() method calls the SchedulerGUI constructor
+     * @param args  Optional command-line arguments
+     */
     public static void main(String[] args) {
         new SchedulerGUI();
     }
