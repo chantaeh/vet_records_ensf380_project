@@ -20,7 +20,10 @@ import java.util.*;
 public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
     private JTextArea outputArea;
+    private Connection dbConnect;
+    private Schedule schedule;
 
+    
     private Scheduler scheduler = new Scheduler();
     private Connection dbConnect = null;
 
@@ -36,7 +39,16 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         editTaskBtn.addActionListener(this);
         // creating connection to database
         scheduler.createConnection();
-        dbConnect = scheduler.getDbConnect();
+        /* commented out to test gui itself for now
+        try {
+            // connect to the database
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connectDB = DriverManager.getConnection("jdbc:mysql://localhost/EWR", "root", "password");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+        }
+        */
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -616,29 +628,44 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (action.getSource() == generateBtn) {
              // generate schedule
             //if backup volunteers are needed, generate pop up prompt to remind user to confirm/call the backup volunteer
-            scheduler.treatmentTasks();
-            scheduler.feedingTasks();
-            scheduler.cleaningTasks();
-            
-            Schedule schedule = new Schedule(scheduler.getOverallTasks());
-            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
-            outputArea.setText(formattedSchedule);
+            generateSchedule();
+        
         } else if (action.getSource() == printBtn) {
-
-            // print schedule to .txt file
-
-            scheduler.treatmentTasks();
-            scheduler.feedingTasks();
-            scheduler.cleaningTasks();
+            if (schedule == null) {
+                outputArea.setText("Please generate a schedule first!");
+                return;
+            }
             
-            Schedule schedule = new Schedule(scheduler.getOverallTasks());
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             scheduler.printFile(formattedSchedule);
             outputArea.setText("Schedule printed to file!");
         } else if (action.getSource() == editTaskBtn) {
 
             openEditDialog();
+            
             // outputArea.setText("Tasks Edited!");
+        }
+    }
+    private void generateSchedule(){
+        scheduler.setOverallTasks(new ArrayList<Task>());
+        scheduler.treatmentTasks();
+        scheduler.feedingTasks();
+        scheduler.cleaningTasks();
+        try{
+            schedule = new Schedule(scheduler.getOverallTasks());
+            String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
+            outputArea.setText(formattedSchedule);
+        }
+        catch ( TaskOverflowException ex){
+            outputArea.setText(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        catch (Exception ex){
+            outputArea.setText(ex.getMessage());
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        if(scheduler.getNumBackupVolunteers() > 0){
+            JOptionPane.showMessageDialog(null,scheduler.getNumBackupVolunteers() + " Backup volunteer(s) needed ");
         }
     }
 

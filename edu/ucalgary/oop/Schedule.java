@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class Schedule {
     private ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
 
-    public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException{
+    public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException, TaskOverflowException {
         // Create empty array for each hour
         for (int i = 0; i < 24; i++) {
             ArrayList<Task> newArray = new ArrayList<>();
@@ -68,13 +68,13 @@ public class Schedule {
         // Check if there is enough time to complete the tasks
         for (ArrayList<Task> hourlyTasks : dailyTasks) {
             if (timeUsed(hourlyTasks) > 120) {
-                String message = "Change the start hour for the following tasks: ";
+                String message = "Change the start hour for the following tasks: \n";
                 for (Task task : hourlyTasks) {
                     if (!task.getDescription().equals("Feeding") && !task.getDescription().equals("Cage cleaning")) {
-                        message += task.getDescription() + ", ";
+                        message += task.getDescription() + ",\n";
                     }
                 }
-                throw new IllegalArgumentException(message);
+                throw new TaskOverflowException(message);
             }
         }
     }
@@ -94,6 +94,10 @@ public class Schedule {
         return timeUsed;
     }
 
+    /**
+     * Getter for dailyTasks
+     * @return dailyTasks
+     */
     public ArrayList<ArrayList<Task>> getDailyTasks() {
         return dailyTasks;
     }

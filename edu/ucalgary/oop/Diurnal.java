@@ -9,10 +9,20 @@ package edu.ucalgary.oop;
 abstract class Diurnal extends Animal{
     private static final int FEED_START_HOUR = 8;
 
+    /**
+     * Constructor for Diurnal class
+     * @param nickname
+     * @param numAnimals
+     */
+
     public Diurnal(String nickname, int numAnimals) {
         super(nickname, numAnimals);
     }
 
+    /**
+     * Getter for FEED_START_HOUR
+     * @return FEED_START_HOUR
+     */
     public static int getFeedStartHour() {
         return FEED_START_HOUR;
     }

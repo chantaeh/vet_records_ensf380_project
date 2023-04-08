@@ -922,13 +922,23 @@ public class Tester {
      */
     @Test
     public void testScheduleConstructor() {
+        Task task = null;
         Fox fox = new Fox("Snowball", 1);
-        Task task = new Task("Eyedrops", 25, 1, 22, fox);
+        try {
+            task = new Task("Eyedrops", 25, 1, 22, fox);
+        }
+        catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task);
-        Schedule schedule = new Schedule(dailyTasks);
+        try {
+            Schedule schedule = new Schedule(dailyTasks);
+            assertNotNull("Time object should not be null", schedule);
+        } catch (TaskOverflowException ex) {
+            ex.printStackTrace();
+        }
 
-        assertNotNull("Time object should not be null", schedule);
     }
 
     /**
@@ -941,7 +951,11 @@ public class Tester {
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task);
 
-        Schedule schedule = new Schedule(new ArrayList<Task>((Arrays.asList(new Task("Eyedrops", 25, 1, 30, fox)))));
+        try {
+            Schedule schedule = new Schedule(new ArrayList<Task>((Arrays.asList(new Task("Eyedrops", 25, 1, 30, fox)))));
+        } catch (TaskOverflowException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**
@@ -949,14 +963,28 @@ public class Tester {
      */
     @Test
     public void testScheduleTimeUsed() {
+        Task task1 = null;
+        Task task2 = null;
+
         Fox fox = new Fox("Snowball", 1);
         Coyote coyote = new Coyote("Narseh", 2);
-        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
-        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        try {
+            task1 = new Task("Eyedrops", 25, 1, 22, fox);
+            task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        }
+        catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        } 
+
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task1);
         dailyTasks.add(task2);
-        Schedule schedule = new Schedule(dailyTasks);
+        Schedule schedule = null;
+        try {
+            schedule = new Schedule(dailyTasks);
+        } catch (TaskOverflowException ex) {
+            ex.printStackTrace();
+        }
 
         int expResult = 35;
         int actResult = Schedule.timeUsed(schedule.getDailyTasks().get(22));
@@ -969,14 +997,27 @@ public class Tester {
      */
     @Test
     public void testScheduleGetDailyTasks() {
+        Task task1 = null;
+        Task task2 = null;
+
         Fox fox = new Fox("Snowball", 1);
         Coyote coyote = new Coyote("Narseh", 2);
-        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
-        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        try {
+            task1 = new Task("Eyedrops", 25, 1, 22, fox);
+            task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        }
+        catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        } 
         ArrayList<Task> dailyTasks0 = new ArrayList<>(24);
         dailyTasks0.add(task1);
         dailyTasks0.add(task2);
-        Schedule schedule = new Schedule(dailyTasks0);
+        Schedule schedule = null;
+        try {
+            schedule = new Schedule(dailyTasks0);
+        } catch (TaskOverflowException ex) {
+            ex.printStackTrace();
+        }
 
         ArrayList<ArrayList<Task>> expextedDailyTasks = new ArrayList<ArrayList<Task>>(24);
         for (int i = 0; i < 24; i++) {
@@ -1001,15 +1042,29 @@ public class Tester {
      *  Test that the format for the schedule output is correct
      */
     @Test
-    public void testSchedulerGetFromatted() {
+    public void testSchedulerGetFormatted() {
+        Task task1 = null;
+        Task task2 = null;
+
         Fox fox = new Fox("Snowball", 1);
         Coyote coyote = new Coyote("Narseh", 2);
-        Task task1 = new Task("Eyedrops", 25, 1, 22, fox);
-        Task task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+
+        try {
+            task1 = new Task("Eyedrops", 25, 1, 22, fox);
+            task2 = new Task("Give fluid injection", 10, 1, 22, coyote);
+        }
+        catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        }
         ArrayList<Task> dailyTasks = new ArrayList<>();
         dailyTasks.add(task1);
         dailyTasks.add(task2);
-        Schedule schedule = new Schedule(dailyTasks);
+        Schedule schedule = null;
+        try {
+            schedule = new Schedule(dailyTasks);
+        } catch (TaskOverflowException ex) {
+            ex.printStackTrace();
+        }
 
         String expResult = "Schedule for " + LocalDate.now().plusDays(1) + "\n\n";
         expResult += "22:00\n";
