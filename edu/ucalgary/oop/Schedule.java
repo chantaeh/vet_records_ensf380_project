@@ -14,6 +14,12 @@ import java.util.LinkedList;
 public class Schedule {
     private ArrayList<ArrayList<Task>> dailyTasks = new ArrayList<ArrayList<Task>>(24);
 
+    /**
+     * Constructor for Schedule class
+     * @param everyTasks
+     * @throws IllegalArgumentException   
+     * @throws TaskOverflowException  If there are too many tasks in an hour    
+     */
     public Schedule(ArrayList<Task> everyTasks) throws IllegalArgumentException, TaskOverflowException {
         // Create empty array for each hour
         for (int i = 0; i < 24; i++) {

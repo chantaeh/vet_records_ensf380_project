@@ -1,10 +1,3 @@
-/**
- * JUnit Tester class
- * @author Group 25
- * @version 1.2
- * @since 1.1
- */
-
 package edu.ucalgary.oop;
 
 import org.junit.Test;
@@ -18,10 +11,19 @@ import org.junit.*;
 import java.lang.reflect.*;
 import java.time.LocalDate;
 
+/**
+ * JUnit Tester class
+ * @author chantaeh
+ * @author andrewy94
+ * @author Youssef
+ * @author Tony
+ * @version 1.2
+ * @since 1.1
+ */
 public class Tester {
       
     /**
-     * Thes that getFeedStartHour() is inherited from Nocturnal
+     * Test that getFeedStartHour() is inherited from Nocturnal
      */
     @Test
     public void testFoxGetFeedStartHour() {       
