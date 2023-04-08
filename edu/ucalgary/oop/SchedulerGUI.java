@@ -240,6 +240,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             JButton submitButton = new JButton("Submit");
             submitButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+                
+                    schedule = null;
+                    outputArea.setText("Treatment added.");
+
                     // get values from input fields
                     
                     int animalID = animalComboBox.getSelectedIndex() + 1;
@@ -390,6 +394,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         deleteTmtButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // handle delete treatment button click event
+
+                schedule = null;
+                outputArea.setText("Treatment deleted.");
                 
                 // create dialog box for deleting task
                 JDialog deleteDialog = new JDialog(dialog, "Delete Treatment", true);
@@ -542,6 +549,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
 
         moveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                schedule = null;
+                outputArea.setText("Treatment moved.");
                 // create dialog box
                 JDialog moveDialog = new JDialog(dialog, "Move Treatment Start Hours", true);
                 JPanel movePanel = new JPanel(new GridLayout(0, 2));
@@ -638,7 +648,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             scheduler.printFile(formattedSchedule);
             outputArea.setText("Schedule printed to file!");
         } else if (action.getSource() == editTaskBtn) {
-
+            
             openEditDialog();
             
             // outputArea.setText("Tasks Edited!");
