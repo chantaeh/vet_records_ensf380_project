@@ -325,5 +325,9 @@ public class Scheduler {
         return numBackupVolunteers;
     }
 
+    public Connection getDBConnect() {
+        return dbConnect;
+    }
+
 
 }

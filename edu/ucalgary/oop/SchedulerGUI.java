@@ -38,6 +38,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         editTaskBtn.addActionListener(this);
         // creating connection to database
         scheduler.createConnection();
+        dbConnect = scheduler.getDBConnect();
         /* commented out to test gui itself for now
         try {
             // connect to the database
