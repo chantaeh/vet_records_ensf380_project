@@ -1,18 +1,17 @@
 package edu.ucalgary.oop;
 
-/* 
+/**
  * Animal class
- * author Youssef
+ * @author Youssef
  * @version 1.0
  * @since 1.0
- * 
  */
 
 public class Animal {
     String animalNickname;
     int numAnimals;
 
-    /*
+    /**
      * Constructor for Animal class
      * @param animalNickname
      * @param numAnimals
@@ -31,7 +30,7 @@ public class Animal {
         this.numAnimals = numAnimals;
     }
 
-    /*
+    /**
      * Getter for animalNickname
      * @return animalNickname
      */
@@ -40,7 +39,7 @@ public class Animal {
         return animalNickname;
     }
 
-    /*
+    /**
      * Getter for numAnimals
      * @return numAnimals
      */
@@ -49,7 +48,7 @@ public class Animal {
         return numAnimals;
     }
 
-    /*
+    /**
      * Setter for animalNickname
      * @param animalNickname
      */
@@ -57,15 +56,12 @@ public class Animal {
         this.animalNickname = animalNickname;
     }
 
-    /*
+    /**
      * Setter for numAnimals
      * @param numAnimals
      */
     public void setNumAnimals(int numAnimals) {
         this.numAnimals = numAnimals;
     }
-
-
-    
     
 }
