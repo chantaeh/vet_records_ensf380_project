@@ -63,7 +63,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (dbConnect != null) {
             generateBtn = new JButton("Generate Schedule");
             printBtn = new JButton("Print to .txt File");
-            editTaskBtn = new JButton("Edit Tasks");
+            editTaskBtn = new JButton("Edit Schedule");
 
             panel.add(generateBtn);
             panel.add(printBtn);
@@ -142,6 +142,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             JButton submitButton = new JButton("Submit");
             submitButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+
+                    outputArea.setText("Task added to database.\nYou can assign this task to an animal by clicking the 'Add Treatment to Animal' button.");
                     // get values from input fields
                     String description = descriptionTextArea.getText();
                     int duration = (int) durationComboBox.getSelectedItem();
@@ -247,7 +249,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
                 
                     schedule = null;
-                    outputArea.setText("Treatment added.");
+                    outputArea.setText("Treatment added.\nPlease generate a schedule to see the new treatment.");
 
                     // get values from input fields
                     
@@ -343,6 +345,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JButton submitButton = new JButton("Submit");
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+
+                        schedule = null;
+                        outputArea.setText("Task deleted and all treatments associated with it.\nPlease generate a schedule to see the new treatment");
                         // handle submit button click event
                 
                         // get selected animal-task and task
@@ -447,6 +452,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JButton submitButton = new JButton("Submit");
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        schedule = null;
+                        outputArea.setText("Treatment deleted. Please generate a schedule to see the new treatment");
                         // handle submit button click event
                 
                         // get selected animal-task and task
@@ -573,6 +580,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JButton submitButton = new JButton("Submit");
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+
+                        schedule = null;
+                        outputArea.setText("Treatment moved. Please generate a schedule to see the new treatment");
                         // get selected treatment and start hour
                         String selectedTreatment = (String) treatmentDropdown.getSelectedItem();
                         int selectedStartHour = (int) startHourDropDown.getSelectedItem();
