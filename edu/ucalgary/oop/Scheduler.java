@@ -21,33 +21,30 @@ public class Scheduler {
     private static int numBackupVolunteers = 0;
 
     private ArrayList<Task> overallTasks = new ArrayList<Task>();
-
-    private HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>() {{
-        // [preparation, duration, startHour]
-        put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
-            Fox.getFeedMins(), Fox.getFeedStartHour())));
-        put("raccoon", new ArrayList<Integer>(Arrays.asList(Raccoon.getFeedingPrepMins(), 
-            Raccoon.getFeedMins(), Raccoon.getFeedStartHour())));
-        put("beaver", new ArrayList<Integer>(Arrays.asList(Beaver.getFeedingPrepMins(), 
-            Beaver.getFeedMins(), Beaver.getFeedStartHour())));
-        put("porcupine", new ArrayList<Integer>(Arrays.asList(Porcupine.getFeedingPrepMins(), 
-            Porcupine.getFeedMins(), Porcupine.getFeedStartHour())));
-        put("coyote", new ArrayList<Integer>(Arrays.asList(Coyote.getFeedingPrepMins(), 
-            Coyote.getFeedMins(), Coyote.getFeedStartHour())));
-    }};
-
-    private HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>() {{
-        put("fox", Fox.getCageCleanMins());
-        put("raccoon", Raccoon.getCageCleanMins());
-        put("beaver", Beaver.getCageCleanMins());
-        put("porcupine", Porcupine.getCageCleanMins());
-        put("coyote", Coyote.getCageCleanMins());
-    }};
+    private HashMap<String, ArrayList<Integer>> feedingTime = new HashMap<String, ArrayList<Integer>>();
+    private HashMap<String, Integer> cleaningTime = new HashMap<String, Integer>();
 
     /**
      * Default constructor
      */
     public Scheduler() {
+        // [preparation, duration, startHour]
+        feedingTime.put("fox", new ArrayList<Integer>(Arrays.asList(Fox.getFeedingPrepMins(), 
+            Fox.getFeedMins(), Fox.getFeedStartHour())));
+        feedingTime. put("raccoon", new ArrayList<Integer>(Arrays.asList(Raccoon.getFeedingPrepMins(), 
+            Raccoon.getFeedMins(), Raccoon.getFeedStartHour())));
+        feedingTime.put("beaver", new ArrayList<Integer>(Arrays.asList(Beaver.getFeedingPrepMins(), 
+            Beaver.getFeedMins(), Beaver.getFeedStartHour())));
+        feedingTime.put("porcupine", new ArrayList<Integer>(Arrays.asList(Porcupine.getFeedingPrepMins(), 
+            Porcupine.getFeedMins(), Porcupine.getFeedStartHour())));
+        feedingTime.put("coyote", new ArrayList<Integer>(Arrays.asList(Coyote.getFeedingPrepMins(), 
+            Coyote.getFeedMins(), Coyote.getFeedStartHour())));
+
+        cleaningTime.put("fox", Fox.getCageCleanMins());
+        cleaningTime.put("raccoon", Raccoon.getCageCleanMins());
+        cleaningTime.put("beaver", Beaver.getCageCleanMins());
+        cleaningTime.put("porcupine", Porcupine.getCageCleanMins());
+        cleaningTime.put("coyote", Coyote.getCageCleanMins());
     }
 
     /**
@@ -323,6 +320,10 @@ public class Scheduler {
      */
     public int getNumBackupVolunteers() {
         return numBackupVolunteers;
+    }
+
+    public Connection getDBConnect() {
+        return dbConnect;
     }
 
 
