@@ -1,12 +1,5 @@
 package edu.ucalgary.oop;
 
-/**
- * Scheduler GUI class
- * @author Group 25
- * @version 1.2
- * @since 1.1
- */
-
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Path2D;
@@ -15,18 +8,26 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.*;
 
-
-
+/**
+ * Scheduler GUI class
+ * @author chantaeh
+ * @author andrewy94
+ * @author Youssef
+ * @author Tony
+ * @version 1.3
+ * @since 1.1
+ */
 public class SchedulerGUI extends JFrame implements ActionListener {
     private JButton generateBtn, printBtn, editTaskBtn;
     private JTextArea outputArea;
     private Schedule schedule;
-
     
     private Scheduler scheduler = new Scheduler();
     private Connection dbConnect = null;
 
-
+    /**
+     * Constructor for SchedulerGUI class
+     */
     public SchedulerGUI() {
         super("EWR Scheduler");
         
@@ -53,8 +54,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
     
     /**
      * Sets up the main starting GUI
-     * @param none
-     * @return none
      */
     private void setupGUI() {
         JPanel panel = new JPanel();
@@ -63,7 +62,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         if (dbConnect != null) {
             generateBtn = new JButton("Generate Schedule");
             printBtn = new JButton("Print to .txt File");
-            editTaskBtn = new JButton("Edit Tasks");
+            editTaskBtn = new JButton("Edit Schedule");
 
             panel.add(generateBtn);
             panel.add(printBtn);
@@ -81,7 +80,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
      * @param none
      * @return none
      */
-    // window that opens from the edit task button
     private void openEditDialog() {
         // create dialog box
         JDialog dialog = new JDialog(this, "Edit Tasks", false);
@@ -142,6 +140,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             JButton submitButton = new JButton("Submit");
             submitButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
+
+                    outputArea.setText("Task added to database.\nYou can assign this task to an animal by clicking the 'Add Treatment to Animal' button.");
                     // get values from input fields
                     String description = descriptionTextArea.getText();
                     int duration = (int) durationComboBox.getSelectedItem();
@@ -247,7 +247,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 public void actionPerformed(ActionEvent e) {
                 
                     schedule = null;
-                    outputArea.setText("Treatment added.");
+                    outputArea.setText("Treatment added.\nPlease generate a schedule to see the new treatment.");
 
                     // get values from input fields
                     
@@ -343,6 +343,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JButton submitButton = new JButton("Submit");
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+
+                        schedule = null;
+                        outputArea.setText("Task deleted and all treatments associated with it.\nPlease generate a schedule to see the new treatment");
                         // handle submit button click event
                 
                         // get selected animal-task and task
@@ -447,6 +450,8 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JButton submitButton = new JButton("Submit");
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        schedule = null;
+                        outputArea.setText("Treatment deleted. Please generate a schedule to see the new treatment");
                         // handle submit button click event
                 
                         // get selected animal-task and task
@@ -573,6 +578,9 @@ public class SchedulerGUI extends JFrame implements ActionListener {
                 JButton submitButton = new JButton("Submit");
                 submitButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+
+                        schedule = null;
+                        outputArea.setText("Treatment moved. Please generate a schedule to see the new treatment");
                         // get selected treatment and start hour
                         String selectedTreatment = (String) treatmentDropdown.getSelectedItem();
                         int selectedStartHour = (int) startHourDropDown.getSelectedItem();
@@ -629,13 +637,14 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             scheduler.printFile(formattedSchedule);
             outputArea.setText("Schedule printed to file!");
-        } else if (action.getSource() == editTaskBtn) {
-            
+        } else if (action.getSource() == editTaskBtn) {    
             openEditDialog();
-            
-            // outputArea.setText("Tasks Edited!");
         }
     }
+
+    /**
+     * Generates a Schedule object 
+     */
     private void generateSchedule(){
         scheduler.setOverallTasks(new ArrayList<Task>());
         scheduler.treatmentTasks();
@@ -646,7 +655,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
             String formattedSchedule = Scheduler.getFormatted(schedule.getDailyTasks());
             outputArea.setText(formattedSchedule);
         }
-        catch ( TaskOverflowException ex){
+        catch (TaskOverflowException ex){
             outputArea.setText(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -659,7 +668,10 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         }
     }
 
-
+    /**
+     * main() method calls the SchedulerGUI constructor
+     * @param args  Optional command-line arguments
+     */
     public static void main(String[] args) {
         new SchedulerGUI();
     }

@@ -49,7 +49,6 @@ public class Scheduler {
 
     /**
      * Creates a connection with the mysql database
-     * 
      */
     public void createConnection(){
         try{
@@ -68,6 +67,10 @@ public class Scheduler {
         return overallTasks;
     }
 
+    /**
+     * Sets the overall tasks
+     * @param overallTasks
+     */
     public void setOverallTasks(ArrayList<Task> overallTasks) {
         this.overallTasks = overallTasks;
     }
@@ -97,12 +100,12 @@ public class Scheduler {
                 createAnimal(results.getString("AnimalSpecies"), results.getString("AnimalNickname"))
                 );
 
+                // Check for orphaned animals
                 if (Integer.parseInt(results.getString("TaskID")) == 1 && !orphanedAnimals.contains(results.getString("AnimalNickname"))) {
                     orphanedAnimals.add(results.getString("AnimalNickname"));
                 }
             
                 overallTasks.add(singleTask);
-            
             }
             
             myStmt.close();
@@ -158,10 +161,8 @@ public class Scheduler {
 
         try {                    
             Statement myStmt = dbConnect.createStatement();
-
             results = myStmt.executeQuery("SELECT * FROM ANIMALS");
             
-
             while (results.next()){
                 if (!orphanedAnimals.contains(results.getString("AnimalNickname"))) {
                     animalGroups.get(results.getString("AnimalSpecies")).add(results.getString("AnimalNickname"));
@@ -315,7 +316,7 @@ public class Scheduler {
     }
 
     /**
-     * gets the number of backup volunteers needed
+     * Gets the number of backup volunteers needed
      * @return the number of backup volunteers needed
      */
     public int getNumBackupVolunteers() {
