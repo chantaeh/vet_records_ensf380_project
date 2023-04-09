@@ -537,8 +537,6 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         moveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                schedule = null;
-                outputArea.setText("Treatment moved.");
                 // create dialog box
                 JDialog moveDialog = new JDialog(dialog, "Move Treatment Start Hours", true);
                 JPanel movePanel = new JPanel(new GridLayout(0, 2));
@@ -658,6 +656,7 @@ public class SchedulerGUI extends JFrame implements ActionListener {
         catch (TaskOverflowException ex){
             outputArea.setText(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return;
         }
         catch (Exception ex){
             outputArea.setText(ex.getMessage());
