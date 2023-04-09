@@ -2,7 +2,10 @@ package edu.ucalgary.oop;
 
 /**
  * Animal class
+ * @author chantaeh
+ * @author andrewy94
  * @author Youssef
+ * @author Tony
  * @version 1.0
  * @since 1.0
  */
